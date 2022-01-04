@@ -10,7 +10,7 @@ function set_order_id(number, business_id){
 /// @param {real} order_id				id to differentiate
 /// @return {real} order_number			id of the order
 function get_order_number(order_id){
-	return order_id%10
+	return order_id mod 10
 }
 
 /// @function							get_business_id(order_id)
