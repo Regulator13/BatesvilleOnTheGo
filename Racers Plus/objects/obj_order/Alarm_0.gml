@@ -10,7 +10,11 @@ Business.popularity -= reward
 var _size = instance_number(obj_delivery)
 for (var i=0; i<_size; i++){
 	var Delivery = instance_find(obj_delivery, i)
-	instance_destroy(Delivery)
+	if instance_exists(Delivery){
+		if Delivery.order_id == order_id{
+			instance_destroy(Delivery)
+		}
+	}
 }
 //Destroy in car
 var _size = instance_number(obj_car)

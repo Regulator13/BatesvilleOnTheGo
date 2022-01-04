@@ -26,4 +26,6 @@ hp_max = 60 //Vehicle's maximum health
 hp = hp_max //Vehicles's current health
 sprite_index = spr_car
 
+Player = noone
+
 picked_up_deliveries = ds_list_create()

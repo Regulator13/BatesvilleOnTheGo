@@ -1,7 +1,7 @@
 //window_set_fullscreen(true)
 
 //Set global variables
-global.player_start = [352, 3744]
+global.player_start = [32, 32]
 
 global.business_colors = [c_red, c_blue, c_green]
 //Businesses are placed in the room,
