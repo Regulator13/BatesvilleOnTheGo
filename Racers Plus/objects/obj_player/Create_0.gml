@@ -16,5 +16,7 @@ model_shift_periods = [35, 20, 25, 30, 35, 40, 30, 30, 50] //Number of steps it 
 model_tractions = [.6, .7, .5, .6, .8, .65, .6, .7, .6] //Portion of max speed the vehicle can travel without losing traction
 model_hp_maxes = [20, 45, 30, 40, 70, 60, 50, 35, 100] //Vehicle's maximum health
 
+tips = 0
+
 //Create vehicle
 event_user(0)
