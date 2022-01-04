@@ -19,3 +19,5 @@ traction = .6 //Portion of max speed the vehicle can travel without losing tract
 retraction_rate = 1 //The number of degrees the vehicle's direction realigns with its orientation per step
 hp_max = 60 //Vehicle's maximum health
 hp = hp_max //Vehivles's current health
+
+picked_up_deliveries = ds_list_create()
