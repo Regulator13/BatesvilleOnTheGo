@@ -1,11 +1,25 @@
 #region Controls
+//Nitrus
+if keyboard_check(NITRUS_KEY){
+	nitrus_on = true
+}
+else{
+	nitrus_on = false
+}
+
 //Accelerate
 if keyboard_check(UP_KEY){
-	if speed < gear_max_speeds[gear]{
-		speed += accel
+	if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
+		if nitrus_on and nitrus > 0{
+			speed += accel*nitrus_boost
+			nitrus -= 1
+		}
+		else{
+			speed += accel
+		}
 	}
-	else if speed >= gear_max_speeds[gear]{
-		current_shift_period += 1
+	else if speed >= gear_max_speed[gear]{
+		current_shift_period += 1 + nitrus_on*nitrus_boost
 	}
 	//Whenever accelerating, reset the reverse shift period
 	current_reverse_period = 0
@@ -14,34 +28,34 @@ if keyboard_check(UP_KEY){
 //Turning
 if keyboard_check(RIGHT_KEY){
 	if speed >= min_turn_speed{
-		car_dir -= turn_speed*sign(speed)
+		car_dir -= turn_speed
 		//If traveling too fast, lose traction
 		if speed > traction*max_speed{	
-			direction -= turn_speed*sign(speed)*(1 - (speed - traction*max_speed)/max_speed)	
+			direction -= turn_speed*(1 - (speed - traction*max_speed)/max_speed)	
 		}
 		else{
-			direction -= turn_speed*sign(speed)
+			direction -= turn_speed
 		}
 	}
 	else{
-		direction -= speed/min_turn_speed * turn_speed*sign(speed)
-		car_dir -= speed/min_turn_speed * turn_speed*sign(speed)
+		direction -= speed/min_turn_speed * turn_speed
+		car_dir -= speed/min_turn_speed * turn_speed
 	}
 }
 if keyboard_check(LEFT_KEY){
 	if speed >= min_turn_speed{
-		car_dir += turn_speed*sign(speed)
+		car_dir += turn_speed
 		//If traveling too fast, lose traction
 		if speed > traction*max_speed{
-			direction += turn_speed*sign(speed)*(1 - (speed - traction*max_speed)/max_speed)
+			direction += turn_speed*(1 - (speed - traction*max_speed)/max_speed)
 		}
 		else{
-			direction += turn_speed*sign(speed)
+			direction += turn_speed
 		}
 	}
 	else{
-		direction += speed/min_turn_speed * turn_speed*sign(speed)
-		car_dir += speed/min_turn_speed * turn_speed*sign(speed)
+		direction += speed/min_turn_speed * turn_speed
+		car_dir += speed/min_turn_speed * turn_speed
 	}
 }
 
@@ -56,11 +70,17 @@ if keyboard_check(DOWN_KEY){
 	}
 	//If the car is already stopped, start to shift to reverse
 	if speed <= 0{
-		if gear == 0 and speed - accel >= gear_max_speeds[0]{
-			speed -= accel
+		if gear == 0 and (speed - accel >= gear_max_speed[0] or (nitrus_on and nitrus > 0)){
+			if nitrus_on and nitrus > 0{
+				speed -= accel*nitrus_boost
+				nitrus -= 1
+			}
+			else{
+				speed -= accel
+		}
 		}
 		else{
-			current_reverse_period += 1
+			current_reverse_period += 1 + nitrus_on*nitrus_boost
 		}
 	}
 	//Whenever the brake is touched, reset the shift period
@@ -79,8 +99,8 @@ else{
 }
 
 ///Shifting
-//Shift the car up if speeding up
-if current_shift_period >= shift_period{
+//Shift the car up if speeding up or past the max speed for the gear
+if current_shift_period >= shift_period or (speed > gear_max_speed[gear]){
 	if gear < max_gear{
 		gear += 1
 		current_shift_period = 0
@@ -139,6 +159,7 @@ if hp <= 0{
 	direction = 90
 	car_dir = 90
 	speed = 0
+	nitrus = nitrus_max
 }
 
 //Cleanup Car Direction
