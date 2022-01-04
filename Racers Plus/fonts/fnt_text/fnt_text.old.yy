@@ -253,7 +253,7 @@
     "path": "folders/Fonts.yy",
   },
   "resourceVersion": "1.0",
-  "name": "ft_text",
+  "name": "fnt_text",
   "tags": [],
   "resourceType": "GMFont",
 }
