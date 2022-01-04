@@ -1,7 +1,7 @@
 /// @description Draw Vehicle
 
 image_angle = car_dir - 90
-draw_sprite_ext(vehicle_sprite, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
+draw_self()
 draw_healthbar(x - 100, y + 100, x + 100, y + 120, (hp/hp_max)*100, c_black, c_red, c_green, 0, false, true)
 draw_healthbar(x - 100, y + 125, x + 100, y + 145, (nitrus/nitrus_max)*100,  c_black, c_red, c_blue, 0, false, true)
 draw_set_font(ft_text)
