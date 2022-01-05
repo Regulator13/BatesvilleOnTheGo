@@ -143,7 +143,7 @@ if speed <= max_speed{
 ///Collisions with solid walls
 if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), obj_solid){
 	//Damage the vehicle
-	hp -= max(abs(speed) - 1, 0)
+	hp -= max(abs(speed)*3 - 1, 0)
 	speed = 0
 }
 
@@ -194,3 +194,4 @@ if hp <= 0{
 
 //Cleanup Car Direction
 car_dir = (car_dir + 360) mod 360
+	
