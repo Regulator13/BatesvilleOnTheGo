@@ -2,7 +2,7 @@
 
 direction = 90 //Direction the car is actually traveling. Start facing up
 car_dir = 90 //Direction the car is facing
-fric = .02 //Friction the car is currently experiencing
+fric = .005 //Friction the car is currently experiencing
 turn_speed = 2 //How many degrees the car turns each step
 min_turn_speed = 1 //Slowest the car can be traveling and still turn full speed
 accel = .2 //How fast the car speeds up

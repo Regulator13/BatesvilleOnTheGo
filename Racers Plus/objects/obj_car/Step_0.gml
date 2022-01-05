@@ -26,7 +26,19 @@ if Player.inputs[UP_KEY]{
 }
 
 //Turning
+var max_full_turn_speed = gear_max_speed[max_gear - 2]
 if Player.inputs[RIGHT_KEY]{
+	//If in top two gears, slow down turning
+	if speed >= max_full_turn_speed{
+		car_dir -= turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed)))*.5
+		//If traveling too fast, lose traction
+		if speed > traction*max_speed{
+			direction -= turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed))*.5)*(1 - (speed - traction*max_speed)/max_speed)
+		}
+		else{
+			direction -= turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed))*.5)
+		}
+	}
 	if speed >= min_turn_speed{
 		car_dir -= turn_speed
 		//If traveling too fast, lose traction
@@ -42,7 +54,19 @@ if Player.inputs[RIGHT_KEY]{
 		car_dir -= speed/min_turn_speed * turn_speed
 	}
 }
+
 if Player.inputs[LEFT_KEY]{
+	//If in top two gears, slow down turning
+	if speed >= max_full_turn_speed{
+		car_dir += turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed)))*.5
+		//If traveling too fast, lose traction
+		if speed > traction*max_speed{
+			direction += turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed))*.5)*(1 - (speed - traction*max_speed)/max_speed)
+		}
+		else{
+			direction += turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed))*.5)
+		}
+	}
 	if speed >= min_turn_speed{
 		car_dir += turn_speed
 		//If traveling too fast, lose traction
