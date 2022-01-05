@@ -1,6 +1,6 @@
 #region Controls
 //Nitrus
-if keyboard_check(NITRUS_KEY){
+if Player.inputs[ACTION_KEY]{
 	nitrus_on = true
 }
 else{
@@ -8,7 +8,7 @@ else{
 }
 
 //Accelerate
-if keyboard_check(UP_KEY){
+if Player.inputs[UP_KEY]{
 	if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
 		if nitrus_on and nitrus > 0{
 			speed += accel*nitrus_boost
@@ -26,7 +26,7 @@ if keyboard_check(UP_KEY){
 }
 
 //Turning
-if keyboard_check(RIGHT_KEY){
+if Player.inputs[RIGHT_KEY]{
 	if speed >= min_turn_speed{
 		car_dir -= turn_speed
 		//If traveling too fast, lose traction
@@ -42,7 +42,7 @@ if keyboard_check(RIGHT_KEY){
 		car_dir -= speed/min_turn_speed * turn_speed
 	}
 }
-if keyboard_check(LEFT_KEY){
+if Player.inputs[LEFT_KEY]{
 	if speed >= min_turn_speed{
 		car_dir += turn_speed
 		//If traveling too fast, lose traction
@@ -60,7 +60,7 @@ if keyboard_check(LEFT_KEY){
 }
 
 //Decelerate
-if keyboard_check(DOWN_KEY){
+if Player.inputs[DOWN_KEY]{
 	//Brake if not in reverse
 	if speed > brake and gear >= 1{
 		speed -= brake
