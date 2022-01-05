@@ -43,4 +43,4 @@ if Customer != noone{
 }
 
 //Prime next order
-alarm[0] = irandom_range(300, 900)*game_get_speed(gamespeed_fps)/popularity
+alarm[0] = irandom_range(150, 300)*game_get_speed(gamespeed_fps)/popularity

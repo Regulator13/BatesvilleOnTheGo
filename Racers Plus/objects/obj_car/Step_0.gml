@@ -171,6 +171,14 @@ if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + l
 	speed = 0
 }
 
+///Collisions with other vehicles
+var Inst = instance_place(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), obj_car)
+if instance_exists(Inst){
+	//Damage the vehicle
+	hp -= max(abs(other.speed)*3*(other.weight/8) - 1, 0)
+	speed = 0
+}
+
 ///Pick up a delivery
 var Delivery = instance_nearest(x, y, obj_delivery)
 if instance_exists(Delivery){
@@ -180,7 +188,7 @@ if instance_exists(Delivery){
 	}
 }
 
-///Drop of a delivery
+///Drop off a delivery
 if speed == 0{
 	var Order = instance_nearest(x, y, obj_order)
 	if instance_exists(Order){
