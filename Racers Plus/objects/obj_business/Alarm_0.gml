@@ -29,7 +29,8 @@ if Customer != noone{
 		Order.image_blend = image_blend
 		Order.order_id = set_order_id(open_number, business_id)
 		Order.reward = 1
-		Order.alarm[0] = 30*game_get_speed(gamespeed_fps)
+		Order.expiration = 90*game_get_speed(gamespeed_fps)
+		Order.alarm[0] = Order.expiration
 		Order.Customer = Customer
 		ds_list_add(current_orders, open_number)
 		Customer.is_ordering = true
@@ -42,4 +43,4 @@ if Customer != noone{
 }
 
 //Prime next order
-alarm[0] = irandom_range(24, 48)*game_get_speed(gamespeed_fps)
+alarm[0] = irandom_range(30, 90)*game_get_speed(gamespeed_fps)
