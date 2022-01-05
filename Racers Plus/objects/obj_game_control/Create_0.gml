@@ -1,4 +1,4 @@
-//window_set_fullscreen(true)
+window_set_fullscreen(true)
 
 //Set global variables
 global.player_start = [32, room_height/2]
