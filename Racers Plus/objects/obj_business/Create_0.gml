@@ -4,7 +4,7 @@ business_id = global.business_counter++
 image_blend = global.business_colors[business_id]
 ds_map_add(global.businesses, business_id, self)
 
-popularity = 1
+popularity = 10
 
 ///Orders
 #region

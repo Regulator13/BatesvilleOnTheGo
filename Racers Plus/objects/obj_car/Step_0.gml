@@ -191,6 +191,8 @@ if speed == 0{
 				//This order is in the list of picked up deliveries
 				Player.tips += Order.reward
 				ds_list_delete(picked_up_deliveries, has_delivery)
+				var Business = ds_map_find_value(global.businesses, get_business_id(Order.order_id))
+				Business.popularity++
 				instance_destroy(Order)
 			}
 		}
@@ -206,6 +208,18 @@ if hp > hp_max{
 
 //Destroy vehicles that are dead, reset them at start
 if hp <= 0{
+	//Drop any picked up deliveries
+	var _size = ds_list_size(picked_up_deliveries)
+	for (var i=0; i<_size; i++){
+		var Delivery = instance_create_layer(x, y, "lay_instances", obj_delivery)
+		Delivery.image_blend = global.business_colors[get_business_id(picked_up_deliveries[| i])]
+		Delivery.order_id = picked_up_deliveries[| i]
+	}
+	ds_list_clear(picked_up_deliveries)
+	
+	Player.tips -= Player.model_cost[model]
+	if Player.tips < 0 Player.tips = 0
+
 	instance_create_layer(x, y, "lay_instances", obj_explosion)
 	x = global.player_start[0]
 	y = global.player_start[1]
