@@ -15,5 +15,6 @@ Car.hp_max = model_hp_maxes[model]
 Car.nitrus = Car.nitrus_max
 Car.max_speed = Car.gear_max_speed[Car.max_gear]
 Car.hp = Car.hp_max
+Car.weight = model_weights[model]
 Car.sprite_index = vehicle_sprites[model]
 Car.Player = self
