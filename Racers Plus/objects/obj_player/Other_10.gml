@@ -18,3 +18,4 @@ Car.hp = Car.hp_max
 Car.weight = model_weights[model]
 Car.sprite_index = vehicle_sprites[model]
 Car.Player = self
+Car.model = model

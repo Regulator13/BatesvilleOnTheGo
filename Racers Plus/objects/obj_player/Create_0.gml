@@ -16,6 +16,7 @@ model_shift_periods = [35, 25, 25, 30, 35, 40, 30, 30, 50] //Number of steps it 
 model_tractions = [.6, .7, .5, .6, .8, .65, .6, .7, .6] //Portion of max speed the vehicle can travel without losing traction
 model_hp_maxes = [20, 45, 30, 40, 70, 60, 50, 35, 100] //Vehicle's maximum health
 model_weights = [8, 8, 6, 10, 18, 16, 20, 15, 50]
+model_cost = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 vehicle_sprites = [spr_car, spr_police, spr_racecar, spr_taxi, spr_ambulance, spr_truck, spr_van, spr_widecar, spr_semi]
 Car = noone
 
