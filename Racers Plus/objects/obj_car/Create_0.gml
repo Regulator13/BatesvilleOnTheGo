@@ -2,9 +2,9 @@
 
 direction = 90 //Direction the car is actually traveling. Start facing up
 car_dir = 90 //Direction the car is facing
-fric = .05 //Friction the car is currently experiencing
+fric = .02 //Friction the car is currently experiencing
 turn_speed = 2 //How many degrees the car turns each step
-min_turn_speed = 5 //Slowest the car can be traveling and still turn full speed
+min_turn_speed = 1 //Slowest the car can be traveling and still turn full speed
 accel = .2 //How fast the car speeds up
 brake = .3 //How fast the car slows down
 nitrus_max = 100 //Number of steps the player can use nitrus
@@ -24,7 +24,6 @@ retraction_rate = 1 //The number of degrees the vehicle's direction realigns wit
 hp_max = 60 //Vehicle's maximum health
 
 hp = hp_max //Vehicles's current health
-sprite_index = spr_car
 
 Player = noone
 

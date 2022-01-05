@@ -1,6 +1,6 @@
 /// @description Create Car
 
-var Car = instance_create_layer(global.player_start[0], global.player_start[1], "lay_instances", obj_car)
+Car = instance_create_layer(global.player_start[0], global.player_start[1], "lay_instances", obj_car)
 
 Car.turn_speed = model_turn_speeds[model]
 Car.accel = model_accels[model]
@@ -15,9 +15,5 @@ Car.hp_max = model_hp_maxes[model]
 Car.nitrus = Car.nitrus_max
 Car.max_speed = Car.gear_max_speed[Car.max_gear]
 Car.hp = Car.hp_max
+Car.sprite_index = vehicle_sprites[model]
 Car.Player = self
-
-inputs = array_create(5, KEY_ISRELEASED)
-//Controls are stored in a multidimensional array
-//controls is the index to use to determine the controls preset
-controls = global.player_counter++
