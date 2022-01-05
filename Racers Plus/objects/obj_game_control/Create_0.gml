@@ -1,7 +1,7 @@
 window_set_fullscreen(true)
 
 //Set global variables
-global.player_start = [32, room_height/2]
+global.player_start = [room_width/2, room_height/2]
 global.player_counter = 0
 
 global.business_colors = [c_red, c_blue, c_green]
