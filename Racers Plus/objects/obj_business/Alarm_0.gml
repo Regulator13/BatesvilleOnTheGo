@@ -29,17 +29,17 @@ if Customer != noone{
 		Order.image_blend = image_blend
 		Order.order_id = set_order_id(open_number, business_id)
 		Order.reward = 1
-		Order.alarm[0] = 12*game_get_speed(gamespeed_fps)
+		Order.alarm[0] = 30*game_get_speed(gamespeed_fps)
 		Order.Customer = Customer
 		ds_list_add(current_orders, open_number)
 		Customer.is_ordering = true
 		
 		//Create delivery to be picked up for the order
-		var Delivery = instance_create_layer(x, y, "lay_instances", obj_delivery)
+		var Delivery = instance_create_layer(x + sprite_width/2, y + sprite_height + 32, "lay_instances", obj_delivery)
 		Delivery.image_blend = image_blend
 		Delivery.order_id = set_order_id(open_number, business_id)
 	}
 }
 
 //Prime next order
-alarm[0] = irandom_range(6, 24)*game_get_speed(gamespeed_fps)
+alarm[0] = irandom_range(24, 48)*game_get_speed(gamespeed_fps)
