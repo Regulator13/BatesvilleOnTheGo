@@ -139,12 +139,42 @@ if speed <= max_speed{
 }
 #endregion
 
+#region Collisions
 ///Collisions with solid walls
 if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), obj_solid){
 	//Damage the vehicle
 	hp -= max(abs(speed) - 1, 0)
 	speed = 0
 }
+
+///Pick up a delivery
+var Delivery = instance_nearest(x, y, obj_delivery)
+if instance_exists(Delivery){
+	if distance_to_point(Delivery.x, Delivery.y) < 32{
+		ds_list_add(picked_up_deliveries, Delivery.order_id)
+		instance_destroy(Delivery)
+	}
+}
+
+///Drop of a delivery
+if speed == 0{
+	var Order = instance_nearest(x, y, obj_order)
+	if instance_exists(Order){
+		if distance_to_point(Order.x, Order.y) < 64{
+			var has_delivery = ds_list_find_index(picked_up_deliveries, Order.order_id)
+
+			if has_delivery != -1{
+				//This order is in the list of picked up deliveries
+				Player.tips += Order.reward
+				ds_list_delete(picked_up_deliveries, has_delivery)
+				instance_destroy(Order)
+			}
+		}
+	}
+}
+	
+
+#endregion
 
 if hp > hp_max{
 	hp = hp_max
