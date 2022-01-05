@@ -16,3 +16,8 @@ Car.nitrus = Car.nitrus_max
 Car.max_speed = Car.gear_max_speed[Car.max_gear]
 Car.hp = Car.hp_max
 Car.Player = self
+
+inputs = array_create(5, KEY_ISRELEASED)
+//Controls are stored in a multidimensional array
+//controls is the index to use to determine the controls preset
+controls = global.player_counter++
