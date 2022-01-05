@@ -1,6 +1,6 @@
 /// @description Create Car
 
-Car = instance_create_layer(global.player_start[0], global.player_start[1], "lay_instances", obj_car)
+Car = instance_create_layer(global.player_start[0] + 32*controls, global.player_start[1], "lay_instances", obj_car)
 
 Car.turn_speed = model_turn_speeds[model]
 Car.accel = model_accels[model]
