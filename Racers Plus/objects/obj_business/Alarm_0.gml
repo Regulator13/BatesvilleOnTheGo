@@ -28,7 +28,7 @@ if Customer != noone{
 		var Order = instance_create_layer(Customer.x, Customer.y, "lay_instances", obj_order)
 		Order.image_blend = image_blend
 		Order.order_id = set_order_id(open_number, business_id)
-		Order.reward = 1
+		Order.reward = round(distance_to_point(Customer.x, Customer.y)/30)
 		Order.expiration = 90*game_get_speed(gamespeed_fps)
 		Order.alarm[0] = Order.expiration
 		Order.Customer = Customer
@@ -43,4 +43,4 @@ if Customer != noone{
 }
 
 //Prime next order
-alarm[0] = irandom_range(30, 90)*game_get_speed(gamespeed_fps)
+alarm[0] = irandom_range(300, 900)*game_get_speed(gamespeed_fps)/popularity

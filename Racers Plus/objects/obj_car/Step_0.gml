@@ -216,6 +216,9 @@ if hp <= 0{
 		Delivery.order_id = picked_up_deliveries[| i]
 	}
 	ds_list_clear(picked_up_deliveries)
+	
+	Player.tips -= Player.model_cost[model]
+	if Player.tips < 0 Player.tips = 0
 
 	instance_create_layer(x, y, "lay_instances", obj_explosion)
 	x = global.player_start[0]

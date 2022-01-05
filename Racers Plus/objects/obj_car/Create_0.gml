@@ -26,5 +26,6 @@ hp_max = 60 //Vehicle's maximum health
 hp = hp_max //Vehicles's current health
 
 Player = noone
+model = -1
 
 picked_up_deliveries = ds_list_create()
