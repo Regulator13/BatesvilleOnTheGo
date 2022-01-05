@@ -2,7 +2,7 @@
 //Hurt business popularity
 var Business = ds_map_find_value(global.businesses, get_business_id(order_id))
 //TODO - business popularity reduction
-Business.popularity -= reward
+Business.popularity--
 
 ///Destroy related delivery
 //TODO - don't check for both in found in one place
