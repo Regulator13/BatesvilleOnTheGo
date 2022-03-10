@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_taxi","path":"sprites/spr_taxi/spr_taxi.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_taxi",
     "tags": [],
     "resourceType": "GMSequence",

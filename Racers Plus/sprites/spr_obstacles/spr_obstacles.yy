@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_obstacles","path":"sprites/spr_obstacles/spr_obstacles.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_obstacles",
     "tags": [],
     "resourceType": "GMSequence",
