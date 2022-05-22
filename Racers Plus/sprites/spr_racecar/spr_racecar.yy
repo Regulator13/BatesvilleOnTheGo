@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_racecar","path":"sprites/spr_racecar/spr_racecar.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_racecar",
     "tags": [],
     "resourceType": "GMSequence",

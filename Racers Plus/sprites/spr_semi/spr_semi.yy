@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_semi","path":"sprites/spr_semi/spr_semi.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_semi",
     "tags": [],
     "resourceType": "GMSequence",

@@ -151,6 +151,7 @@
         {"properties":[],"isDnd":false,"objectId":{"name":"obj_solid","path":"objects/obj_solid/obj_solid.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":3.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":608.0,"y":736.0,"resourceVersion":"1.0","name":"inst_CC121D0","tags":[],"resourceType":"GMRInstance",},
         {"properties":[],"isDnd":false,"objectId":{"name":"obj_cone","path":"objects/obj_cone/obj_cone.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":768.0,"y":736.0,"resourceVersion":"1.0","name":"inst_3AC00B4E","tags":[],"resourceType":"GMRInstance",},
         {"properties":[],"isDnd":false,"objectId":{"name":"obj_cone","path":"objects/obj_cone/obj_cone.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":976.0,"y":800.0,"resourceVersion":"1.0","name":"inst_55C26697","tags":[],"resourceType":"GMRInstance",},
+        {"properties":[],"isDnd":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":96.0,"y":16.0,"resourceVersion":"1.0","name":"inst_4D118272","tags":[],"resourceType":"GMRInstance",},
       ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":16,"gridY":16,"layers":[],"hierarchyFrozen":false,"resourceVersion":"1.0","name":"lay_instances","tags":[],"resourceType":"GMRInstanceLayer",},
     {"tilesetId":{"name":"ts_roads","path":"tilesets/ts_roads/ts_roads.yy",},"x":0,"y":0,"tiles":{"SerialiseWidth":120,"SerialiseHeight":68,"TileSerialiseData":[
 82,83,84,85,342,343,344,345,342,343,344,345,342,343,344,345,594,595,596,597,342,343,344,345,342,343,344,345,342,343,344,345,585,586,587,588,589,590,64,65,66,67,64,65,66,67,82,83,84,85,64,65,66,67,595,596,64,65,64,65,66,67,82,83,84,85,64,65,64,65,66,67,595,596,65,66,67,80,81,82,83,84,85,86,87,64,64,65,66,67,595,596,64,65,64,65,66,67,82,83,84,85,64,65,64,65,66,67,595,596,64,65,64,65,66,67,82,83,84,85,
@@ -365,6 +366,7 @@
     {"name":"inst_CC121D0","path":"rooms/rm_downtown/rm_downtown.yy",},
     {"name":"inst_3AC00B4E","path":"rooms/rm_downtown/rm_downtown.yy",},
     {"name":"inst_55C26697","path":"rooms/rm_downtown/rm_downtown.yy",},
+    {"name":"inst_4D118272","path":"rooms/rm_downtown/rm_downtown.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

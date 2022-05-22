@@ -63,7 +63,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_police","path":"sprites/spr_police/spr_police.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_police",
     "tags": [],
     "resourceType": "GMSequence",

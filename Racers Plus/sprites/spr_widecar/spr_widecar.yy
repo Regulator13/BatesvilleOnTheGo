@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_widecar","path":"sprites/spr_widecar/spr_widecar.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_widecar",
     "tags": [],
     "resourceType": "GMSequence",

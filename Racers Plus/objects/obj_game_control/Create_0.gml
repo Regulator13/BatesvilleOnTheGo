@@ -28,4 +28,11 @@ global.controls[player, RIGHT_KEY] = ord("D")
 global.controls[player, UP_KEY] = ord("W")
 global.controls[player, DOWN_KEY] = ord("S")
 global.controls[player, ACTION_KEY] = vk_space
+player = 2
+global.controls[player, LEFT_KEY] = ord("J")
+global.controls[player, RIGHT_KEY] = ord("L")
+global.controls[player, UP_KEY] = ord("I")
+global.controls[player, DOWN_KEY] = ord("K")
+global.controls[player, ACTION_KEY] = vk_enter
+
 #endregion

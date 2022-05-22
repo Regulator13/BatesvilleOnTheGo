@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_roads","path":"sprites/spr_roads/spr_roads.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_roads",
     "tags": [],
     "resourceType": "GMSequence",

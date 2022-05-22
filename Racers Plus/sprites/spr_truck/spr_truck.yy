@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_truck","path":"sprites/spr_truck/spr_truck.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_truck",
     "tags": [],
     "resourceType": "GMSequence",

@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_van","path":"sprites/spr_van/spr_van.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_van",
     "tags": [],
     "resourceType": "GMSequence",

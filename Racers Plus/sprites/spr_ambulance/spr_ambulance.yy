@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_ambulance","path":"sprites/spr_ambulance/spr_ambulance.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_ambulance",
     "tags": [],
     "resourceType": "GMSequence",
