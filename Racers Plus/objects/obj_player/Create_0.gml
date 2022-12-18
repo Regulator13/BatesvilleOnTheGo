@@ -23,9 +23,40 @@ Car = noone
 tips = 0
 
 inputs = array_create(5, KEY_ISRELEASED)
-//Controls are stored in a multidimensional array
-//controls is the index to use to determine the controls preset
-controls = global.player_counter++
+if not global.online{
+	//Controls are stored in a multidimensional array
+	//controls is the index to use to determine the controls preset
+	controls = global.player_counter++
+}
+else{
+	controls = 0
+}
 
-//Create vehicle
-event_user(0)
+#region Networking
+/// @description Declare variables
+//created for each player on the network in lobby state
+//sends local input to server if online
+
+//whether player is ready to start the game
+ready_to_start = false
+player_name = ""
+player_color = 0
+//whether this player is local to this machine
+local = false
+
+//player specific properties
+team = -1
+section = -1
+
+#region Networking only
+connect_id = -1  //order in which client connected to server, not an index to any list!
+#endregion
+
+#region Lobby menu
+//Section in lobby player is a part of
+Section = noone
+Name_box = noone
+Ready_box = noone
+Color_box = noone
+#endregion
+#endregion

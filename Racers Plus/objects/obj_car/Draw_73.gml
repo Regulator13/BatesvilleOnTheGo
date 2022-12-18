@@ -14,7 +14,7 @@ draw_text(x, y - 32, "Gear: " + string(gear))
 //TODO - Replace with proper HUD
 for (var i=0; i<ds_list_size(picked_up_deliveries); i++){
 	draw_set_color(global.business_colors[get_business_id(picked_up_deliveries[| i])])
-	draw_rectangle(100*Player.controls, 32 + 16*i, 100*Player.controls + 32, 48 + 16*(i), false)
+	draw_rectangle(100*controls, 32 + 16*i, 100*controls + 32, 48 + 16*(i), false)
 	draw_set_color(c_white)
-	draw_text(100*Player.controls + 8, 32 + 16*i, string(get_order_number(picked_up_deliveries[| i])))
+	draw_text(100*controls + 8, 32 + 16*i, string(get_order_number(picked_up_deliveries[| i])))
 }

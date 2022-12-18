@@ -30,3 +30,6 @@ Player = noone
 model = -1
 
 picked_up_deliveries = ds_list_create()
+
+controls = 0
+inputs = array_create(5, KEY_ISRELEASED)

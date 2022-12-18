@@ -1,6 +1,6 @@
 #region Controls
 //Nitrus
-if Player.inputs[ACTION_KEY]{
+if inputs[ACTION_KEY]{
 	nitrus_on = true
 }
 else{
@@ -8,7 +8,7 @@ else{
 }
 
 //Accelerate
-if Player.inputs[UP_KEY]{
+if inputs[UP_KEY]{
 	if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
 		if nitrus_on and nitrus > 0{
 			speed += accel*nitrus_boost
@@ -27,7 +27,7 @@ if Player.inputs[UP_KEY]{
 
 //Turning
 var max_full_turn_speed = gear_max_speed[max_gear - 2]
-if Player.inputs[RIGHT_KEY]{
+if inputs[RIGHT_KEY]{
 	//If in top two gears, slow down turning
 	if speed >= max_full_turn_speed{
 		car_dir -= turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed)))*.5
@@ -55,7 +55,7 @@ if Player.inputs[RIGHT_KEY]{
 	}
 }
 
-if Player.inputs[LEFT_KEY]{
+if inputs[LEFT_KEY]{
 	//If in top two gears, slow down turning
 	if speed >= max_full_turn_speed{
 		car_dir += turn_speed*((1 + (speed - max_full_turn_speed)/(max_speed - max_full_turn_speed)))*.5
@@ -84,7 +84,7 @@ if Player.inputs[LEFT_KEY]{
 }
 
 //Decelerate
-if Player.inputs[DOWN_KEY]{
+if inputs[DOWN_KEY]{
 	//Brake if not in reverse
 	if speed > brake and gear >= 1{
 		speed -= brake
@@ -189,7 +189,7 @@ if speed == 0{
 
 			if has_delivery != -1{
 				//This order is in the list of picked up deliveries
-				Player.tips += Order.reward
+				/// TODO Player.tips += Order.reward
 				ds_list_delete(picked_up_deliveries, has_delivery)
 				var Business = ds_map_find_value(global.businesses, get_business_id(Order.order_id))
 				Business.popularity++
@@ -217,8 +217,9 @@ if hp <= 0{
 	}
 	ds_list_clear(picked_up_deliveries)
 	
-	Player.tips -= Player.model_cost[model]
-	if Player.tips < 0 Player.tips = 0
+	/// TODO
+	//Player.tips -= Player.model_cost[model]
+	//if Player.tips < 0 Player.tips = 0
 
 	instance_create_layer(x, y, "lay_instances", obj_explosion)
 	x = global.player_start[0]

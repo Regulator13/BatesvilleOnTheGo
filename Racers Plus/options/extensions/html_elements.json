@@ -1,0 +1,9 @@
+{
+  "extensionId": {
+    "name": "html_elements",
+    "path": "extensions/html_elements/html_elements.yy"
+  },
+  "resourceVersion": "1.0",
+  "resourceType": "GMExtensionConfigSet",
+  "configurables": null
+}
