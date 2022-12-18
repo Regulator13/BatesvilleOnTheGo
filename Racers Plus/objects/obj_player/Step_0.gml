@@ -1,10 +1,10 @@
 /// @description Input
 if os_browser == browser_not_a_browser{
-	inputs[LEFT_KEY] = get_key_input(global.controls[controls, LEFT_KEY]);
-	inputs[RIGHT_KEY] = get_key_input(global.controls[controls, RIGHT_KEY]);
-	inputs[UP_KEY] = get_key_input(global.controls[controls, UP_KEY]);
-	inputs[DOWN_KEY] = get_key_input(global.controls[controls, DOWN_KEY]);
-	inputs[ACTION_KEY] = get_key_input(global.controls[controls, ACTION_KEY]);
+	Car.inputs[LEFT_KEY] = get_key_input(global.controls[controls, LEFT_KEY]);
+	Car.inputs[RIGHT_KEY] = get_key_input(global.controls[controls, RIGHT_KEY]);
+	Car.inputs[UP_KEY] = get_key_input(global.controls[controls, UP_KEY]);
+	Car.inputs[DOWN_KEY] = get_key_input(global.controls[controls, DOWN_KEY]);
+	Car.inputs[ACTION_KEY] = get_key_input(global.controls[controls, ACTION_KEY]);
 }
 
 ///CHEATS

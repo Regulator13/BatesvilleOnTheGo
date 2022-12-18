@@ -27,7 +27,7 @@ if open_number < max_orders{
 	Customer.is_ordering = true
 		
 	//Create delivery to be picked up for the order
-	var Delivery = instance_create_layer(Business.x + sprite_width/2, Business.y + sprite_height + 32, "lay_instances", obj_delivery)
+	var Delivery = instance_create_layer(Business.x + Business.sprite_width/2, Business.y + Business.sprite_height + 32, "lay_instances", obj_delivery)
 	Delivery.image_blend = Business.image_blend
 	Delivery.order_id = set_order_id(open_number, business_id)
 }
