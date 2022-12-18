@@ -165,7 +165,7 @@ if speed <= max_speed{
 
 #region Collisions
 ///Collisions with solid walls
-if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), obj_solid){
+if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), par_solid){
 	//Damage the vehicle
 	hp -= max(abs(speed)*3 - 1, 0)
 	speed = 0
