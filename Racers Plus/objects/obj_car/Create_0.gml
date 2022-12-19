@@ -23,6 +23,12 @@ traction = .6 //Portion of max speed the vehicle can travel without losing tract
 retraction_rate = 1 //The number of degrees the vehicle's direction realigns with its orientation per step
 hp_max = 60 //Vehicle's maximum health
 weight = 3 //How much the car weighs
+steer = 0 //-1 = hard left turn, 0 = straight, 1 = hard right turn
+steer_incr = .05 //Amount of turn/step
+
+align_margin = 25 //Number of degrees the car must be within a 90 degree angle to auto-align
+align_buffer_max = 20 //Number of steps between buffers check
+align_buffer = align_buffer_max
 
 hp = hp_max //Vehicles's current health
 

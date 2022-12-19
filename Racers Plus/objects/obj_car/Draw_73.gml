@@ -10,6 +10,7 @@ draw_set_color(c_white)
 draw_set_halign(fa_middle)
 draw_set_valign(fa_top)
 draw_text(x, y - 32, "Gear: " + string(gear))
+draw_text(x, y - 64, "Steer: " + string(steer))
 
 //TODO - Replace with proper HUD
 for (var i=0; i<ds_list_size(picked_up_deliveries); i++){
