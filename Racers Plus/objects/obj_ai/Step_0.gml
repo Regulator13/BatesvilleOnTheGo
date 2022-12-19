@@ -66,14 +66,41 @@ switch(state){
 				////TO-DO
 				if turn_dir[0] = RIGHT_TURN{
 					hacky_fix = 4
-					if direction > 225 and direction < 315 hacky_fix = -12
+					if direction > 45 and direction < 135{
+						if round(((y + lengthdir_y(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 135 and direction < 225{
+						if round(((x + lengthdir_x(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 225 and direction < 315{
+						if round(((y + lengthdir_y(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 315 or direction < 45{
+						if round(((x + lengthdir_x(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
 				}
 				if turn_dir[0] = LEFT_TURN{
 					hacky_fix = 4
-					if direction > 45 and direction < 135 hacky_fix = -12
-					if direction > 135 and direction < 225 hacky_fix = 4
-					if direction > 225 and direction < 315 hacky_fix = 4
-					if direction > 315 or direction < 45 hacky_fix = -12
+					if direction > 45 and direction < 135{
+						if round(((y + lengthdir_y(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 135 and direction < 225{
+						if round(((x + lengthdir_x(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 225 and direction < 315{
+						if round(((y + lengthdir_y(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
+					if direction > 315 or direction < 45{
+						if round(((x + lengthdir_x(sprite_height/2, direction)))/16)*16 mod 32 == 0 hacky_fix = 4
+						else hacky_fix = -12
+					}
 				}
 			}
 			//Drive to the turn block

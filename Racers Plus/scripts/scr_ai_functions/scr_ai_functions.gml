@@ -26,6 +26,7 @@ function choose_turn_dir(){
 				if direction > 135 and direction < 225 array_push(options, [LEFT_TURN, -i, -j])
 				if direction > 225 and direction < 315 array_push(options, [LEFT_TURN, -i, j])
 				if direction > 315 or direction < 45 array_push(options, [LEFT_TURN, i, j])
+				break
 			}
 		}
 	}
