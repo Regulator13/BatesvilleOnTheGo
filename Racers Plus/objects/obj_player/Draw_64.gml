@@ -65,12 +65,20 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 				
 				var delivery_options = ds_list_size(available_deliveries)
 				if delivery_options > 0{
+					////DEBUG
+					//show_debug_message("obj_player display " + string(delivery_options) + " deliveries")
+					
 					// List available deliveries to pick up
 					var Deliveries = html_div(grid, "item-left", undefined, "item-left")
 					
 					for (var i=0; i<delivery_options; i++){
 						var order_id = available_deliveries[| i]
-						var Available_delivery = html_button(Deliveries, "delivery", string(order_id))
+						
+						////DEBUG
+						//show_debug_message("obj_player delivery " + string(i) + " is for " + string(order_id))
+						
+						// Caution! Each identifier needs to be unique!
+						var Available_delivery = html_button(Deliveries, "delivery" + string(i), string(order_id))
 						// Select delivery
 						if html_element_interaction(Available_delivery){
 							scr_client_send_pickup(obj_client.connect_id, order_id)	
@@ -81,11 +89,18 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 					var Right = html_div(grid, "item-right", undefined, "item-right")
 					var Done = html_button(Right, "done", "Done")
 					if html_element_interaction(Done){
+						////DEBUG
+						show_debug_message("obj_player pickup is done")
+						
 						scr_client_send_pickup(obj_client.connect_id, -1)	
 					}
 				}
 				else{
 					// Someone picked up all the deliveries
+					
+					////DEBUG
+					show_debug_message("obj_player all deliveries are picked up")
+					
 					scr_client_send_pickup(obj_client.connect_id, -1)
 					// Keep checking for deliveries continuosly
 				}
