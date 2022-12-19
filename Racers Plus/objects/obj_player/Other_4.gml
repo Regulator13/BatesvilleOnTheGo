@@ -1,7 +1,7 @@
-/// @description Create car
-if obj_menu.state == STATE_GAME{
-	//Create vehicle
-	if not global.online{
+/// @description Create car if not online
+if not global.online or global.have_server{
+	if obj_menu.state == STATE_GAME{
+		//Create vehicle
 		event_user(0)
 	}
 }

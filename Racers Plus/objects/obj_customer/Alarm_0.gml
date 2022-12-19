@@ -30,6 +30,7 @@ if open_number < max_orders{
 	var Delivery = instance_create_layer(Business.x + Business.sprite_width/2, Business.y + Business.sprite_height + 32, "lay_instances", obj_delivery)
 	Delivery.image_blend = Business.image_blend
 	Delivery.order_id = set_order_id(open_number, business_id)
+	Delivery.business_id = business_id
 }
 
 alarm[0] = irandom_range(300, 900)*game_get_speed(gamespeed_fps)

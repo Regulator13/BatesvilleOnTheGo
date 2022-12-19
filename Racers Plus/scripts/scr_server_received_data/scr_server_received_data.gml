@@ -1,6 +1,6 @@
 /// @function scr_server_received_data(Network_player, buff)
 /// @description Read client message data - already read GAME_ID and msgID
-/// @param Network_player | player message is from
+/// @param Network_player | obj_network_player message is from
 /// @returns null
 function scr_server_received_data(Network_player, buff) {
 	//buffer already in position for reading further
@@ -69,15 +69,30 @@ function scr_server_received_data(Network_player, buff) {
 			        break
 			}
 			break
-		case PLACE_CMD:
-			var type = buffer_read(buff, buffer_u8)
-			var rotation = buffer_read(buff, buffer_u8)
-			var xscale = buffer_read(buff, buffer_s8)
-			var x_slider = buffer_read(buff, buffer_u8)
-			var drop = buffer_read(buff, buffer_bool)
-			var color = obj_menu.color_array[Network_player.player_color]
-			// TODO teams
-			place_block(Network_player.team, color, type, rotation, xscale, x_slider, drop)
+		case PICKUP_CMD:
+			var order_id = buffer_read(buff, buffer_s8)
+			var Car = Network_player.Player.Car
+			
+			if order_id == -1{
+				// Done with pickup
+				state = STATE_DRIVING
+				scr_client_send_pickup(obj_client.connect_id, -1)	
+				// Do not check again to pickup for some time
+				Car.alarm[0] = 3*game_get_speed(gamespeed_fps)
+			}
+			else{
+				///TODO Cleanup
+				var delivery_options = ds_list_size(Car.available_deliveries)
+				buffer_write(buff, buffer_u8, delivery_options)
+	
+				for (var i=0; i<delivery_options; i++){
+					var Delivery = Car.available_deliveries[| i]
+					if Delivery.order_id == order_id{
+						ds_list_add(Car.picked_up_deliveries, Delivery.order_id)
+						instance_destroy(Delivery)
+					}
+				}
+			}
 			break
 		case UPDATE_CMD:
 			var left = buffer_read(buff, buffer_s8)
@@ -85,11 +100,12 @@ function scr_server_received_data(Network_player, buff) {
 			var up = buffer_read(buff, buffer_s8)
 			var down = buffer_read(buff, buffer_s8)
 			
-			if instance_exists(Network_player.Car){
-				Network_player.Car.inputs[LEFT_KEY] = left
-				Network_player.Car.inputs[RIGHT_KEY] = right
-				Network_player.Car.inputs[UP_KEY] = up
-				Network_player.Car.inputs[DOWN_KEY] = down
+			var Car = Network_player.Player.Car
+			if instance_exists(Car){
+				Car.inputs[LEFT_KEY] = left
+				Car.inputs[RIGHT_KEY] = right
+				Car.inputs[UP_KEY] = up
+				Car.inputs[DOWN_KEY] = down
 			}
 			break
 	}

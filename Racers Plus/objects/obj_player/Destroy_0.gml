@@ -15,3 +15,5 @@ if global.online{
 	ds_list_delete(obj_client.active_connect_ids, ds_list_find_index(obj_client.active_connect_ids, connect_id))
 	ds_map_delete(obj_client.Network_players, id)
 }
+
+ds_list_destroy(available_deliveries)

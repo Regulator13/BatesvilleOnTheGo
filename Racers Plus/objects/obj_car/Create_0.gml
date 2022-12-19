@@ -29,7 +29,11 @@ hp = hp_max //Vehicles's current health
 Player = noone
 model = -1
 
+available_deliveries = ds_list_create()
 picked_up_deliveries = ds_list_create()
 
 controls = 0
 inputs = array_create(5, KEY_ISRELEASED)
+
+// Continually check to pick up
+alarm[0] = 1

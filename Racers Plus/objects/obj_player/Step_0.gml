@@ -1,5 +1,5 @@
 /// @description Input
-if os_browser == browser_not_a_browser{
+if not global.online{
 	Car.inputs[LEFT_KEY] = get_key_input(global.controls[controls, LEFT_KEY]);
 	Car.inputs[RIGHT_KEY] = get_key_input(global.controls[controls, RIGHT_KEY]);
 	Car.inputs[UP_KEY] = get_key_input(global.controls[controls, UP_KEY]);

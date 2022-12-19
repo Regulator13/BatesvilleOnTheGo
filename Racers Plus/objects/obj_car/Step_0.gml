@@ -171,16 +171,7 @@ if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + l
 	speed = 0
 }
 
-///Pick up a delivery
-var Delivery = instance_nearest(x, y, obj_delivery)
-if instance_exists(Delivery){
-	if distance_to_point(Delivery.x, Delivery.y) < 32{
-		ds_list_add(picked_up_deliveries, Delivery.order_id)
-		instance_destroy(Delivery)
-	}
-}
-
-///Drop of a delivery
+///Drop off a delivery
 if speed == 0{
 	var Order = instance_nearest(x, y, obj_order)
 	if instance_exists(Order){

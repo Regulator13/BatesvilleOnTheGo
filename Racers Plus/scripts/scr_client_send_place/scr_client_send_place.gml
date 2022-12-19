@@ -2,7 +2,7 @@
 /// @description Send input to server
 /// @param input | input key to send
 //  Returns null
-function scr_client_send_place(connect_id, type, rotation, xscale, x_slider, drop){
+function scr_client_send_pickup(connect_id, pickup){
 	var buff = obj_client.buff
 	
 	//specific game steps of input will be determined when the server recieves it
@@ -15,14 +15,10 @@ function scr_client_send_place(connect_id, type, rotation, xscale, x_slider, dro
 	buffer_write(buff, buffer_s8, CLIENT_PLAY)
 	
 	//write command
-	buffer_write(buff, buffer_u8, PLACE_CMD)
+	buffer_write(buff, buffer_s8, PICKUP_CMD)
 		
 	//write input
-	buffer_write(buff, buffer_u8, type)
-	buffer_write(buff, buffer_u8, rotation)
-	buffer_write(buff, buffer_s8, xscale)
-	buffer_write(buff, buffer_u8, x_slider)
-	buffer_write(buff, buffer_u8, drop)
+	buffer_write(buff, buffer_u8, pickup)
 		
 	//send this to the server
 	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))

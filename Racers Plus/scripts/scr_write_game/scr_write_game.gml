@@ -8,8 +8,25 @@ function scr_write_game(buff, starting_position, Authoritative_player) {
     // Write common data
 
 	#region Player specific section
+	///TODO
+	if Authoritative_player.connect_id != 0{
+		var Player = Authoritative_player.Player
+		var Car = Player.Car
+		buffer_write(buff, buffer_u8, Player.state)
+		switch Player.state{
+			case STATE_DRIVING:
+				break
+			case STATE_PICKING_UP:
+				var delivery_options = ds_list_size(Car.available_deliveries)
+				buffer_write(buff, buffer_u8, delivery_options)
 	
-	
+				for (var i=0; i<delivery_options; i++){
+					var Delivery = Car.available_deliveries[| i]
+					buffer_write(buff, buffer_u8, Delivery.order_id)
+				}
+				break
+		}
+	}
 	#endregion
 	return buff
 }

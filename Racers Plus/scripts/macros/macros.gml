@@ -1,4 +1,9 @@
 //Room Creation Macros
+
+// Controller states
+#macro STATE_DRIVING 0
+#macro STATE_PICKING_UP 1
+
 //Grid size for map
 #macro GRID_SIZE 32
 
@@ -85,7 +90,7 @@
 
 #macro INPUT_CMD 0
 #macro STRING_CMD 10
-#macro PLACE_CMD 20
+#macro PICKUP_CMD 20
 #macro UPDATE_CMD 30
 
 #macro DEFAULT_SECTION 0

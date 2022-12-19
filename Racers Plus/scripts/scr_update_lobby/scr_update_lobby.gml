@@ -110,6 +110,10 @@ function scr_update_lobby_player(connect_id, player_name, ready_to_start, player
 		if connect_id == obj_client.connect_id{
 			Player.local = true
 		}
+		if global.have_server{
+			var Network_player = obj_server.Network_players[? connect_id]
+			Network_player.Player = Player
+		}
 		Player.Name_box = scr_create_text_box(obj_lobby.section_draw_start_x + obj_lobby.edge, 0, Player, "", player_name, "client-send-name", Player.local, 15)
 		Player.Ready_box = scr_create_checkbox(obj_lobby.section_draw_start_x + obj_lobby.section_draw_width - 24 - obj_lobby.edge, 0, Player, "client-send-ready", Player.local, "Ready: ")
 		Player.Color_box = scr_create_dropdown(obj_lobby.section_draw_start_x + 160, 0, Player, "color", Player.connect_id, "client-send-player-color", true, 24, 24)

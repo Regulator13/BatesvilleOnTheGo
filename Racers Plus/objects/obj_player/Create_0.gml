@@ -32,6 +32,10 @@ else{
 	controls = 0
 }
 
+state = STATE_DRIVING
+
+available_deliveries = ds_list_create()
+
 #region Networking
 /// @description Declare variables
 //created for each player on the network in lobby state

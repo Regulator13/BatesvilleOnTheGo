@@ -13,7 +13,11 @@ draw_text(100*controls, 80, string(direction))
 /// @description HTML GUI
 if not global.have_server and local and obj_menu.state == STATE_GAME{
 	if os_browser != browser_not_a_browser and instance_exists(obj_game_control){
-		#region Joystick
+		// This is a phone controller
+		
+		switch state{
+			case STATE_DRIVING:
+				#region Joystick
 		// Joystick base
 		var j_x = 128
 		var j_y = 128
@@ -54,6 +58,42 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 			}
 		}
 		#endregion
+				break
+			case STATE_PICKING_UP:
+				#region Pickup GUI
+				var grid = html_div(undefined, "grid-container", undefined, "grid-container")
+				
+				var delivery_options = ds_list_size(available_deliveries)
+				if delivery_options > 0{
+					// List available deliveries to pick up
+					var Deliveries = html_div(grid, "item-left", undefined, "item-left")
+					
+					for (var i=0; i<delivery_options; i++){
+						var order_id = available_deliveries[| i]
+						var Available_delivery = html_button(Deliveries, "delivery", string(order_id))
+						// Select delivery
+						if html_element_interaction(Available_delivery){
+							scr_client_send_pickup(obj_client.connect_id, order_id)	
+						}
+					}
+				
+					// Done button
+					var Right = html_div(grid, "item-right", undefined, "item-right")
+					var Done = html_button(Right, "done", "Done")
+					if html_element_interaction(Done){
+						scr_client_send_pickup(obj_client.connect_id, -1)	
+					}
+				}
+				else{
+					// Someone picked up all the deliveries
+					scr_client_send_pickup(obj_client.connect_id, -1)
+					// Keep checking for deliveries continuosly
+				}
+				#endregion
+				break
+		}
+		
+		
 		/*
 		#region HTML
 		// See INIT_HTML for all CSS styling based on class
