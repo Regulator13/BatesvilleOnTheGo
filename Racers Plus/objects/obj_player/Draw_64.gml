@@ -11,8 +11,45 @@ if inputs[DOWN_KEY] draw_text(100*controls, 64, "Down")
 draw_text(100*controls, 80, string(steer))
 
 /// @description HTML GUI
-if not global.have_server and local and obj_menu.state == STATE_GAME{
-	if os_browser != browser_not_a_browser and instance_exists(obj_game_control){
+if not global.have_server and local and os_browser != browser_not_a_browser{
+	if obj_menu.state == STATE_LOBBY{
+		// HTML
+		var Grid = html_div(undefined, "grid-container", undefined, "grid-container")
+			var Left = html_div(Grid, "action-left", undefined, "action-left", "min-width: 120px")
+				var Ready = html_button(Left, "ready", "Ready")
+			var Top = html_div(Grid, "hud-top", undefined, "hud-top")
+				html_p(Top, "name", player_name)
+			var Middle = html_div(Grid, "hud-middle", undefined, "hud-middle")
+				html_p(Middle, "team-name", get_team_name(team))
+				var Team_slider = html_range(Middle, "team-slider", 1, 2, "type-slider", 1)
+			var Bottom = html_div(Grid, "hud-bottom", undefined, "hud-bottom")
+				var Color_display = html_div(Bottom, "color", undefined, "color-display",
+						"background-color: " + get_html_color(player_color))
+				var Color_slider = html_range(Bottom, "color-slider",
+						0, array_length(obj_menu.color_array) - 1, "type-slider", 0)
+			var Action = html_div(Grid, "action-right", undefined, "action-right")
+			var Action_bottom = html_div(Grid, "action-right-bottom", undefined, "action-right-bottom")
+				var Model_slider = html_range(Action_bottom, "model-slider",
+						0, array_length(obj_menu.model_sprites) - 1, "type-slider", 0)
+		
+		////DEBUG
+		//team = Team_slider.value
+		//player_color = Color_slider.value
+		//model = Model_slider.value
+		
+		draw_sprite_ext(obj_menu.model_sprites[model], -1,
+					html_element_x(Action) + 100, html_element_y(Action) + 128, 
+					2, 2, 1, obj_menu.color_array[player_color], 1)
+		
+		// Interactions
+		if html_element_interaction(Ready){
+			scr_client_send_input(obj_client.connect_id, READY_UP, 0, 0)
+		}
+		
+		////TODO Not send every step
+		scr_client_send_lobby_update(obj_client.connect_id, Team_slider.value, Color_slider.value, Model_slider.value)
+	}
+	if obj_menu.state == STATE_GAME and instance_exists(obj_game_control){
 		// This is a phone controller
 		
 		switch state{

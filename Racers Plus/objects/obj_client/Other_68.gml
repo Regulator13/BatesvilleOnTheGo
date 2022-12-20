@@ -60,7 +60,13 @@ if (eventid == tcp_client and type == network_type_data){
 					if msg_id == SERVER_PLAY{
 						var state = buffer_read(buffer, buffer_u8)
 						if state == STATE_LOBBY{
-							scr_read_lobby(buffer)
+							////TODO
+							if connect_id == 0{
+								scr_read_lobby(buffer)
+							}
+							else{
+								controller_read_lobby(buffer)
+							}
 						}
 					}
 					else if msg_id == SERVER_PING{
@@ -71,40 +77,37 @@ if (eventid == tcp_client and type == network_type_data){
 						//recieved confirmation, move to next state
 						network_state = NETWORK_PLAY
 						
-						var block_amount = buffer_read(buffer, buffer_u8)
+						////TODO
+						if global.have_server{
+							//Count teams for visibility check
+							global.max_teams = obj_lobby.Map.spawn_amount + 1
 						
-						#region Update section with authorative info from server
-						scr_read_lobby(buffer)
-						#endregion
-						
-						//Count teams for visibility check
-						global.max_teams = obj_lobby.Map.spawn_amount + 1
-						
-						//set section colors and create keeps
-						var count = ds_list_size(obj_lobby.Sections)
-						for (var i=0; i<count; i++){
-							var Section = obj_lobby.Sections[| i]
-							//set an index to reference the section by in the future
-							Section.index = i
-							if Section.section_type == SPAWN_SECTION{
-								//Section.team = Section.Team_box.field
-								global.section_color[i] = Section.Color_box.field
+							//set section colors and create keeps
+							var count = ds_list_size(obj_lobby.Sections)
+							for (var i=0; i<count; i++){
+								var Section = obj_lobby.Sections[| i]
+								//set an index to reference the section by in the future
+								Section.index = i
+								if Section.section_type == SPAWN_SECTION{
+									//Section.team = Section.Team_box.field
+									global.section_color[i] = Section.Color_box.field
+								}
 							}
-						}
-						//set player teams and colors
-						var count = instance_number(obj_player)
-						for (var i=0; i<count; i++){
-							var Player = instance_find(obj_player, i)
-							// Do not include server host
-							if Player.connect_id != 0{
-								Player.team = Player.Section.team
-								Player.section = Player.Section.index
-								Player.player_color = Player.Color_box.field
-							}
+							//set player teams and colors
+							var count = instance_number(obj_player)
+							for (var i=0; i<count; i++){
+								var Player = instance_find(obj_player, i)
+								// Do not include server host
+								if Player.connect_id != 0{
+									Player.team = Player.Section.team
+									Player.section = Player.Section.index
+									Player.player_color = Player.Color_box.field
+								}
 							
-							if Player.connect_id == obj_client.connect_id {
-								obj_client.Player = Player
-								Player.block_amount = block_amount
+								if Player.connect_id == obj_client.connect_id {
+									obj_client.Player = Player
+									Player.block_amount = block_amount
+								}
 							}
 						}
 						

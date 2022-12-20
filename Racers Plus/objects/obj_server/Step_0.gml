@@ -41,17 +41,6 @@ if network_player_count > 0{
 							// Reset the ready flag, this will be used throughout each following state
 							Network_player.ready_to_start = false
 							
-							// TODO Block amount
-							if Network_player.connect_id != 0{
-								var block_amount = TEAM_BLOCK_AMOUNT div ds_list_size(Network_player.Team.Players)
-								if block_amount < MIN_BLOCK_AMOUNT
-										block_amount = MIN_BLOCK_AMOUNT
-							}
-							else var block_amount = 0
-							buffer_write(buff, buffer_u8, block_amount)
-							
-							//write authoratitive lobby setting
-							buff = scr_write_lobby(buff, buffer_tell(buff))
 
 							break
 					}
@@ -63,9 +52,19 @@ if network_player_count > 0{
 						show_debug_message("Warning: TCP server message to client failed to send")
 	            }
 	            else {
+					////TODO
+					if Network_player.connect_id != 0{
+						if instance_exists(Network_player.Player){
+						var message_buffer = controller_write_lobby(game_buffer, 4, Network_player.Player)
+						var message_length = buffer_tell(message_buffer)
+						scr_server_send_TCP(Network_player, message_buffer, message_length)
+						}
+					}
+					else{
 	                //send pre_written lobby data
 	                if not scr_server_send_TCP(Network_player, message_buffer, message_length)
 						show_debug_message("Warning: UDP server message to client failed to send")
+					}
 	            }
             }
 			#endregion

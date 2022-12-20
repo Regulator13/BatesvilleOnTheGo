@@ -31,20 +31,17 @@ input_buffer_max = 8
 keyboard_input = false	//whether to show selection via keyboard
 prev_mouse_x = mouse_x	//check to see if mouse move to turn off keyboard input
 
+model_sprites = [spr_car, spr_police, spr_racecar, spr_semi, spr_taxi, spr_truck, spr_van,
+		spr_widecar, spr_ambulance]
+
 //universal colour array
-color_array[0] = c_white;
-color_array[1] = $80ff80;
-color_array[2] = c_red;
-color_array[3] = c_yellow;
-color_array[4] = c_green;
-color_array[5] = c_purple;
-color_array[6] = c_aqua;
-color_array[7] = c_maroon;
-color_array[8] = c_orange;
-color_array[9] = c_teal;
-color_array[10] = c_olive;
-color_array[11] = c_ltgray;
-color_array[12] = c_dkgray;
-color_array[13] = c_navy;
-color_array[14] = $ff8080;
-color_array[15] = c_white;
+color_array[0] = #ffffff;
+color_array[1] = #0000ff;
+color_array[2] = #ff0000;
+color_array[3] = #33cc33;
+color_array[4] = #cc0099;
+color_array[5] = #00ffcc;
+color_array[6] = #ff9900;
+color_array[7] = #9900cc;
+color_array[8] = #339933;
+color_array[9] = #ffff00;

@@ -33,6 +33,6 @@ if open_number < max_orders{
 	Delivery.business_id = business_id
 }
 
-alarm[0] = irandom_range(300, 900)*game_get_speed(gamespeed_fps)
+alarm[0] = irandom_range(90, 120)*game_get_speed(gamespeed_fps)
 
 

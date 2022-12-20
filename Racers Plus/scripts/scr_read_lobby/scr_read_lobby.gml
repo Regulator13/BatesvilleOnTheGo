@@ -1,5 +1,22 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+////TODO
+function controller_read_lobby(buff){
+	var Player = obj_client.Player
+	if not instance_exists(Player){
+		show_debug_message("controller_read_lobby player instance does not exist")
+		//add network player
+		Player = instance_create_layer(0, 0, LAY, obj_player)
+		Player.connect_id = obj_client.connect_id
+		Player.local = true
+		obj_client.Player = Player
+	}
+	Player.team = buffer_read(buff, buffer_u8)
+	Player.player_color = buffer_read(buff, buffer_u8)
+	Player.model = buffer_read(buff, buffer_u8)
+	Player.player_name = buffer_read(buff, buffer_string)
+	Player.ready_to_start = buffer_read(buff, buffer_bool)
+}
+
+////TODO
 function scr_read_lobby(buffer){
 	//server sends over all sections and players in the sections each step
 	

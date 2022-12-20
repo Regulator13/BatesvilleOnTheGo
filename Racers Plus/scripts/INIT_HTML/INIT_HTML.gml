@@ -61,17 +61,17 @@ html_style(
 #region Game
 #region Slider
 html_style(
-	".model-slider",
-	"width", "400px",
+	".type-slider",
+	"min-width", "200px",
 	"height", "50px",
 	"background", "#d3d3d3",
-	"outline", "none"
+	"outline", "none",
 )
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 /*
 html_style(
-	".model-slider::-webkit-slider-thumb",
+	".type-slider::-webkit-slider-thumb",
 	"-webkit-appearance", "none",
 	"appearance", "none",
 	"width", "50px",
@@ -84,7 +84,7 @@ html_style(
 // if this code is ran
 if os_browser == browser_firefox{
 	html_style(
-		".model-slider::-moz-range-thumb",
+		".type-slider::-moz-range-thumb",
 		"width", "50px",
 		"height", "50px",
 		"background", "#04AA6D",
@@ -93,6 +93,17 @@ if os_browser == browser_firefox{
 }
 */
 #endregion
+
+html_style(".color-display", 
+	"height", "32px",
+	"border-style", "solid",
+	"border-color", "white",
+)
+
+html_style("p",
+	"border", "solid",
+	"margin", "0px",
+)
 
 #region Button
 html_style(
@@ -129,6 +140,8 @@ html_style(
 html_style(".action-left", 
 	"grid-area", "action-left",
 	"height", "95vh",
+	"display", "flex",
+	"flex-direction", "column-reverse",
 )
 html_style(".hud-top",
 	"grid-area", "hud-top",

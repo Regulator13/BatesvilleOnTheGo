@@ -31,22 +31,6 @@ if os_browser == browser_not_a_browser{
 }
 else{
 	switch global.Menu.state{
-		case STATE_ONLINE:
-			#region Online
-			//Create buttons
-			var _x = 64
-			var _y = room_height - 64
-			//ds_list_add(Buttons, scr_create_button(_x, _y, noone, "quit"))
-			#endregion
-			break
-		case STATE_LOBBY:
-			#region Lobby
-			var _x = 64
-			var _y = room_height - 64
-			ds_list_add(Buttons, scr_create_button(_x, _y - 64, noone, "ready"))
-			ds_list_add(Buttons, scr_create_button(_x, _y, noone, "back"))
-			#endregion
-			break
 		case STATE_SCORE:
 			#region Score
 			var _x = 64

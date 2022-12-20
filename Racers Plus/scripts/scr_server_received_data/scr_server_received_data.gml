@@ -94,6 +94,26 @@ function scr_server_received_data(Network_player, buff) {
 				}
 			}
 			break
+		////TODO Put in better spot
+		case UPDATE_LOBBY_CMD:
+			var team = buffer_read(buff, buffer_u8)
+			var color = buffer_read(buff, buffer_u8)
+			var model = buffer_read(buff, buffer_u8)
+			
+			var Player = Network_player.Player
+			Player.team = team
+			Player.player_color = color
+			Player.model = model
+			
+			////TODO Show team in lobby
+			Network_player.player_color = color
+			var New_section = obj_lobby.Network_sections[| team]
+			//must check if player is already in section, else code will attempt to keep inserting
+			//the player in a different position
+			if New_section != Network_player.Section{
+				scr_move_sections(Network_player, New_section, ds_list_size(New_section.Players), 0)
+			}
+			break
 		case UPDATE_CMD:
 			var left = buffer_read(buff, buffer_s8)
 			var right = buffer_read(buff, buffer_s8)

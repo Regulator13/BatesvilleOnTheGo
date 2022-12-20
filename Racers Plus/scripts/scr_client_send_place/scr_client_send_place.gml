@@ -49,3 +49,28 @@ function scr_client_send_update(connect_id, Player){
 	//send this to the server
 	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
 }
+
+////TODO Put in better place
+function scr_client_send_lobby_update(connect_id, team, color, model){
+	var buff = obj_client.buff
+	
+	//specific game steps of input will be determined when the server recieves it
+	buffer_seek(buff, buffer_seek_start, 0)
+	
+	//write GAME ID to uniquely define game
+	buffer_write(buff, buffer_u8, GAME_ID)
+	buffer_write(buff, buffer_u8, connect_id)
+	//write msg_id
+	buffer_write(buff, buffer_s8, CLIENT_PLAY)
+	
+	//write command
+	buffer_write(buff, buffer_u8,  UPDATE_LOBBY_CMD)
+		
+	//write input
+	buffer_write(buff, buffer_u8, team)
+	buffer_write(buff, buffer_u8, color)
+	buffer_write(buff, buffer_u8, model)
+		
+	//send this to the server
+	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
+}

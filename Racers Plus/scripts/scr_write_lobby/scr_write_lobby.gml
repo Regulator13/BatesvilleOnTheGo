@@ -1,3 +1,17 @@
+////TODO
+function controller_write_lobby(buff, starting_position, Player){
+	//reset buffer to start - UDP messages have a 3 byte header, GAME_ID, connect_id, and udp_sequence_out
+	buffer_seek(buff, buffer_seek_start, starting_position)
+	
+	buffer_write(buff, buffer_u8, Player.team)
+	buffer_write(buff, buffer_u8, Player.player_color)
+	buffer_write(buff, buffer_u8, Player.model)
+	buffer_write(buff, buffer_string, Player.player_name)
+	buffer_write(buff, buffer_bool, Player.ready_to_start)
+	
+	return buff
+}
+
 /// @function scr_write_lobby(buffer, buffer_tell)
 /// @description Writes all lobby data from the server
 //  Returns buffer with lobby info
