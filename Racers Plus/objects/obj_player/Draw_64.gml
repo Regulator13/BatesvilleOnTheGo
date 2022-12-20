@@ -8,7 +8,7 @@ if inputs[LEFT_KEY] draw_text(100*controls, 48, "Left")
 if inputs[RIGHT_KEY] draw_text(100*controls, 16, "Right")
 if inputs[UP_KEY] draw_text(100*controls, 32, "Up")
 if inputs[DOWN_KEY] draw_text(100*controls, 64, "Down")
-draw_text(100*controls, 80, string(direction))
+draw_text(100*controls, 80, string(steer))
 
 /// @description HTML GUI
 if not global.have_server and local and obj_menu.state == STATE_GAME{
@@ -33,14 +33,14 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 				inputs[RIGHT_KEY] = KEY_ISRELEASED
 				inputs[UP_KEY] = KEY_ISRELEASED
 				inputs[DOWN_KEY] = KEY_ISRELEASED
+				steer = 0
 				if mouse_check_button(mb_left){
 					var xx = window_mouse_get_x()
 					var yy = window_mouse_get_y()
 					var dist = point_distance(j_x, j_y, xx, yy)
 					var dir = point_direction(j_x, j_y, xx, yy)
 					direction = dir
-					//if dist < 96{
-					{
+					if dist < 96{
 						draw_circle(xx, yy, j_r, true)
 						draw_set_alpha(0.5)
 						draw_circle(xx, yy, j_r, false)
@@ -52,6 +52,7 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 							inputs[RIGHT_KEY] = get_joystick_input(dir, RIGHT_KEY)
 							inputs[UP_KEY] = get_joystick_input(dir, UP_KEY)
 							inputs[DOWN_KEY] = get_joystick_input(dir, DOWN_KEY)
+							steer = (xx - j_x)/80
 						}
 					}
 				}

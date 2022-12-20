@@ -55,18 +55,20 @@ if inputs[DOWN_KEY]{
 
 //Turning
 //Get turn amount
-if Player.inputs[RIGHT_KEY]{
-	if steer < 1{
-		steer += steer_incr
+if not global.online{
+	if inputs[RIGHT_KEY]{
+		if steer < 1{
+			steer += steer_incr
+		}
 	}
-}
-else if Player.inputs[LEFT_KEY]{
-	if steer > -1{
-		steer -= steer_incr
+	else if inputs[LEFT_KEY]{
+		if steer > -1{
+			steer -= steer_incr
+		}
 	}
-}
-else{
-	steer = 0
+	else{
+		steer = 0
+	}
 }
 
 //If in top two gears, slow down turning

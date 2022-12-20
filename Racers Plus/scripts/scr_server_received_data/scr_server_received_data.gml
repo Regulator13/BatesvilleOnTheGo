@@ -99,13 +99,15 @@ function scr_server_received_data(Network_player, buff) {
 			var right = buffer_read(buff, buffer_s8)
 			var up = buffer_read(buff, buffer_s8)
 			var down = buffer_read(buff, buffer_s8)
+			var steer = buffer_read(buff, buffer_s8)/100
 			
 			var Car = Network_player.Player.Car
 			if instance_exists(Car){
-				Car.inputs[LEFT_KEY] = left
-				Car.inputs[RIGHT_KEY] = right
+				//Car.inputs[LEFT_KEY] = left
+				//Car.inputs[RIGHT_KEY] = right
 				Car.inputs[UP_KEY] = up
 				Car.inputs[DOWN_KEY] = down
+				Car.steer = steer
 			}
 			break
 	}

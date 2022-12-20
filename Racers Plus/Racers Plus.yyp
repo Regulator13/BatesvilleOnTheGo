@@ -168,9 +168,9 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"mnu_main","path":"rooms/mnu_main/mnu_main.yy",},},
     {"roomId":{"name":"rm_downtown","path":"rooms/rm_downtown/rm_downtown.yy",},},
     {"roomId":{"name":"mnu_controller_score","path":"rooms/mnu_controller_score/mnu_controller_score.yy",},},
+    {"roomId":{"name":"mnu_main","path":"rooms/mnu_main/mnu_main.yy",},},
     {"roomId":{"name":"mnu_controller_main","path":"rooms/mnu_controller_main/mnu_controller_main.yy",},},
     {"roomId":{"name":"rm_track1","path":"rooms/rm_track1/rm_track1.yy",},},
     {"roomId":{"name":"rm_copy","path":"rooms/rm_copy/rm_copy.yy",},},

@@ -31,6 +31,8 @@ if not global.online{
 else{
 	controls = 0
 }
+////TODO
+steer = 0
 
 state = STATE_DRIVING
 
