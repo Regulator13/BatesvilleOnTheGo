@@ -1,6 +1,6 @@
 #region Controls
 //Nitrus
-if Player.inputs[ACTION_KEY]{
+if inputs[ACTION_KEY]{
 	nitrus_on = true
 }
 else{
@@ -8,7 +8,7 @@ else{
 }
 
 //Accelerate
-if Player.inputs[UP_KEY]{
+if inputs[UP_KEY]{
 	if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
 		if nitrus_on and nitrus > 0{
 			speed += accel*nitrus_boost
@@ -26,7 +26,7 @@ if Player.inputs[UP_KEY]{
 }
 
 //Decelerate
-if Player.inputs[DOWN_KEY]{
+if inputs[DOWN_KEY]{
 	//Brake if not in reverse
 	if speed > brake and gear >= 1{
 		speed -= brake
@@ -84,8 +84,8 @@ if speed >= max_full_turn_speed{
 if speed >= min_turn_speed{
 	car_dir -= turn_speed*steer
 	//If traveling too fast, lose traction
-	if speed > traction*max_speed{	
-		direction -= turn_speed*steer*(1 - (speed - traction*max_speed)/max_speed)	
+	if speed > traction*max_speed{
+		direction -= turn_speed*steer*(1 - (speed - traction*max_speed)/max_speed)
 	}
 	else{
 		direction -= turn_speed*steer
@@ -169,7 +169,7 @@ else{
 
 #region Collisions
 ///Collisions with solid walls
-if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), obj_solid){
+if place_meeting(x + lengthdir_x(speed + COL_BUFF*sign(speed), direction), y + lengthdir_y(speed + COL_BUFF*sign(speed), direction), par_solid){
 	//Damage the vehicle
 	hp -= max(abs(speed)*3 - 1, 0)
 	speed = 0
@@ -201,7 +201,7 @@ if speed == 0{
 
 			if has_delivery != -1{
 				//This order is in the list of picked up deliveries
-				Player.tips += Order.reward
+				/// TODO Player.tips += Order.reward
 				ds_list_delete(picked_up_deliveries, has_delivery)
 				var Business = ds_map_find_value(global.businesses, get_business_id(Order.order_id))
 				Business.popularity++
@@ -210,7 +210,7 @@ if speed == 0{
 		}
 	}
 }
-	
+
 
 #endregion
 
@@ -228,9 +228,10 @@ if hp <= 0{
 		Delivery.order_id = picked_up_deliveries[| i]
 	}
 	ds_list_clear(picked_up_deliveries)
-	
-	Player.tips -= Player.model_cost[model]
-	if Player.tips < 0 Player.tips = 0
+
+	/// TODO
+	//Player.tips -= Player.model_cost[model]
+	//if Player.tips < 0 Player.tips = 0
 
 	instance_create_layer(x, y, "lay_instances", obj_explosion)
 	x = global.player_start[0]
@@ -244,4 +245,3 @@ if hp <= 0{
 
 //Cleanup Car Direction
 car_dir = (car_dir + 360) mod 360
-	
