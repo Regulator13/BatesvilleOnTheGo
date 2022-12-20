@@ -4,7 +4,7 @@ var Business = global.businesses[? team]
 
 ////TODO global.player_start
 ////TODO Prevent overlap
-Car = instance_create_layer(Business.x + Business.sprite_width/2, Business.y + Business.sprite_height + 32 + 128, "lay_instances", obj_car)
+Car = instance_create_layer(Business.x + Business.sprite_width/2, Business.y + Business.sprite_height + 32 + 64, "lay_instances", obj_car)
 
 Car.turn_speed = model_turn_speeds[model]
 Car.accel = model_accels[model]

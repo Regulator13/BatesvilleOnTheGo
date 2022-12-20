@@ -16,3 +16,4 @@ global.online = false
 var Player = instance_create_layer(0, 0, "lay_instances", obj_player)
 Player.local = true
 Player.player_color = 1
+Player.team = 1

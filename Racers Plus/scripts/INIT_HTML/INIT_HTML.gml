@@ -59,8 +59,9 @@ html_style(
 #endregion
 
 #region Game
+#region Slider
 html_style(
-	".type-slider",
+	".model-slider",
 	"width", "400px",
 	"height", "50px",
 	"background", "#d3d3d3",
@@ -70,7 +71,7 @@ html_style(
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 /*
 html_style(
-	".slider::-webkit-slider-thumb",
+	".model-slider::-webkit-slider-thumb",
 	"-webkit-appearance", "none",
 	"appearance", "none",
 	"width", "50px",
@@ -83,7 +84,7 @@ html_style(
 // if this code is ran
 if os_browser == browser_firefox{
 	html_style(
-		".type-slider::-moz-range-thumb",
+		".model-slider::-moz-range-thumb",
 		"width", "50px",
 		"height", "50px",
 		"background", "#04AA6D",
@@ -91,6 +92,7 @@ if os_browser == browser_firefox{
 	)
 }
 */
+#endregion
 
 #region Button
 html_style(
@@ -123,63 +125,92 @@ html_style(
 )
 #endregion
 
-html_style(
-	"button",
-	"display", "inline-block",
-	"position", "absolute",
-	"width", "128px",
-	"height", "128px",
-	"top", "64px",
-	"cursor", "pointer",
-	"text-align", "center",
-	"text-decoration", "none",
-	"outline", "none",
-	"color", "#fff",
-	"background-color", "none",
-	"border", "none",
-	"border-radius", "15px",
-	"box-shadow", "0 9px #999",
-	"margin", "10px",
-)
-
 #region Grid
-html_style(
-	".item-display",
-	"grid-area", "display",
-	// Subtract and div padding
-	"width", "128px",
-	"height", "108px",
+html_style(".action-left", 
+	"grid-area", "action-left",
+	"height", "95vh",
 )
-html_style(".item-left", "grid-area", "left")
-html_style(".item-right", "grid-area", "right")
-html_style(".item-select", "grid-area", "select")
-html_style(".item-slider", "grid-area", "slider")
-html_style(
-	".item-drop", 
-	"grid-area", "drop",
+html_style(".hud-top",
+	"grid-area", "hud-top",
+)
+html_style(".hud-middle", 
+	"grid-area", "hud-middle",
+)
+html_style(".hud-bottom", 
+	"grid-area", "hud-bottom",
 	"display", "flex",
-	"flex-direction", "column",
-	"justify-content", "flex-end",
-	"align-items", "center",
+	"flex-direction", "column-reverse",
 )
-html_style(".item-maniuplate", "grid-area", "maniuplate")
-	
-html_style(
-	".grid-container",
-	"display", "grid",
-	"grid-template-areas", 
-		"'select select select select drop' 'left display right manipulate drop' 'slider slider slider slider drop';",
-	"gap", "10px",
-	//"background-color", "#2196F3",
-	"padding", "10px",
+html_style(".action-right", 
+	"grid-area", "action-right",
+)
+html_style(".action-right-bottom", 
+	"grid-area", "action-right-bottom",
+	"display", "flex",
+	"flex-direction", "column-reverse",
 )
 
-html_style(
-	".grid-container > div",
-	//"background-color", "rgba(255, 255, 255, 0.8)",
+html_style(".grid-container", 
+	"display", "grid",
+	"grid-template-areas",
+		"'action-left hud-top action-right' " +
+		"'action-left hud-middle action-right' " +
+		"'action-left hud-bottom action-right' " +
+		"'action-left hud-bottom action-right-bottom'",
+	"gap", "10px",
+)
+
+html_style(".grid-container > div", 
 	"text-align", "center",
-	"padding", "10px 0",
 	"font-size", "30px",
+	"border-style", "solid",
+	"border-color", "white",
+)
+
+html_style(".button", 
+	"display", "block",
+	"width", "100%",
+	"border", "none",
+	"color", "white",
+	"padding", "15px 32px",
+	"text-align", "center",
+	"background-color", "#4CAF50",
+	"font-size", "24px",
+)
+
+html_style(".button-disabled", 
+	"opacity", "0.6",
+	"cursor", "not-allowed",
+)
+
+html_style(".team-options", 
+	"display", "block",
+	"width", "100%",
+)
+
+html_style(".delivery-container", 
+	"display", "flex",
+	"flex-wrap", "wrap",
+)
+
+html_style(".delivery", 
+	"height", "128px",
+	"width", "128px",
+	"font-size", "24px",
+	"line-height", "64px",
+	"background-color", "#ff9933",
+	"color", "white",
+	"border-radius", "50%",
+)
+
+html_style(".delivery-button", 
+	"height", "64px",
+	"width", "64px",
+	"font-size", "24px",
+	"line-height", "64px",
+	"background-color", "#ff9933",
+	"color", "white",
+	"border-radius", "50%",
 )
 #endregion
 #endregion

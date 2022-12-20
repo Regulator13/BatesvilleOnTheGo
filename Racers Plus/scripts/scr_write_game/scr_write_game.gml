@@ -22,7 +22,7 @@ function scr_write_game(buff, starting_position, Authoritative_player) {
 	
 				for (var i=0; i<delivery_options; i++){
 					var Delivery = Car.available_deliveries[| i]
-					buffer_write(buff, buffer_u8, Delivery.order_id)
+					buffer_write(buff, buffer_u8, get_order_number(Delivery.order_id))
 				}
 				break
 		}

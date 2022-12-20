@@ -18,58 +18,62 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 		switch state{
 			case STATE_DRIVING:
 				#region Joystick
-		// Joystick base
-		var j_x = 128
-		var j_y = 128
-		var j_b = 64
-		var j_r = 64
-		draw_set_color(c_white)
-		draw_circle(j_x, j_y, j_b, true)
-		draw_set_alpha(0.5)
-		draw_circle(j_x, j_y, j_b, false)
-		draw_set_alpha(1)
-		
-		//var joystick_button = html_button(undefined, "joystick", "")
-		
-		//if html_element_interaction(joystick_button){
-		inputs[LEFT_KEY] = KEY_ISRELEASED
-		inputs[RIGHT_KEY] = KEY_ISRELEASED
-		inputs[UP_KEY] = KEY_ISRELEASED
-		inputs[DOWN_KEY] = KEY_ISRELEASED
-		if mouse_check_button(mb_left){
-			var xx = window_mouse_get_x()
-			var yy = window_mouse_get_y()
-			var dist = point_distance(j_x, j_y, xx, yy)
-			var dir = point_direction(j_x, j_y, xx, yy)
-			direction = dir
-			if dist < 96{
-				draw_circle(xx, yy, j_r, true)
+				// Joystick base
+				var j_x = 128
+				var j_y = 128
+				var j_b = 64
+				var j_r = 64
+				draw_set_color(c_white)
+				draw_circle(j_x, j_y, j_b, true)
 				draw_set_alpha(0.5)
-				draw_circle(xx, yy, j_r, false)
+				draw_circle(j_x, j_y, j_b, false)
 				draw_set_alpha(1)
+		
+				inputs[LEFT_KEY] = KEY_ISRELEASED
+				inputs[RIGHT_KEY] = KEY_ISRELEASED
+				inputs[UP_KEY] = KEY_ISRELEASED
+				inputs[DOWN_KEY] = KEY_ISRELEASED
+				if mouse_check_button(mb_left){
+					var xx = window_mouse_get_x()
+					var yy = window_mouse_get_y()
+					var dist = point_distance(j_x, j_y, xx, yy)
+					var dir = point_direction(j_x, j_y, xx, yy)
+					direction = dir
+					//if dist < 96{
+					{
+						draw_circle(xx, yy, j_r, true)
+						draw_set_alpha(0.5)
+						draw_circle(xx, yy, j_r, false)
+						draw_set_alpha(1)
 				
-				// Set inputs
-				if dist > 16{
-					inputs[LEFT_KEY] = get_joystick_input(dir, LEFT_KEY)
-					inputs[RIGHT_KEY] = get_joystick_input(dir, RIGHT_KEY)
-					inputs[UP_KEY] = get_joystick_input(dir, UP_KEY)
-					inputs[DOWN_KEY] = get_joystick_input(dir, DOWN_KEY)
+						// Set inputs
+						if dist > 16{
+							inputs[LEFT_KEY] = get_joystick_input(dir, LEFT_KEY)
+							inputs[RIGHT_KEY] = get_joystick_input(dir, RIGHT_KEY)
+							inputs[UP_KEY] = get_joystick_input(dir, UP_KEY)
+							inputs[DOWN_KEY] = get_joystick_input(dir, DOWN_KEY)
+						}
+					}
 				}
-			}
-		}
-		#endregion
+				#endregion
 				break
 			case STATE_PICKING_UP:
 				#region Pickup GUI
-				var grid = html_div(undefined, "grid-container", undefined, "grid-container")
-				
+				var Grid = html_div(undefined, "grid-container", undefined, "grid-container")
+					html_div(Grid, "action-left", undefined, "action-left",)
+					html_div(Grid, "hud-top", undefined, "hud-top")
+					html_div(Grid, "hud-middle", undefined, "hud-middle")
+					var Bottom = html_div(Grid, "hud-bottom", undefined, "hud-bottom")
+					var Action = html_div(Grid, "action-right", undefined, "action-right")
+					html_div(Grid, "action-right-bottom", undefined, "action-right-bottom")
+					
 				var delivery_options = ds_list_size(available_deliveries)
 				if delivery_options > 0{
 					////DEBUG
 					//show_debug_message("obj_player display " + string(delivery_options) + " deliveries")
 					
 					// List available deliveries to pick up
-					var Deliveries = html_div(grid, "item-left", undefined, "item-left")
+					var Container = html_div(Action, "delivery-container", undefined, "delivery-container")
 					
 					for (var i=0; i<delivery_options; i++){
 						var order_id = available_deliveries[| i]
@@ -78,7 +82,7 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 						//show_debug_message("obj_player delivery " + string(i) + " is for " + string(order_id))
 						
 						// Caution! Each identifier needs to be unique!
-						var Available_delivery = html_button(Deliveries, "delivery" + string(i), string(order_id))
+						var Available_delivery = html_button(Container, "delivery" + string(i), string(order_id), true, "delivery-button")
 						// Select delivery
 						if html_element_interaction(Available_delivery){
 							scr_client_send_pickup(obj_client.connect_id, order_id)	
@@ -86,8 +90,7 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 					}
 				
 					// Done button
-					var Right = html_div(grid, "item-right", undefined, "item-right")
-					var Done = html_button(Right, "done", "Done")
+					var Done = html_button(Bottom, "done", "Done")
 					if html_element_interaction(Done){
 						////DEBUG
 						show_debug_message("obj_player pickup is done")
@@ -104,6 +107,7 @@ if not global.have_server and local and obj_menu.state == STATE_GAME{
 					scr_client_send_pickup(obj_client.connect_id, -1)
 					// Keep checking for deliveries continuosly
 				}
+				
 				#endregion
 				break
 		}

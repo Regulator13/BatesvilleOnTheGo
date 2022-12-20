@@ -70,20 +70,20 @@ function scr_server_received_data(Network_player, buff) {
 			}
 			break
 		case PICKUP_CMD:
-			var order_id = buffer_read(buff, buffer_s8)
-			var Car = Network_player.Player.Car
+			var Player = Network_player.Player
+			var order_number = buffer_read(buff, buffer_s8)
+			var order_id = set_order_id(order_number, Player.team)
+			var Car = Player.Car
 			
-			if order_id == -1{
+			if order_number == -1{
 				// Done with pickup
-				state = STATE_DRIVING
-				scr_client_send_pickup(obj_client.connect_id, -1)	
+				Player.state = STATE_DRIVING
 				// Do not check again to pickup for some time
 				Car.alarm[0] = 3*game_get_speed(gamespeed_fps)
 			}
 			else{
 				///TODO Cleanup
 				var delivery_options = ds_list_size(Car.available_deliveries)
-				buffer_write(buff, buffer_u8, delivery_options)
 	
 				for (var i=0; i<delivery_options; i++){
 					var Delivery = Car.available_deliveries[| i]

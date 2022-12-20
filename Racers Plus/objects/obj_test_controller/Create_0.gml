@@ -15,6 +15,7 @@ var Control = instance_create_layer(0, 0, "lay_instances", obj_game_control)
 var Player = instance_create_layer(0, 0, "lay_instances", obj_player)
 Player.local = true
 Player.player_color = 1
+Player.state = STATE_PICKING_UP
 
 
 
