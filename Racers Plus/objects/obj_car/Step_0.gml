@@ -183,15 +183,6 @@ if instance_exists(Inst){
 	speed = 0
 }
 
-///Pick up a delivery
-var Delivery = instance_nearest(x, y, obj_delivery)
-if instance_exists(Delivery){
-	if distance_to_point(Delivery.x, Delivery.y) < 32{
-		ds_list_add(picked_up_deliveries, Delivery.order_id)
-		instance_destroy(Delivery)
-	}
-}
-
 ///Drop off a delivery
 if speed == 0{
 	var Order = instance_nearest(x, y, obj_order)
