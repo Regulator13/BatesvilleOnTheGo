@@ -55,6 +55,7 @@ if inputs[DOWN_KEY]{
 
 //Turning
 //Get turn amount
+if abs(steer) <= 0.5 steer = 0
 if not global.online{
 	if inputs[RIGHT_KEY]{
 		if steer < 1{
@@ -150,7 +151,7 @@ if speed <= max_speed{
 }
 
 //Align the vehicle to 90 degree angles
-if align_buffer - speed*2 <= 0{
+if align_buffer<= 0{
 	if speed > gear_min_speed[2]{ //Only align if traveling fast
 		if 90 - (direction mod 90) <= align_margin or direction mod 90 <= align_margin{
 			direction = round(direction/90)*90
@@ -160,7 +161,7 @@ if align_buffer - speed*2 <= 0{
 	}
 }
 
-if not Player.inputs[LEFT_KEY] and not Player.inputs[RIGHT_KEY] and speed > gear_min_speed[2]{
+if steer != 0 and speed > gear_min_speed[2]{
 	align_buffer -= 1
 }
 else{

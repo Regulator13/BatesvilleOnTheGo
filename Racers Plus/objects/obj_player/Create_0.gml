@@ -1,5 +1,8 @@
 /// @description Set Vehicle Model Variables
 
+throttle_y = 128
+throttle_x = 128
+
 //Changeable Vehicle Variables
 
 model = 0 //The current model of the vehicle

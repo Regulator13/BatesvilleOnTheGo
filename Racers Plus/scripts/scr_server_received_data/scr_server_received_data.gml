@@ -115,18 +115,25 @@ function scr_server_received_data(Network_player, buff) {
 			}
 			break
 		case UPDATE_CMD:
-			var left = buffer_read(buff, buffer_s8)
-			var right = buffer_read(buff, buffer_s8)
-			var up = buffer_read(buff, buffer_s8)
-			var down = buffer_read(buff, buffer_s8)
+			var throttle = buffer_read(buff, buffer_s8)
 			var steer = buffer_read(buff, buffer_s8)/100
 			
 			var Car = Network_player.Player.Car
 			if instance_exists(Car){
 				//Car.inputs[LEFT_KEY] = left
 				//Car.inputs[RIGHT_KEY] = right
-				Car.inputs[UP_KEY] = up
-				Car.inputs[DOWN_KEY] = down
+				if throttle == -1{
+					Car.inputs[UP_KEY] = KEY_ISPRESSED
+					Car.inputs[DOWN_KEY] = KEY_ISRELEASED
+				}
+				else if throttle == 1{
+					Car.inputs[UP_KEY] = KEY_ISRELEASED
+					Car.inputs[DOWN_KEY] = KEY_ISPRESSED
+				}
+				else{
+					Car.inputs[UP_KEY] = KEY_ISRELEASED
+					Car.inputs[DOWN_KEY] = KEY_ISRELEASED
+				}
 				Car.steer = steer
 			}
 			break

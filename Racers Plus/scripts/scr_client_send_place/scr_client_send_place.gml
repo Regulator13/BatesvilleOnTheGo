@@ -40,10 +40,7 @@ function scr_client_send_update(connect_id, Player){
 	buffer_write(buff, buffer_u8,  UPDATE_CMD)
 		
 	//write input
-	buffer_write(buff, buffer_s8, Player.inputs[LEFT_KEY])
-	buffer_write(buff, buffer_s8, Player.inputs[RIGHT_KEY])
-	buffer_write(buff, buffer_s8, Player.inputs[UP_KEY])
-	buffer_write(buff, buffer_s8, Player.inputs[DOWN_KEY])
+	buffer_write(buff, buffer_s8, Player.throttle)
 	buffer_write(buff, buffer_s8, Player.steer*100)
 		
 	//send this to the server

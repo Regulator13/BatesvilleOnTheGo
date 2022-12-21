@@ -47,7 +47,9 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 		}
 		
 		////TODO Not send every step
-		scr_client_send_lobby_update(obj_client.connect_id, Team_slider.value, Color_slider.value, Model_slider.value)
+		if global.online{
+			scr_client_send_lobby_update(obj_client.connect_id, Team_slider.value, Color_slider.value, Model_slider.value)
+		}
 	}
 	if obj_menu.state == STATE_GAME and instance_exists(obj_game_control){
 		// This is a phone controller
@@ -58,13 +60,20 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				// Joystick base
 				var j_x = 128
 				var j_y = 128
-				var j_b = 64
-				var j_r = 64
+				var j_bw = 64
+				var j_bh = 16
+				var j_r = 48
 				draw_set_color(c_white)
-				draw_circle(j_x, j_y, j_b, true)
+				draw_line(j_x - j_bw*2, j_y, j_x + j_bw*2, j_y)
+				//draw_circle(j_x, j_y, j_b, true)
+				draw_roundrect(j_x - j_bw, throttle_y - j_bh, j_x + j_bw, throttle_y + j_bh, true)
+				draw_circle(throttle_x, throttle_y, j_r, true)
 				draw_set_alpha(0.5)
-				draw_circle(j_x, j_y, j_b, false)
+				//draw_circle(j_x, j_y, j_b, false)
+				draw_roundrect(j_x - j_bw, throttle_y - j_bh, j_x + j_bw, throttle_y + j_bh, false)
+				draw_circle(throttle_x, throttle_y, j_r, false)
 				draw_set_alpha(1)
+				
 		
 				inputs[LEFT_KEY] = KEY_ISRELEASED
 				inputs[RIGHT_KEY] = KEY_ISRELEASED
@@ -77,21 +86,40 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 					var dist = point_distance(j_x, j_y, xx, yy)
 					var dir = point_direction(j_x, j_y, xx, yy)
 					direction = dir
-					if dist < 96{
-						draw_circle(xx, yy, j_r, true)
+					if dist < 160{
+						var d = 24
+						if yy > j_y + d{
+							throttle = 1
+						}
+						else if yy < j_y - d{
+							throttle = -1
+						}
+						else{
+							throttle = 0
+						}
+						throttle_x = scr_increment_in_bounds(j_x, xx - j_x, j_x - j_bw, j_x + j_bw, false)
+						throttle_y = j_y + d*throttle
+						//draw_circle(xx, yy, j_r, true)
 						draw_set_alpha(0.5)
-						draw_circle(xx, yy, j_r, false)
+						//draw_circle(xx, yy, j_r, false)
 						draw_set_alpha(1)
 				
 						// Set inputs
-						if dist > 16{
+						if dist > 8{
+							/*
 							inputs[LEFT_KEY] = get_joystick_input(dir, LEFT_KEY)
 							inputs[RIGHT_KEY] = get_joystick_input(dir, RIGHT_KEY)
 							inputs[UP_KEY] = get_joystick_input(dir, UP_KEY)
 							inputs[DOWN_KEY] = get_joystick_input(dir, DOWN_KEY)
-							steer = (xx - j_x)/80
+							*/
+							steer = round(((throttle_x - j_x)/j_bw)*10)/10
 						}
 					}
+				}
+				else{
+					throttle_x = j_x
+					throttle_y = j_y
+					throttle = 0
 				}
 				#endregion
 				break
