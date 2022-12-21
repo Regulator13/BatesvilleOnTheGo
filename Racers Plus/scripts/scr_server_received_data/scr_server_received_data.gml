@@ -117,6 +117,7 @@ function scr_server_received_data(Network_player, buff) {
 		case UPDATE_CMD:
 			var throttle = buffer_read(buff, buffer_s8)
 			var steer = buffer_read(buff, buffer_s8)/100
+			steer = sign(steer)*power(steer,2)
 			
 			var Car = Network_player.Player.Car
 			if instance_exists(Car){
