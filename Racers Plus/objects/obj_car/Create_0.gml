@@ -26,7 +26,7 @@ weight = 3 //How much the car weighs
 steer = 0 //-1 = hard left turn, 0 = straight, 1 = hard right turn
 steer_incr = .05 //Amount of turn/step
 
-align_margin = 25 //Number of degrees the car must be within a 90 degree angle to auto-align
+align_margin = 10 //Number of degrees the car must be within a 90 degree angle to auto-align
 align_buffer_max = 30 //Number of steps between buffers check
 align_buffer = align_buffer_max
 

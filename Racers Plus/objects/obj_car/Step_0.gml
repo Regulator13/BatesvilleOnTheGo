@@ -10,7 +10,7 @@ else{
 //Accelerate
 if inputs[UP_KEY]{
 	//Only accelerate if not steering too much
-	if steer < .5 or speed < gear_max_speed[2]{
+	if (direction mod 90 < 20 or direction mod 90 > 70) or speed < gear_min_speed[2]{
 		if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
 			if nitrus_on and nitrus > 0{
 				speed += accel*nitrus_boost
@@ -23,6 +23,10 @@ if inputs[UP_KEY]{
 		else if speed >= gear_max_speed[gear]{
 			current_shift_period += 1 + nitrus_on*nitrus_boost
 		}
+	}
+	else if (direction mod 90 > 20 or direction mod 90 < 70) and speed > gear_min_speed[2]{
+		// Slow down player during fast turns
+		//speed -= fric
 	}
 	//Whenever accelerating, reset the reverse shift period
 	current_reverse_period = 0
@@ -153,15 +157,18 @@ if speed <= max_speed{
 }
 
 //Align the vehicle to 90 degree angles
+
 if align_buffer<= 0{
 	if speed > gear_min_speed[2]{ //Only align if traveling fast
 		if 90 - (direction mod 90) <= align_margin or direction mod 90 <= align_margin{
+			
 			direction = round(direction/90)*90
 			car_dir = round(direction/90)*90
 			align_buffer = align_buffer_max
 		}
 	}
 }
+
 
 if steer < .2 and speed > gear_min_speed[2] and (direction mod 90 != 0){
 	align_buffer -= 1

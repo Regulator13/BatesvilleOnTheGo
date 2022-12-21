@@ -156,10 +156,7 @@
     {"id":{"name":"rm_copy","path":"rooms/rm_copy/rm_copy.yy",},"order":0,},
   ],
   "Options": [
-    {"name":"Amazon Fire","path":"options/amazonfire/options_amazonfire.yy",},
-    {"name":"Android","path":"options/android/options_android.yy",},
-    {"name":"iOS","path":"options/ios/options_ios.yy",},
-    {"name":"tvOS","path":"options/tvos/options_tvos.yy",},
+    {"name":"HTML5","path":"options/html5/options_html5.yy",},
     {"name":"Windows","path":"options/windows/options_windows.yy",},
     {"name":"operagx","path":"options/operagx/options_operagx.yy",},
     {"name":"Main","path":"options/main/options_main.yy",},
@@ -172,9 +169,9 @@
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"mnu_main","path":"rooms/mnu_main/mnu_main.yy",},},
+    {"roomId":{"name":"mnu_controller_score","path":"rooms/mnu_controller_score/mnu_controller_score.yy",},},
     {"roomId":{"name":"rm_downtown","path":"rooms/rm_downtown/rm_downtown.yy",},},
     {"roomId":{"name":"mnu_controller_main","path":"rooms/mnu_controller_main/mnu_controller_main.yy",},},
-    {"roomId":{"name":"mnu_controller_score","path":"rooms/mnu_controller_score/mnu_controller_score.yy",},},
     {"roomId":{"name":"rm_track1","path":"rooms/rm_track1/rm_track1.yy",},},
     {"roomId":{"name":"rm_copy","path":"rooms/rm_copy/rm_copy.yy",},},
     {"roomId":{"name":"mnu_controller_lobby","path":"rooms/mnu_controller_lobby/mnu_controller_lobby.yy",},},

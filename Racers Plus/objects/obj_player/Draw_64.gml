@@ -9,6 +9,7 @@ if inputs[RIGHT_KEY] draw_text(100*controls, 16, "Right")
 if inputs[UP_KEY] draw_text(100*controls, 32, "Up")
 if inputs[DOWN_KEY] draw_text(100*controls, 64, "Down")
 draw_text(100*controls, 80, string(steer))
+draw_text(100*controls, 96, string(throttle))
 
 /// @description HTML GUI
 if not global.have_server and local and os_browser != browser_not_a_browser{
@@ -53,10 +54,70 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 	}
 	if obj_menu.state == STATE_GAME and instance_exists(obj_game_control){
 		// This is a phone controller
+		throttle = 0
+		steer = 0
 		
 		switch state{
 			case STATE_DRIVING:
+				#region Driving
+				var j_bw = 64
+				var j_bh = 16
+				var j_r = 48
+				draw_set_color(c_white)
+				draw_line(0, room_height/2, room_width/2, room_height/2)
+				//draw_circle(j_x, j_y, j_b, true)
+				draw_roundrect(j_x - j_bw, throttle_y - j_bh, j_x + j_bw, throttle_y + j_bh, true)
+				draw_circle(throttle_x, throttle_y, j_r, true)
+				draw_set_alpha(0.5)
+				//draw_circle(j_x, j_y, j_b, false)
+				draw_roundrect(j_x - j_bw, throttle_y - j_bh, j_x + j_bw, throttle_y + j_bh, false)
+				draw_circle(throttle_x, throttle_y, j_r, false)
+				draw_set_alpha(1)
+				
+				throttle_x = j_x
+				throttle_y = j_y
+				
+				// Multi-touch
+				for (var i=0; i<2; i++){
+					if device_mouse_check_button(i, mb_left){
+						var xx = device_mouse_x(i)
+						var yy = device_mouse_y(i)
+						if xx > room_width/2{
+							// Steering joystick
+							
+							// Joystick base
+							if device_mouse_check_button_pressed(i, mb_left){
+								j_x = device_mouse_x(i)
+								j_y = device_mouse_y(i)
+							}
+							var dist = point_distance(j_x, j_y, xx, yy)
+							
+							if dist < 160{
+								throttle_x = scr_increment_in_bounds(j_x, xx - j_x, j_x - j_bw, j_x + j_bw, false)
+								
+								if dist > 8{
+									steer = round(((throttle_x - j_x)/j_bw)*10)/10
+								}
+							}
+						}
+						else{
+							// Throttle
+							if yy > room_height/2{
+								throttle = 1
+							}
+							else throttle = -1
+						}
+				
+						draw_circle(xx, yy, j_r, true)
+						draw_set_alpha(0.5)
+						draw_circle(xx, yy, j_r, false)
+						draw_set_alpha(1)
+					}
+				}
+				
+				#endregion
 				#region Joystick
+				/*
 				// Joystick base
 				if mouse_check_button_pressed(mb_left){
 					j_x = window_mouse_get_x()
@@ -92,15 +153,15 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 						var d = 24
 						if yy > j_y + d{
 							throttle = 1
-							if yy > j_y + (d + 8){
-								j_y = yy - d
+							if yy > j_y + (d + d){
+								//j_y = yy - d
 							}
 						}
 						else if yy < j_y - d{
 							// Forward
 							throttle = -1
-							if yy < j_y - (d + 8){
-								j_y = yy + d
+							if yy < j_y - (d + d){
+								//j_y = yy + d
 							}
 						}
 						else{
@@ -120,7 +181,7 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 							inputs[RIGHT_KEY] = get_joystick_input(dir, RIGHT_KEY)
 							inputs[UP_KEY] = get_joystick_input(dir, UP_KEY)
 							inputs[DOWN_KEY] = get_joystick_input(dir, DOWN_KEY)
-							*/
+							
 							steer = round(((throttle_x - j_x)/j_bw)*10)/10
 						}
 					}
@@ -130,6 +191,7 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 					throttle_y = j_y
 					throttle = 0
 				}
+				*/
 				#endregion
 				break
 			case STATE_PICKING_UP:
