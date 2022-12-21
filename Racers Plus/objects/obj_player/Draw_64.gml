@@ -58,8 +58,10 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 			case STATE_DRIVING:
 				#region Joystick
 				// Joystick base
-				var j_x = 128
-				var j_y = 128
+				if mouse_check_button_pressed(mb_left){
+					j_x = window_mouse_get_x()
+					j_y = window_mouse_get_y()
+				}
 				var j_bw = 64
 				var j_bh = 16
 				var j_r = 48
@@ -90,9 +92,16 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 						var d = 24
 						if yy > j_y + d{
 							throttle = 1
+							if yy > j_y + (d + 8){
+								j_y = yy - d
+							}
 						}
 						else if yy < j_y - d{
+							// Forward
 							throttle = -1
+							if yy < j_y - (d + 8){
+								j_y = yy + d
+							}
 						}
 						else{
 							throttle = 0

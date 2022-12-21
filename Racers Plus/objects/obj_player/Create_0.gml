@@ -5,6 +5,8 @@
 throttle = 0
 throttle_y = 128
 throttle_x = 128
+j_x = 128
+j_y = 128
 
 //Changeable Vehicle Variables
 
