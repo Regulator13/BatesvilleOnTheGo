@@ -14,7 +14,7 @@ if controls == 2{
 		instance_destroy(Car)
 		model++
 		if model > 8 model = 0
-		tips -= model_cost[model]
+		//tips -= model_cost[model]
 		event_user(0)
 	}
 }
@@ -23,7 +23,7 @@ if controls == 1{
 		instance_destroy(Car)
 		model++
 		if model > 8 model = 0
-		tips -= model_cost[model]
+		//tips -= model_cost[model]
 		event_user(0)
 	}
 }
@@ -32,7 +32,7 @@ if controls == 0{
 		instance_destroy(Car)
 		model++
 		if model > 8 model = 0
-		tips -= model_cost[model]
+		//tips -= model_cost[model]
 		event_user(0)
 	}
 }

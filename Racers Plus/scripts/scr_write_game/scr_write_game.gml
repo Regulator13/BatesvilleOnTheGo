@@ -11,6 +11,7 @@ function scr_write_game(buff, starting_position, Authoritative_player) {
 	///TODO
 	if Authoritative_player.connect_id != 0{
 		var Player = Authoritative_player.Player
+		buffer_write(buff, buffer_s32, obj_menu.Teams[? Player.team].team_score)
 		var Car = Player.Car
 		buffer_write(buff, buffer_u8, Player.state)
 		switch Player.state{

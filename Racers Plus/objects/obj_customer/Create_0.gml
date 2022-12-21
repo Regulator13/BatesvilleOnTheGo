@@ -12,7 +12,8 @@ Home = noone
 // or immediately switched by failing a delivery
 loyality = 1
 // Team customer is loyal to
-loyal_team = irandom_range(1, 2)
+// obj_game_control will set
+loyal_team = 0
 
 // -1 if customer is not active
 // obj_game_control will set the active customers each round

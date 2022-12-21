@@ -1,5 +1,8 @@
 /// @description Set Vehicle Model Variables
 
+////TODO
+// -1 to accelerate, 0 to maintain, 1 to deccelerate
+throttle = 0
 throttle_y = 128
 throttle_x = 128
 

@@ -4,6 +4,7 @@ function scr_read_game(buff){
 	var Player = obj_client.Player//Network_players[? obj_client.connect_id]
 	
 	if obj_client.connect_id != 0{
+		Player.tips = buffer_read(buff, buffer_s32)
 		var state = buffer_read(buff, buffer_u8)
 		
 		////DEBUG
