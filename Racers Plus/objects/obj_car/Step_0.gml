@@ -9,17 +9,20 @@ else{
 
 //Accelerate
 if inputs[UP_KEY]{
-	if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
-		if nitrus_on and nitrus > 0{
-			speed += accel*nitrus_boost
-			nitrus -= 1
+	//Only accelerate if not steering too much
+	if steer < .5 or speed < gear_max_speed[2]{
+		if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
+			if nitrus_on and nitrus > 0{
+				speed += accel*nitrus_boost
+				nitrus -= 1
+			}
+			else{
+				speed += accel
+			}
 		}
-		else{
-			speed += accel
+		else if speed >= gear_max_speed[gear]{
+			current_shift_period += 1 + nitrus_on*nitrus_boost
 		}
-	}
-	else if speed >= gear_max_speed[gear]{
-		current_shift_period += 1 + nitrus_on*nitrus_boost
 	}
 	//Whenever accelerating, reset the reverse shift period
 	current_reverse_period = 0
@@ -55,7 +58,6 @@ if inputs[DOWN_KEY]{
 
 //Turning
 //Get turn amount
-if abs(steer) <= 0.5 steer = 0
 if not global.online{
 	if inputs[RIGHT_KEY]{
 		if steer < 1{
@@ -161,7 +163,7 @@ if align_buffer<= 0{
 	}
 }
 
-if steer != 0 and speed > gear_min_speed[2]{
+if steer < .2 and speed > gear_min_speed[2] and (direction mod 90 != 0){
 	align_buffer -= 1
 }
 else{
