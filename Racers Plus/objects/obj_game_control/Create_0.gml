@@ -2,7 +2,7 @@
 //window_set_fullscreen(true)
 
 change_state = false
-win_score = 250
+win_score = 500
 
 ////TODO
 // Includes team 0 for spawn
