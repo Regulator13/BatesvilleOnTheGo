@@ -16,7 +16,7 @@ switch obj_menu.state {
 			draw_set_color(obj_menu.color_array[Team.team_color])
 			draw_rectangle(dx, dy + di*s + 1, room_width - dx, dy + di*s + s - 2, true)
 			if Team.team == 0 {
-				draw_text(dx, dy + di*s, "Mountain Man")
+				//draw_text(dx, dy + di*s, "Mountain Man")
 			}
 			else {
 				draw_text(dx, dy + di*s, "Team " + string(Team.team))

@@ -1,6 +1,15 @@
 /// TODO
 //window_set_fullscreen(true)
 
+change_state = false
+win_score = 250
+
+////TODO
+// Includes team 0 for spawn
+team_amount = instance_number(obj_team)
+customer_amount = 16
+winner = 0
+
 //Set global variables
 global.player_start = [room_width/2, room_height/2]
 global.player_counter = 0

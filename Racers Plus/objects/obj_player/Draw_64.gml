@@ -2,7 +2,6 @@
 draw_set_color(c_white)
 draw_set_valign(fa_top)
 draw_set_halign(fa_left)
-draw_text(100*controls, 0, "Tips: " + string(tips))
 
 if inputs[LEFT_KEY] draw_text(100*controls, 48, "Left")
 if inputs[RIGHT_KEY] draw_text(100*controls, 16, "Right")
