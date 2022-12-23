@@ -74,21 +74,32 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				draw_circle(throttle_x, throttle_y, j_r, false)
 				draw_set_alpha(1)
 				
+				// Draw picked up deliveries
+				draw_set_halign(fa_middle)
+				draw_set_valign(fa_center)
+				var pizza_radius = 32
+				for (var i=0; i<ds_list_size(picked_up_deliveries); i++){
+					draw_set_color(c_orange)
+					draw_circle(view_wport[0]/2, 2*pizza_radius*(i + 1), pizza_radius, false)
+					draw_set_color(c_white)
+					draw_text(view_wport[0]/2, 2*pizza_radius*(i + 1), picked_up_deliveries[| i])
+				}
+				
 				throttle_x = j_x
 				throttle_y = j_y
 				
 				// Multi-touch
 				for (var i=0; i<2; i++){
 					if device_mouse_check_button(i, mb_left){
-						var xx = device_mouse_x(i)
-						var yy = device_mouse_y(i)
+						var xx = device_mouse_raw_x(i)
+						var yy = device_mouse_raw_y(i)
 						if xx > room_width/2{
 							// Steering joystick
 							
 							// Joystick base
 							if device_mouse_check_button_pressed(i, mb_left){
-								j_x = device_mouse_x(i)
-								j_y = device_mouse_y(i)
+								j_x = device_mouse_raw_x(i)
+								j_y = device_mouse_raw_y(i)
 							}
 							var dist = point_distance(j_x, j_y, xx, yy)
 							

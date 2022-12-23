@@ -15,6 +15,21 @@ function scr_read_game(buff){
 		Player.state = state
 		switch Player.state{
 			case STATE_DRIVING:
+				var delivery_amount = buffer_read(buff, buffer_u8)
+				
+				////DEBUG
+				if delivery_amount != ds_list_size(Player.picked_up_deliveries){
+					show_debug_message("scr_read_game Delivery amount changed from " + 
+							string(ds_list_size(Player.picked_up_deliveries)) + " to " +
+							string(delivery_amount))
+				}
+				
+				////TODO
+				ds_list_clear(Player.picked_up_deliveries)
+				for (var i=0; i<delivery_amount; i++){
+					// Order number
+					ds_list_add(Player.picked_up_deliveries, buffer_read(buff, buffer_u8))
+				}
 				break
 			case STATE_PICKING_UP:
 				var delivery_options = buffer_read(buff, buffer_u8)

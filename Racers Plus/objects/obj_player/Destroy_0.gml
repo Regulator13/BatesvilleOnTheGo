@@ -17,3 +17,4 @@ if global.online{
 }
 
 ds_list_destroy(available_deliveries)
+ds_list_destroy(picked_up_deliveries)

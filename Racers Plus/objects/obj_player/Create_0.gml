@@ -45,6 +45,7 @@ steer = 0
 state = STATE_DRIVING
 
 available_deliveries = ds_list_create()
+picked_up_deliveries = ds_list_create()
 
 #region Networking
 /// @description Declare variables

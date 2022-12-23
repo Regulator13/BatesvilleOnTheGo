@@ -16,6 +16,11 @@ function scr_write_game(buff, starting_position, Authoritative_player) {
 		buffer_write(buff, buffer_u8, Player.state)
 		switch Player.state{
 			case STATE_DRIVING:
+				var delivery_amount = ds_list_size(Car.picked_up_deliveries)
+				buffer_write(buff, buffer_u8, delivery_amount)
+				for (var i=0; i<delivery_amount; i++){
+					buffer_write(buff, buffer_u8, get_order_number(Car.picked_up_deliveries[| i]))
+				}
 				break
 			case STATE_PICKING_UP:
 				var delivery_options = ds_list_size(Car.available_deliveries)
