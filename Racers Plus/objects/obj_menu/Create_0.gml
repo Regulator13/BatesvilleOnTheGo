@@ -33,8 +33,10 @@ input_buffer_max = 8
 keyboard_input = false	//whether to show selection via keyboard
 prev_mouse_x = mouse_x	//check to see if mouse move to turn off keyboard input
 
-model_sprites = [spr_car, spr_police, spr_racecar, spr_semi, spr_taxi, spr_truck, spr_van,
-		spr_widecar, spr_ambulance]
+//Models 0 = Red Car, 1 = Police Car, 2 = Sport's car, 3 = Taxi 4 = Ambulance
+//5 = Pickup, 6 = Van, 7 = Orange Car, 8 = Semi
+model_sprites = [spr_car, spr_police, spr_racecar, spr_taxi, spr_ambulance, spr_truck, spr_van,
+		spr_widecar, spr_semi]
 
 //universal colour array
 color_array[0] = #ffffff;
