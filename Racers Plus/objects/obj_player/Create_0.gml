@@ -8,6 +8,9 @@ throttle_x = 128
 j_x = 520
 j_y = 128
 
+hp = 0
+nitrus = 0
+
 //Changeable Vehicle Variables
 
 model = 0 //The current model of the vehicle

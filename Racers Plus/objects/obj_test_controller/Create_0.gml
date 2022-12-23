@@ -7,8 +7,8 @@ if variable_global_get("online"){
 }
 
 // obj_server
-global.have_server = false
 var Menu = instance_create_layer(0, 0, "lay_instances", obj_menu)
+global.have_server = false
 global.online = false
 Menu.state = STATE_GAME
 var Control = instance_create_layer(0, 0, "lay_instances", obj_game_control)

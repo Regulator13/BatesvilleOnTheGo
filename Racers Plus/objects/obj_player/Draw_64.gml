@@ -1,14 +1,15 @@
 /// @description Draw score
-draw_set_color(c_white)
-draw_set_valign(fa_top)
-draw_set_halign(fa_left)
 
+
+////Draw font
+/*
 if inputs[LEFT_KEY] draw_text(100*controls, 48, "Left")
 if inputs[RIGHT_KEY] draw_text(100*controls, 16, "Right")
 if inputs[UP_KEY] draw_text(100*controls, 32, "Up")
 if inputs[DOWN_KEY] draw_text(100*controls, 64, "Down")
 draw_text(100*controls, 80, string(steer))
 draw_text(100*controls, 96, string(throttle))
+*/
 
 /// @description HTML GUI
 if not global.have_server and local and os_browser != browser_not_a_browser{
@@ -21,12 +22,13 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				html_p(Top, "name", player_name)
 			var Middle = html_div(Grid, "hud-middle", undefined, "hud-middle")
 				html_p(Middle, "team-name", get_team_name(team))
-				var Team_slider = html_range(Middle, "team-slider", 1, 2, "type-slider", 1)
+				var Team_slider = html_range(Middle, "team-slider", 1, 2, "type-slider", 
+						string(connect_id div 2 + 1))
 			var Bottom = html_div(Grid, "hud-bottom", undefined, "hud-bottom")
 				var Color_display = html_div(Bottom, "color", undefined, "color-display",
 						"background-color: " + get_html_color(player_color))
 				var Color_slider = html_range(Bottom, "color-slider",
-						0, array_length(obj_menu.color_array) - 1, "type-slider", 0)
+						0, array_length(obj_menu.color_array) - 1, "type-slider", string(connect_id))
 			var Action = html_div(Grid, "action-right", undefined, "action-right")
 			var Action_bottom = html_div(Grid, "action-right-bottom", undefined, "action-right-bottom")
 				var Model_slider = html_range(Action_bottom, "model-slider",
@@ -52,6 +54,13 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 		}
 	}
 	if obj_menu.state == STATE_GAME and instance_exists(obj_game_control){
+		// Tips
+		draw_set_color(c_white)
+		draw_set_valign(fa_top)
+		draw_set_halign(fa_left)
+		draw_set_font(fnt_large)
+		draw_text(0, 0, "Tips: " + string(tips))
+		
 		// This is a phone controller
 		throttle = 0
 		steer = 0
@@ -59,6 +68,13 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 		switch state{
 			case STATE_DRIVING:
 				#region Driving
+				var w = 128
+				var h = 40
+				var dx = browser_width/2
+				var dy = browser_height - h
+				draw_healthbar(dx - w, 0, dx + w, h, (hp/model_hp_maxes[model])*100, c_white, c_red, c_green, 0, true, true)
+				//draw_healthbar(dx - w, dy, dx + w, dy + by + h, (nitrus/model_nitrus_maxes[model])*100, c_white, c_red, c_blue, 0, true, true)
+
 				var j_bw = 64
 				var j_bh = 16
 				var j_r = 48
@@ -79,9 +95,9 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				var pizza_radius = 32
 				for (var i=0; i<ds_list_size(picked_up_deliveries); i++){
 					draw_set_color(c_orange)
-					draw_circle(view_wport[0]/2, 2*pizza_radius*(i + 1), pizza_radius, false)
+					draw_circle(browser_width/2, 2*pizza_radius*(i + 1), pizza_radius, false)
 					draw_set_color(c_white)
-					draw_text(view_wport[0]/2, 2*pizza_radius*(i + 1), picked_up_deliveries[| i])
+					draw_text(browser_width/2, 2*pizza_radius*(i + 1), picked_up_deliveries[| i])
 				}
 				
 				throttle_x = j_x

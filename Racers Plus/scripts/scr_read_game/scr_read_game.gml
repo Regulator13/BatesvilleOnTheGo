@@ -5,6 +5,9 @@ function scr_read_game(buff){
 	
 	if obj_client.connect_id != 0{
 		Player.tips = buffer_read(buff, buffer_s32)
+		Player.model = buffer_read(buff, buffer_u8)
+		Player.hp = buffer_read(buff, buffer_u8)
+		Player.nitrus = buffer_read(buff, buffer_u8)
 		var state = buffer_read(buff, buffer_u8)
 		
 		////DEBUG

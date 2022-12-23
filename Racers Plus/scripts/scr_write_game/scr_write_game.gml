@@ -13,6 +13,10 @@ function scr_write_game(buff, starting_position, Authoritative_player) {
 		var Player = Authoritative_player.Player
 		buffer_write(buff, buffer_s32, obj_menu.Teams[? Player.team].team_score)
 		var Car = Player.Car
+		
+		buffer_write(buff, buffer_u8, Car.model)
+		buffer_write(buff, buffer_u8, Car.hp)
+		buffer_write(buff, buffer_u8, Car.nitrus)
 		buffer_write(buff, buffer_u8, Player.state)
 		switch Player.state{
 			case STATE_DRIVING:

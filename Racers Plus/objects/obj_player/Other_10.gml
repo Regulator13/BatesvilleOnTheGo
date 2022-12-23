@@ -4,7 +4,13 @@ var Business = global.businesses[? team]
 
 ////TODO global.player_start
 ////TODO Prevent overlap
-Car = instance_create_layer(Business.x + Business.sprite_width/2, Business.y + Business.sprite_height + 32 + 64, "lay_instances", obj_car)
+sprite_index = vehicle_sprites[model]
+image_angle = 90
+var x_offset = 0
+while not place_empty(Business.x - x_offset, Business.y + Business.sprite_height + 32){
+	x_offset += 16
+}
+Car = instance_create_layer(Business.x - x_offset, Business.y + Business.sprite_height + 32, "lay_instances", obj_car)
 
 Car.turn_speed = model_turn_speeds[model]
 Car.accel = model_accels[model]
@@ -24,3 +30,5 @@ Car.sprite_index = vehicle_sprites[model]
 Car.Player = self
 Car.model = model
 Car.image_blend = obj_menu.color_array[player_color]
+Car.car_dir = 0
+Car.image_angle = -90
