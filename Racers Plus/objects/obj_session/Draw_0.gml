@@ -13,9 +13,7 @@ if os_browser != browser_not_a_browser{
 
 		player_name = values[? "name"]
 		global.connectip = values[? "ip"]
-		if global.connectip == ""{
-			global.connectip = "192.168.137.1"
-		}
+		
 		alarm[0] = 1
 
 		ds_map_destroy(values)
