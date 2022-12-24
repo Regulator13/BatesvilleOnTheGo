@@ -17,9 +17,10 @@ if global.online and global.have_server {
 	draw_text(dx, dy + s*0, "Instructions")
 	draw_set_color(c_black)
 	draw_text(dx, dy + s*1, "Join Phame Games wifi")
-	draw_text(dx, dy + s*2, "Visit: http://" + obj_server.server_ip)
-	draw_text(dx, dy + s*3, "Click the 3 dots and then 'Add to Home Screen'")
-	draw_text(dx, dy + s*4, "Open new app")
+	draw_text(dx, dy + s*2, "Password: phamegames")
+	draw_text(dx, dy + s*3, "Visit: http://" + obj_server.server_ip)
+	draw_text(dx, dy + s*4, "Click the 3 dots and then 'Add to Home Screen'")
+	draw_text(dx, dy + s*5, "Open new app")
 	draw_set_font(fnt_basic_small)
 }
 
