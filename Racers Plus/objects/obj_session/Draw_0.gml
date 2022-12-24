@@ -6,13 +6,16 @@ if os_browser != browser_not_a_browser{
 	html_element(form, "1", "br")
 	html_field(form, "name", "text", "Player Name", true, "", default_name)
 	html_element(form, "2", "br")
-	html_field(form, "ip", "text", "172.0.0.1", true, "", default_ip)
+	html_field(form, "ip", "text", "192.168.137.1", true, "", default_ip)
 	html_submit(form, "submit", "Join", !form_is_loading, form_is_loading ? "loading" : "")
 	if html_element_interaction(form){
 		var values = html_form_values(form)
 
 		player_name = values[? "name"]
 		global.connectip = values[? "ip"]
+		if global.connectip == ""{
+			global.connectip = "192.168.137.1"
+		}
 		alarm[0] = 1
 
 		ds_map_destroy(values)
