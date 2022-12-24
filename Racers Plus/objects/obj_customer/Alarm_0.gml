@@ -16,7 +16,7 @@ for (open_number=1; open_number<max_orders; open_number++){
 
 if open_number < max_orders{
 	//Create order
-	var Order = instance_create_layer(Customer.x, Customer.y, "lay_instances", obj_order)
+	var Order = instance_create_layer(Customer.x, Customer.y, "lay_above", obj_order)
 	Order.image_blend = Business.image_blend
 	Order.order_id = set_order_id(open_number, business_id)
 	Order.reward = round(distance_to_point(Business.x, Business.y)/30)

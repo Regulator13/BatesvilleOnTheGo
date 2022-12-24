@@ -25,7 +25,7 @@ if Customer != noone{
 	
 	if open_number < max_orders{
 		//Create order
-		var Order = instance_create_layer(Customer.x, Customer.y, "lay_instances", obj_order)
+		var Order = instance_create_layer(Customer.x, Customer.y, "lay_above", obj_order)
 		Order.image_blend = image_blend
 		Order.order_id = set_order_id(open_number, business_id)
 		Order.reward = round(distance_to_point(Customer.x, Customer.y)/30)

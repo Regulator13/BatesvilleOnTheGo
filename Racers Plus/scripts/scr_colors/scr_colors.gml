@@ -4,7 +4,7 @@ function get_html_color(index){
 		case 0:
 			return "#ffffff"
 		case 1:
-			return "#0000ff"
+			return "#ffff00"
 		case 2:
 			return "#ff0000"
 		case 3:
@@ -18,9 +18,9 @@ function get_html_color(index){
 		case 7:
 			return "#9900cc"
 		case 8:
-			return "#339933"
+			return "#66ff66"
 		case 9:
-			return "#ffff00"
+			return "#6699ff"
 	}
 }
 

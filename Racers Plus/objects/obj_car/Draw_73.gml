@@ -1,4 +1,6 @@
-/// @description Draw HUD
+/// @description Draw self + HUD
+image_angle = car_dir - 90
+draw_self()
 
 var w = 16
 var h = 10

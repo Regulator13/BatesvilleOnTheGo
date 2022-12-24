@@ -10,7 +10,7 @@ else{
 //Accelerate
 if inputs[UP_KEY]{
 	//Only accelerate if not steering too much
-	if (direction mod 90 < 20 or direction mod 90 > 70) or speed < gear_min_speed[2]{
+	if (direction mod 90 < 20 or direction mod 90 > 70) or speed < gear_max_speed[2]{
 		if speed < gear_max_speed[gear] or (nitrus_on and nitrus > 0){
 			if nitrus_on and nitrus > 0{
 				speed += accel*nitrus_boost
@@ -222,6 +222,12 @@ if hp > hp_max{
 	hp = hp_max
 }
 
+// Destroy when too far outside of the room
+var margin = 64
+if x < -margin or x > room_width + margin or y < -margin or y > room_height + margin{
+	hp = 0
+}
+
 //Destroy vehicles that are dead, reset them at start
 if hp <= 0{
 	//Drop any picked up deliveries
@@ -239,7 +245,7 @@ if hp <= 0{
 	//if Player.tips < 0 Player.tips = 0
 	obj_menu.Teams[? Player.team].team_score -= 100
 
-	instance_create_layer(x, y, "lay_instances", obj_explosion)
+	instance_create_layer(x, y, "lay_above", obj_explosion)
 	x = global.player_start[0]
 	y = global.player_start[1]
 	hp = hp_max

@@ -39,8 +39,9 @@ model_sprites = [spr_car, spr_police, spr_racecar, spr_taxi, spr_ambulance, spr_
 		spr_widecar, spr_semi]
 
 //universal colour array
+// Also change in get_html_color
 color_array[0] = #ffffff;
-color_array[1] = #6699ff;
+color_array[1] = #ffff00;
 color_array[2] = #ff0000;
 color_array[3] = #33cc33;
 color_array[4] = #cc0099;
@@ -48,4 +49,4 @@ color_array[5] = #00ffcc;
 color_array[6] = #ff9900;
 color_array[7] = #9900cc;
 color_array[8] = #66ff66;
-color_array[9] = #ffff00;
+color_array[9] = #6699ff;

@@ -28,7 +28,8 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				var Color_display = html_div(Bottom, "color", undefined, "color-display",
 						"background-color: " + get_html_color(player_color))
 				var Color_slider = html_range(Bottom, "color-slider",
-						0, array_length(obj_menu.color_array) - 1, "type-slider", string(connect_id))
+						0, array_length(obj_menu.color_array) - 1, "type-slider", 
+						string(connect_id mod array_length(obj_menu.color_array)))
 			var Action = html_div(Grid, "action-right", undefined, "action-right")
 			var Action_bottom = html_div(Grid, "action-right-bottom", undefined, "action-right-bottom")
 				var Model_slider = html_range(Action_bottom, "model-slider",
@@ -79,6 +80,13 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				var j_bh = 16
 				var j_r = 48
 				draw_set_color(c_white)
+				draw_set_font(fnt_text)
+				draw_set_halign(fa_middle)
+				draw_set_valign(fa_bottom)
+				draw_text(room_width/4, room_height/2, "Gas/Forward")
+				draw_set_valign(fa_top)
+				draw_text(room_width/4, room_height/2, "Brake/Reverse")
+				
 				draw_line(0, room_height/2, room_width/2, room_height/2)
 				//draw_circle(j_x, j_y, j_b, true)
 				draw_roundrect(j_x - j_bw, throttle_y - j_bh, j_x + j_bw, throttle_y + j_bh, true)
@@ -94,7 +102,7 @@ if not global.have_server and local and os_browser != browser_not_a_browser{
 				draw_set_valign(fa_center)
 				var pizza_radius = 32
 				for (var i=0; i<ds_list_size(picked_up_deliveries); i++){
-					draw_set_color(c_orange)
+					draw_set_color(global.business_colors[team])
 					draw_circle(browser_width/2, 2*pizza_radius*(i + 1), pizza_radius, false)
 					draw_set_color(c_white)
 					draw_text(browser_width/2, 2*pizza_radius*(i + 1), picked_up_deliveries[| i])

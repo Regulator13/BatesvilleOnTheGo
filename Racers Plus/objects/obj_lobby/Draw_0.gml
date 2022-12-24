@@ -8,7 +8,18 @@ if global.online and global.have_server {
 	draw_set_halign(fa_middle)
 	draw_set_font(fnt_large)
 	draw_text(room_width/2, 2, "IP: " + obj_server.server_ip)
-	draw_text(room_width/2, room_height - 128, "http://frey.network/tower")
+	
+	// Joining instructions
+	var dx = room_width*3/4
+	var dy = 64
+	var s = 32
+	draw_set_color(c_red)
+	draw_text(dx, dy + s*0, "Instructions")
+	draw_set_color(c_black)
+	draw_text(dx, dy + s*1, "Join Phame Games wifi")
+	draw_text(dx, dy + s*2, "Visit: http://" + obj_server.server_ip)
+	draw_text(dx, dy + s*3, "Click the 3 dots and then 'Add to Home Screen'")
+	draw_text(dx, dy + s*4, "Open new app")
 	draw_set_font(fnt_basic_small)
 }
 
