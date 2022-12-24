@@ -12,7 +12,7 @@ if global.online and global.have_server {
 	// Joining instructions
 	var dx = room_width*3/4
 	var dy = 64
-	var s = 32
+	var s = 48
 	draw_set_color(c_red)
 	draw_text(dx, dy + s*0, "Instructions")
 	draw_set_color(c_black)
