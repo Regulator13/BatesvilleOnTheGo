@@ -17,6 +17,6 @@ function scr_send_login(name){
 
 	//send this to the server
 	//buffer_tell automatically accounts for what was written, and therefore sends the smallest possible size
-	network_send_packet(server_tcp_socket, buff, buffer_tell(buff))
+	network_send_raw(server_tcp_socket, buff, buffer_tell(buff))
 	scr_log_send_tcp_raw(client_messages_log, connect_id, CLIENT_LOGIN)
 }

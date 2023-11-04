@@ -13,7 +13,7 @@ else{
     global.connectip = "127.0.0.1";
 	
     //switch menu to the lobby
-    scr_state_switch(STATE_ONLINE, STATE_LOBBY);
+    menu_state_switch(STATE_ONLINE, STATE_LOBBY);
 	
     //create client
     var client = instance_create_layer(0, 0, "lay_networking", obj_client);

@@ -47,6 +47,9 @@ if eventid == udp_server{
 #region TCP messages
 //cant do eventid == tcp_server because each TCP connection creates a different event_id
 else if eventid != broadcast_server and (instance_exists(obj_client) and eventid != obj_client.tcp_client and eventid != obj_client.udp_client){
+	if type == network_type_non_blocking_connect{
+		
+	}
 	if type == network_type_connect{
 		var socket = async_load[? "socket"]
 	
@@ -65,6 +68,8 @@ else if eventid != broadcast_server and (instance_exists(obj_client) and eventid
 		//disconnect the client based on the ip and socket combo
 		var socket = async_load[? "socket"]
 		
+		n = tcp_server
+		n = udp_server
 		//find the related network player
 		var Network_player = scr_find_client(ip, socket)
 		instance_destroy(Network_player)

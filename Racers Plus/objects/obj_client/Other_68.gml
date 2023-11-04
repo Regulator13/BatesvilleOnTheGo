@@ -9,7 +9,8 @@ if type == network_type_non_blocking_connect{
 	//Warning! This works on the server only!
 	var socket = async_load[? "socket"]
 	var ip = async_load[? "ip"]
-	show_debug_message("Server " + ip + " has connected with socket " + string(socket))
+	var succeeded = async_load[? "succeeded"]
+	show_debug_message("Server " + ip + " has succeeded (if 1): " + string(succeeded) + " with socket " + string(socket))
 }
 
 #region TCP messages
@@ -116,7 +117,7 @@ if (eventid == tcp_client and type == network_type_data){
 							alarm[2] = 1
 						}
 					
-						scr_state_switch(STATE_LOBBY, STATE_GAME)
+						menu_state_switch(STATE_LOBBY, STATE_GAME)
 					}
 					#endregion
 					break
@@ -133,7 +134,7 @@ if (eventid == tcp_client and type == network_type_data){
 					}
 					else if msg_id == SERVER_STATESWITCH{
 						network_state = NETWORK_SCORE
-						scr_state_switch(STATE_GAME, STATE_SCORE)
+						menu_state_switch(STATE_GAME, STATE_SCORE)
 					}
 					break
 				case NETWORK_SCORE:
@@ -145,7 +146,7 @@ if (eventid == tcp_client and type == network_type_data){
 					}
 					else if msg_id == SERVER_STATESWITCH{
 						network_state = NETWORK_LOBBY
-						scr_state_switch(STATE_SCORE, STATE_LOBBY)
+						menu_state_switch(STATE_SCORE, STATE_LOBBY)
 					}
 					break
 			}

@@ -15,8 +15,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "server",
-    "path": "folders/Objects/networking/server.yy",
+    "name": "Objects",
+    "path": "folders/Phame/Phame-Networking_Phone/Objects.yy",
   },
   "parentObjectId": null,
   "persistent": true,

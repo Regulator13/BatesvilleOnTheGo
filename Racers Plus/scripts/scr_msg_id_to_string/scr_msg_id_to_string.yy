@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "debug",
-    "path": "folders/Scripts/networking/debug.yy",
+    "path": "folders/Phame/Phame-Networking_Phone/Scripts/debug.yy",
   },
 }

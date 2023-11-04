@@ -1,7 +1,7 @@
 /// @description Start game - connect to a remote server
 
 //switch menu to the lobby
-scr_state_switch(STATE_ONLINE, STATE_LOBBY);
+menu_state_switch(STATE_ONLINE, STATE_LOBBY);
 
 //create  client
 var Client = instance_create_layer(0, 0, "lay_networking", obj_client)

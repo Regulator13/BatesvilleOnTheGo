@@ -17,8 +17,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "menu",
-    "path": "folders/Objects/menu.yy",
+    "name": "Objects",
+    "path": "folders/Phame/Phame-Menu/Objects.yy",
   },
   "parentObjectId": null,
   "persistent": true,

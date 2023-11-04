@@ -22,6 +22,6 @@ function scr_client_reply_ping(){
 	count_real_fps = 0
 
 	//send this to the server
-	network_send_packet(tcp_client, buff, buffer_tell(buff))
+	network_send_raw(tcp_client, buff, buffer_tell(buff))
 	scr_log_send_tcp_raw(client_messages_log, connect_id, CLIENT_PING)
 }

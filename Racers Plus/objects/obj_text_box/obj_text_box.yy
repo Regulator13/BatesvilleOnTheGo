@@ -13,8 +13,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "menu",
-    "path": "folders/Objects/menu.yy",
+    "name": "buttons",
+    "path": "folders/Phame/Phame-Menu/Objects/buttons.yy",
   },
   "parentObjectId": {
     "name": "obj_input_box",

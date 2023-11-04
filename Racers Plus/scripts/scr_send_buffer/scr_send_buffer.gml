@@ -15,7 +15,7 @@ function scr_server_send_TCP(Network_player, buffer, length) {
 		buffer_write(buffer, buffer_u8, Network_player.connect_id)
 	
 		//send message
-		Network_player.messageSuccess = network_send_packet(Network_player.tcp_socket, buffer, length)
+		Network_player.messageSuccess = network_send_raw(Network_player.tcp_socket, buffer, length)
 		return (Network_player.messageSuccess >= 0)
 	}
 	else{

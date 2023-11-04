@@ -21,7 +21,7 @@ function scr_client_send_pickup(connect_id, pickup){
 	buffer_write(buff, buffer_u8, pickup)
 		
 	//send this to the server
-	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
+	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
 }
 
 function scr_client_send_update(connect_id, Player){
@@ -44,7 +44,7 @@ function scr_client_send_update(connect_id, Player){
 	buffer_write(buff, buffer_s8, Player.steer*100)
 		
 	//send this to the server
-	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
+	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
 }
 
 ////TODO Put in better place
@@ -69,5 +69,5 @@ function scr_client_send_lobby_update(connect_id, team, color, model){
 	buffer_write(buff, buffer_u8, model)
 		
 	//send this to the server
-	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
+	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
 }

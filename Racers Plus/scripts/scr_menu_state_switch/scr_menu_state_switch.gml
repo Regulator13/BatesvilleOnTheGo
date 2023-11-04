@@ -2,7 +2,7 @@
 /// @description switches the current menu state to the new state
 /// @param from
 /// @param to
-function scr_state_switch(argument0, argument1) {
+function menu_state_switch(argument0, argument1) {
 	// Returns null
 
 	// set input

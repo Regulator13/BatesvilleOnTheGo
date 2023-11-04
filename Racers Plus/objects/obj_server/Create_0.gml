@@ -38,7 +38,7 @@ confirmBuffer = buffer_create(24, buffer_grow, alignment)
 //server creation may fail if there is already a server running
 broadcast_server = obj_session.broadcast_server
 udp_server = network_create_server(network_socket_udp, UDP_PORT, 32)
-tcp_server = network_create_server(network_socket_ws, TCP_PORT, 32)
+tcp_server = network_create_server_raw(network_socket_ws, TCP_PORT, 32)
 if udp_server < 0 or tcp_server < 0{    
     //if theres already a server running, shut down and delete
     instance_destroy()
@@ -52,7 +52,7 @@ turns_per_set = ini_read_real("performance", "turns_per_set", 6)
 ini_close()
 
 //setup a timer so we can broadcast the server IP out to local clients looking...
-alarm[0] = BROADCAST_RATE
+//alarm[0] = BROADCAST_RATE
 
 //pinging
 alarm[1] = seconds_between_pings*game_get_speed(gamespeed_fps)

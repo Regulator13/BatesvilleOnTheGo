@@ -54,7 +54,7 @@ else{
 	network_set_config(network_config_connect_timeout, 4000)
 	
 	//attempt TCP connect
-	network_connect_async(tcp_client, global.connectip, TCP_PORT)
+	network_connect_raw_async(tcp_client, global.connectip, TCP_PORT)
 }
 #endregion
 #endregion

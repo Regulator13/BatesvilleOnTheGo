@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_load_player",
+  "name": "scr_menu_state_switch",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Phame/Phame-Networking_Phone/Scripts.yy",
+    "name": "Integration",
+    "path": "folders/Phame/Phame-Menu/Integration.yy",
   },
 }

@@ -3,7 +3,7 @@
 switch actions[| actionSel]{
 	// switch to lobby menu
     case "lobby":
-        scr_state_switch(global.Menu.state, STATE_LOBBY);
+        menu_state_switch(global.Menu.state, STATE_LOBBY);
         break;
 	
 	//play button
@@ -33,32 +33,32 @@ switch actions[| actionSel]{
         break;
 	
     case "backMainLobby":
-        scr_state_switch(STATE_LOBBY, STATE_MAIN);
+        menu_state_switch(STATE_LOBBY, STATE_MAIN);
         break;
 	
 	// return to main menu from the online menu
     case "backMainOnline":
-        scr_state_switch(STATE_ONLINE, STATE_MAIN);
+        menu_state_switch(STATE_ONLINE, STATE_MAIN);
         break;
 	
 	// return to online menu from the lobby
     case "backOnlineLobby":
-        scr_state_switch(STATE_LOBBY, STATE_ONLINE);
+        menu_state_switch(STATE_LOBBY, STATE_ONLINE);
         break;
 	
 	// return to online menu from the paths
     case "backOnlinePaths":
-        scr_state_switch(STATE_PATHS, STATE_ONLINE);
+        menu_state_switch(STATE_PATHS, STATE_ONLINE);
         break;
 	
 	// return to online menu from the game
     case "backOnlineGame":
-        scr_state_switch(STATE_GAME, STATE_ONLINE);
+        menu_state_switch(STATE_GAME, STATE_ONLINE);
         break;
 	
 	// return to online menu from the score screen
     case "backOnlineScore":
-        scr_state_switch(STATE_SCORE, STATE_ONLINE);
+        menu_state_switch(STATE_SCORE, STATE_ONLINE);
         break;
 	
     // reset client disconnect buffer

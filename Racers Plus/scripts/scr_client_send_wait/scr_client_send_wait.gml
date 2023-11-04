@@ -16,7 +16,7 @@ function scr_client_send_wait(current_communication_turn){
 	buffer_write(buff, buffer_u16, current_communication_turn)
 
 	//send this to the server
-	network_send_packet(tcp_client, buff, buffer_tell(buff))
+	network_send_raw(tcp_client, buff, buffer_tell(buff))
 	
 	//log this message
 	scr_log_send_tcp_raw(client_messages_log, connect_id, CLIENT_WAIT)
@@ -42,7 +42,7 @@ function scr_client_send_performance(actual_microseconds){
 	buffer_write(buff, buffer_u8, round(actual_microseconds/1000))
 
 	//send this to the server
-	network_send_packet(obj_client.tcp_client, buff, buffer_tell(buff))
+	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
 	
 	//log this message
 	scr_log_send_tcp_raw(obj_client.client_messages_log, obj_client.connect_id, CLIENT_PERFORMANCE)
