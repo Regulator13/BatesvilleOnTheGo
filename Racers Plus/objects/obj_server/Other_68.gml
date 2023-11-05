@@ -2,61 +2,10 @@
 var eventid = ds_map_find_value(async_load, "id")
 var type = ds_map_find_value(async_load, "type")
 var ip = async_load[? "ip"]
-	
-#region UDP messages
-if eventid == udp_server {
-	if type == network_type_data{
-		//find buffer
-		var buff = ds_map_find_value(async_load, "buffer");
-		///Debug show length
-		var buffer_size = buffer_get_size(buff)
-
-		//find start
-		buffer_seek(buff, buffer_seek_start, 0);
-
-		//ensure correct GAME ID
-		if buffer_read(buff, buffer_u8) == GAME_ID {
-			//read message id
-			var connect_id = buffer_read(buff, buffer_u8)
-			var msg_id = buffer_read(buff, buffer_s8)
-			var Connected_client = Connected_clients[? connect_id]
-			
-			log_message(string("<- UDP {0}", scr_msg_id_to_string(msg_id)))
-			
-			// Connected_client could be undefined if a ping is recieved late and the player
-			// is already dropped
-			if not is_undefined(Connected_client) {
-				switch (msg_id) {
-				    case CLIENT_CONNECT:
-				        //client connecting via UDP
-						var port = async_load[? "port"]
-						//since this is UDP and the packet will be sent many times,
-						//make sure the port is not already set
-						if Connected_client.udp_port != port{
-							//send no socket as this is a UDP connection
-					        server_connect_client(connect_id, ip, port, -1)
-							//inform client of succesful connection
-							ds_queue_enqueue(Connected_client.messages_out, SERVER_CONNECT)
-						}
-				        break
-					default:
-						// Integration can declare unique msg_ids
-						read_regular_message(msg_id, buff, Connected_client)
-						break
-				}
-			}
-		}
-		else {
-			// Is the socket set to be reliable on both client and server?
-			show_debug_message("Warning! Other game messages received.")
-		}
-	}
-}
-#endregion
 
 #region TCP messages
 //cant do eventid == tcp_server because each TCP connection creates a different event_id
-else if instance_exists(obj_client) and eventid != obj_client.tcp_client and eventid != obj_client.udp_client {
+if instance_exists(obj_client) and eventid != obj_client.tcp_client {
 	if type == network_type_connect{
 		var socket = async_load[? "socket"]
 	
@@ -109,10 +58,9 @@ else if instance_exists(obj_client) and eventid != obj_client.tcp_client and eve
 				show_debug_message("Socket: " + string(socket) + " Port: " + string(port))
 			}
 			else{
-				Connected_client.alarm[0] = Connected_client.drop_wait
 				switch msg_id{
 					case CLIENT_PING:
-						Connected_client.alarm[3] = Connected_client.drop_wait
+						Connected_client.alarm[0] = Connected_client.drop_wait
 							
 						#region Reply
 						// This message is ultimately ignored, just to keep port open with NAT
@@ -136,11 +84,10 @@ else if instance_exists(obj_client) and eventid != obj_client.tcp_client and eve
 						//set the client "name"
 						var player_name = buffer_read(buff, buffer_string)
 						//client logging in
-						scr_login_client(Connected_client, player_name)
+						server_login_client(Connected_client, player_name)
 						break
 					case CLIENT_PLAY:
-						//all other sockets are connected client sockets, and we have recieved commands from them.
-						scr_server_received_data(Connected_client, buff)
+						read_reliable_message(msg_id, buff, Connected_client)
 						break
 					default:
 						show_debug_message("Warning! TCP message msg_id not caught: " + string(msg_id))

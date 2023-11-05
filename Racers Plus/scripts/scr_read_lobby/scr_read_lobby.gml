@@ -5,7 +5,7 @@ function controller_read_lobby(buff){
 		show_debug_message("controller_read_lobby player instance does not exist")
 		//add network player
 		Player = instance_create_layer(0, 0, LAY, obj_player)
-		Player.connect_id = obj_client.connect_id
+		Player.Parent.connect_id = obj_client.connect_id
 		Player.local = true
 		obj_client.Player = Player
 	}

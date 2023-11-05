@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Integration",
-    "path": "folders/Phame/Integration.yy",
+    "name": "game",
+    "path": "folders/Phame/Phame-Lobby/Interface/game.yy",
   },
 }

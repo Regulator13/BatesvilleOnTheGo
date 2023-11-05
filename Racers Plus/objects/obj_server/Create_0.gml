@@ -7,9 +7,6 @@ networking_declare_server_interface_functions()
 
 server_name = ""
 
-h_get_ip = http_get("https://api.ipify.org")
-external_ip = ""
-
 #region Networking
 global.have_server = true
 
@@ -18,7 +15,6 @@ global.connect_id = 0
 
 var alignment = 1
 //Caution! Potential memory leak. Buffers are not deleted when restarting a game, must be done manually
-broadcast_buffer = buffer_create(32, buffer_fixed, alignment)
 game_buffer = buffer_create(32, buffer_grow, alignment)
 interaction_buffer = buffer_create(32, buffer_grow, alignment)
 
@@ -41,9 +37,8 @@ confirm_buffer = buffer_create(24, buffer_grow, alignment)
 
 // Try and create the actual server
 // Server creation may fail if there is already a server running
-udp_server = network_create_server(network_socket_udp, UDP_PORT, 32)
 tcp_server = network_create_server_raw(network_socket_ws, TCP_PORT, 32)
-if udp_server < 0 or tcp_server < 0{    
+if tcp_server < 0{    
     // If theres already a server running, shut down and delete
     instance_destroy()
 }

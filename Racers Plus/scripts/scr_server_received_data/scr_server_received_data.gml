@@ -69,6 +69,34 @@ function scr_server_received_data(Network_player, buff) {
 			        break
 			}
 			break
+		case INTERACTION_CMD:
+			var interaction = buffer_read(buff, buffer_u8)
+			log_message(string("<- TCP INTERACTION_CMD {0}", scr_interaction_to_string(interaction)))
+			log_message(string("-> TCP INTERACTION_CMD {0}", scr_interaction_to_string(interaction)))
+			
+			#region Reflect interaction out to all peers
+			// GAME_ID and connect_id are added by scr_server_sent_TCP
+	        buffer_seek(buff, buffer_seek_start, 2)
+                    
+	        //write msg_id
+	        buffer_write(buff, buffer_s8, SERVER_PLAY)
+			
+			// Everything else is the same starting with UNIT_CMD
+			buffer_seek(buff, buffer_seek_end, 0)
+			
+			var message_length = buffer_tell(buff)
+			
+			var network_player_count = ds_list_size(active_connect_ids)
+			for (var i = 0; i < network_player_count; i++){
+				// obj_connected_client instances
+				var Every_connected_client = ds_map_find_value(Connected_clients, active_connect_ids[| i])
+				
+				if not server_send_TCP(Every_connected_client, buff, message_length){
+					show_debug_message("Warning: TCP interaction message to client failed to send")
+				}
+			}
+			#endregion
+			break
 		case PICKUP_CMD:
 			var Player = Network_player.Player
 			var order_number = buffer_read(buff, buffer_s8)
@@ -91,28 +119,6 @@ function scr_server_received_data(Network_player, buff) {
 						ds_list_add(Car.picked_up_deliveries, Delivery.order_id)
 						instance_destroy(Delivery)
 					}
-				}
-			}
-			break
-		////TODO Put in better spot
-		case UPDATE_LOBBY_CMD:
-			var team = buffer_read(buff, buffer_u8)
-			var color = buffer_read(buff, buffer_u8)
-			var model = buffer_read(buff, buffer_u8)
-			
-			if obj_menu.state == STATE_LOBBY{
-				var Player = Network_player.Player
-				Player.team = team
-				Player.player_color = color
-				Player.model = model
-			
-				////TODO Show team in lobby
-				Network_player.player_color = color
-				var New_section = obj_lobby.Network_sections[| team]
-				//must check if player is already in section, else code will attempt to keep inserting
-				//the player in a different position
-				if New_section != Network_player.Section{
-					scr_move_sections(Network_player, New_section, ds_list_size(New_section.Players), 0)
 				}
 			}
 			break

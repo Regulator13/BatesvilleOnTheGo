@@ -2,8 +2,6 @@ function networking_declare_server_interface_functions() {
 	// Networking periodic updates
 	game_update_wait = 1
 	
-	game_seed = random_get_seed()
-	
 	// Whether or not game is started
 	start = false
 	
@@ -21,6 +19,15 @@ function networking_declare_server_interface_functions() {
 		switch obj_menu.state {
 			case STATE_LOBBY:
 				switch message_in_queue {
+					case SERVER_LOGIN:
+						// SERVER_LOGIN is sent by server_login_client after both connections establish
+						// Get the client caught up
+						obj_campaign.write_state(buffer)
+						obj_campaign.log_message("obj_server SERVER_LOGIN for new client")
+						/// Module Interaction - Lobby
+						obj_lobby.write_state(buffer)
+						obj_lobby.log_message("obj_server SERVER_LOGIN for new client")
+						break
 					case SERVER_STATESWITCH:
 						// Game is starting!!
 							
@@ -61,11 +68,9 @@ function networking_declare_server_interface_functions() {
 	
 	/// @description Received a reliable UDP message
 	read_reliable_message = function(msg_id, buffer, Connected_client) {
-
-	}
-	/// @description Received a reliable UDP message
-	read_regular_message = function(msg_id, buffer, Connected_client) {
-		
+		// CLIENT_PLAY only msg_ids	
+		//all other sockets are connected client sockets, and we have recieved commands from them.
+		scr_server_received_data(Connected_client, buffer)
 	}
 	#endregion
 }

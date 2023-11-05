@@ -9,10 +9,13 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Integration",
-    "path": "folders/Phame/Integration.yy",
+    "name": "game",
+    "path": "folders/Phame/Phame-Lobby/Interface/game.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "par_interactable",
+    "path": "objects/par_interactable/par_interactable.yy",
+  },
   "persistent": true,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

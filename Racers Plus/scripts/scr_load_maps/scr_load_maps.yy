@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "lobby",
-    "path": "folders/Scripts/lobby.yy",
+    "name": "game",
+    "path": "folders/Phame/Phame-Lobby/Interface/game.yy",
   },
 }

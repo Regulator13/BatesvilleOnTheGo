@@ -50,31 +50,15 @@ state = STATE_DRIVING
 available_deliveries = ds_list_create()
 picked_up_deliveries = ds_list_create()
 
-#region Networking
-/// @description Declare variables
-//created for each player on the network in lobby state
-//sends local input to server if online
+// Who created this player
+Parent = noone
 
-//whether player is ready to start the game
-ready_to_start = false
-player_name = ""
-player_color = 0
-//whether this player is local to this machine
-local = false
+// Which virtual controller to use
+// stc_controller
+controller = obj_controls.controllers[5]
 
-//player specific properties
-team = -1
-section = -1
-
-#region Networking only
-connect_id = -1  //order in which client connected to server, not an index to any list!
-#endregion
-
-#region Lobby menu
-//Section in lobby player is a part of
-Section = noone
-Name_box = noone
-Ready_box = noone
-Color_box = noone
-#endregion
+#region Campaign
+// Group player is currently a part of
+Group = noone
+slot_index = 0
 #endregion

@@ -38,7 +38,7 @@ function scr_write_lobby(buff, starting_position) {
 		buffer_write(buff, buffer_u8, players_in_section)
 		for (var j=0; j<players_in_section; j++){
 			var Player = Section.Players[| j]
-			buffer_write(buff, buffer_u8, Player.connect_id)
+			buffer_write(buff, buffer_u8, Player.Parent.connect_id)
 			buffer_write(buff, buffer_string, Player.player_name)
 			buffer_write(buff, buffer_bool, Player.ready_to_start)
 			buffer_write(buff, buffer_u8, Player.player_color)
@@ -52,7 +52,7 @@ function scr_write_lobby(buff, starting_position) {
 	buffer_write(buff, buffer_u8, players_in_section)
 	for (var j=0; j<players_in_section; j++){
 		var Player = Section.Players[| j]
-		buffer_write(buff, buffer_u8, Player.connect_id)
+		buffer_write(buff, buffer_u8, Player.Parent.connect_id)
 		buffer_write(buff, buffer_string, Player.player_name)
 		buffer_write(buff, buffer_bool, Player.ready_to_start)
 		buffer_write(buff, buffer_u8, Player.player_color)

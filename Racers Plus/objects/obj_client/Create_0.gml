@@ -13,8 +13,6 @@ networking_declare_client_interface_functions()
 // Set by obj_session
 player_name = ""
 
-Player = noone
-
 #region Networking
 // client_debug - whether to show debug for the client
 client_debug = false
@@ -26,28 +24,13 @@ server_ip = ""
 network_state = NETWORK_TCP_CONNECT
 
 //used to know when to assume the server disconnected
-disconnect_after_seconds = 2
+disconnect_after_seconds = 4
 
 //create a buffer for the network messages
 //buffer alignment is one to minimize wasted space by writing as compactly as possible
 var alignment = 1;
 //Caution! Potential memory leak. Buffers are not deleted when restarting a game, must be done manually
 message_buffer = buffer_create(256, buffer_grow, alignment)
-
-#region UDP
-// This port will be determined elsewhere
-// If a direct connect or hosting, obj_online will set it
-server_udp_port = UDP_PORT
-//create a UDP socket
-udp_client = network_create_socket(network_socket_udp)
-
-//UDP realiabilty, ordering, and congestion avoidance for UDP
-//stores latest packet sequence that the client has recieved
-last_sequence_received = -1	
-
-//attempt to UDP connect to server
-connect_udp_tries = 0  //set after TCP connection
-#endregion
 
 #region TCP
 tcp_client = network_create_socket(network_socket_ws)

@@ -12,79 +12,77 @@ function networking_declare_client_interface_functions() {
 					//recieved confirmation, move to next state
 					network_state = NETWORK_LOBBY
 					
+					// Catch up on the exisiting game
+					obj_campaign.read_state(buffer)
+					obj_lobby.read_state(buffer)
+						
+					// If hosting, need to wait till connection is complete,
+					// so request is made the first time in obj_client
+					if global.have_server{
+						var seed = 255
+						obj_lobby.request_interaction(LOBBY_INITIALIZE, seed)
+					}
+						
+					// Request to join
+					if obj_client.connect_id != 0 {
+						obj_campaign.request_interaction(GAME_JOIN, obj_client.connect_id)
+						obj_lobby.request_interaction(LOBBY_JOIN)
+						obj_lobby.request_interaction(LOBBY_UPDATE_PLAYER, 0, obj_client.player_name)
+					}
+					
 					log_message(scr_network_state_to_string(network_state))
 				}
 				break
 			case NETWORK_LOBBY:
 				#region Lobby
 				if msg_id == SERVER_PLAY{
-					var state = buffer_read(buffer, buffer_u8)
-					if state == STATE_LOBBY{
-						////TODO
-						if connect_id == 0{
-							scr_read_lobby(buffer)
-						}
-						else{
-							controller_read_lobby(buffer)
-						}
+					// INTERACTION_CMD from reflecting from server, discard
+					buffer_read(buffer, buffer_u8)
+					var interaction = buffer_read(buffer, buffer_u8)
+					// lobby does not have an interactable id, assume it is obj_lobby
+					var interactable_id = buffer_read(buffer, buffer_u16)
+						
+					with global.Interactables[| interactable_id]{
+						read_interaction(interaction, buffer)
 					}
+					
+					log_message(string("<- TCP INTERACTION_CMD {0}", scr_interaction_to_string(interaction)))
 				}
 				else if msg_id == SERVER_PING{
 					// Server is keeping port open
 				}
 				else if msg_id == SERVER_STATESWITCH{
 					//recieved confirmation, move to next state
-					network_state = NETWORK_PLAY
+					/// Module Integration - Networking
+					network_state = NETWORK_GAMECONFIG
+						
+					/// Module Integration - Menu
+					menu_state_switch(STATE_LOBBY, STATE_GAMECONFIG)
 					
 					log_message(scr_network_state_to_string(network_state))
-						
-					////TODO
-					if global.have_server{
-						//Count teams for visibility check
-						global.max_teams = obj_lobby.Map.spawn_amount + 1
-						
-						//set section colors and create keeps
-						var count = ds_list_size(obj_lobby.Sections)
-						for (var i=0; i<count; i++){
-							var Section = obj_lobby.Sections[| i]
-							//set an index to reference the section by in the future
-							Section.index = i
-							if Section.section_type == SPAWN_SECTION{
-								//Section.team = Section.Team_box.field
-								global.section_color[i] = Section.Color_box.field
-							}
-						}
-						//set player teams and colors
-						var count = instance_number(obj_player)
-						for (var i=0; i<count; i++){
-							var Player = instance_find(obj_player, i)
-							// Do not include server host
-							if Player.connect_id != 0{
-								Player.team = Player.Section.team
-								Player.section = Player.Section.index
-								Player.player_color = Player.Color_box.field
-							}
-							
-							if Player.connect_id == obj_client.connect_id {
-								obj_client.Player = Player
-								Player.block_amount = block_amount
-							}
-						}
-					}
-					
-					menu_state_switch(STATE_LOBBY, STATE_GAME)
 				}
 				#endregion
 				break
 			case NETWORK_GAMECONFIG:
-				if msg_id == SERVER_STATESWITCH{
+				if msg_id == SERVER_PING{
+					// Server is keeping alive
+				}
+				else if msg_id == SERVER_STATESWITCH{
+					//recieved confirmation, move to next state
+					network_state = NETWORK_PLAY
+						
+					#region Update section with authorative info from server
+						
+					#endregion
+
+					menu_state_switch(STATE_GAMECONFIG, STATE_GAME)
+					
 					// Continually update server
 					if connect_id != 0{
 						alarm[2] = update_2_wait
 					}
-				}
-				else if msg_id == SERVER_PING{
-					// Server is keeping alive
+					
+					log_message(scr_network_state_to_string(network_state))
 				}
 				break
 			case NETWORK_PLAY:
@@ -107,6 +105,7 @@ function networking_declare_client_interface_functions() {
 					if connect_id != 0{
 						alarm[2] = -1
 					}
+					log_message(scr_network_state_to_string(network_state))
 				}
 				break
 			case NETWORK_SCORE:
@@ -122,18 +121,8 @@ function networking_declare_client_interface_functions() {
 				else if msg_id == SERVER_STATESWITCH{
 					network_state = NETWORK_LOBBY
 					menu_state_switch(STATE_SCORE, STATE_LOBBY)
+					log_message(scr_network_state_to_string(network_state))
 				}
-				break
-		}
-	}
-	/// @description Received a reliable UDP message
-	read_regular_message = function(msg_id, buffer, state) {
-		switch network_state {
-			case STATE_LOBBY:
-			    #region Lobby updates
-				scr_read_lobby(buffer)
-								
-				#endregion
 				break
 		}
 	}

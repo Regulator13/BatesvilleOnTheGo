@@ -102,21 +102,22 @@ function scr_move_sections(Player, New_section, new_index, new_y){
 }
 
 function scr_update_lobby_player(connect_id, player_name, ready_to_start, player_color){
-	var Player = obj_client.Network_players[? connect_id]
-	if is_undefined(Player){
+	// obj_network_player instances
+	var Network_player = obj_client.Network_players[? connect_id]
+	if is_undefined(Network_player){
 		//add network player
-		Player = instance_create_layer(0, 0, LAY, obj_player)
-		Player.connect_id = connect_id
+		Network_player = instance_create_layer(0, 0, "lay_instances", obj_network_player)
+		Network_player.connect_id = connect_id
 		if connect_id == obj_client.connect_id{
-			Player.local = true
+			Network_player.local = true
 		}
 		if global.have_server{
-			var Network_player = obj_server.Network_players[? connect_id]
-			Network_player.Player = Player
+			var Connected_client = obj_server.Connected_clients[? connect_id]
+			//Connected_client.Player = Player
 		}
 		Player.Name_box = scr_create_text_box(obj_lobby.section_draw_start_x + obj_lobby.edge, 0, Player, "", player_name, "client-send-name", Player.local, 15)
 		Player.Ready_box = scr_create_checkbox(obj_lobby.section_draw_start_x + obj_lobby.section_draw_width - 24 - obj_lobby.edge, 0, Player, "client-send-ready", Player.local, "Ready: ")
-		Player.Color_box = scr_create_dropdown(obj_lobby.section_draw_start_x + 160, 0, Player, "color", Player.connect_id, "client-send-player-color", true, 24, 24)
+		Player.Color_box = scr_create_dropdown(obj_lobby.section_draw_start_x + 160, 0, Player, "color", Player.Parent.connect_id, "client-send-player-color", true, 24, 24)
 		if ds_map_add(obj_client.Network_players, connect_id, Player) {
 			// ds_map_add returns true if the key does not already exist
 			// If the key does exist, then this lobby was created after the score menu
@@ -133,7 +134,7 @@ function scr_update_lobby_player(connect_id, player_name, ready_to_start, player
 	// rentered after a game
 	if not instance_exists(Player.Name_box) Player.Name_box = scr_create_text_box(obj_lobby.section_draw_start_x + obj_lobby.edge, 0, Player, "", player_name, "client-send-name", Player.local, 15)
 	if not instance_exists(Player.Ready_box) Player.Ready_box = scr_create_checkbox(obj_lobby.section_draw_start_x + obj_lobby.section_draw_width - 24 - obj_lobby.edge, 0, Player, "client-send-ready", Player.local, "Ready: ")
-	if not instance_exists(Player.Color_box) Player.Color_box = scr_create_dropdown(obj_lobby.section_draw_start_x + 160, 0, Player, "color", Player.connect_id, "client-send-player-color", true, 24, 24)
+	if not instance_exists(Player.Color_box) Player.Color_box = scr_create_dropdown(obj_lobby.section_draw_start_x + 160, 0, Player, "color", Player.Parent.connect_id, "client-send-player-color", true, 24, 24)
 	Player.Name_box.text = player_name
 	Player.Ready_box.field = ready_to_start
 	Player.Color_box.field = player_color

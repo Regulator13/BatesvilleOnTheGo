@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_every_turn_set_method",
+  "name": "scr_lobby",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "server",
-    "path": "folders/Scripts/networking/server.yy",
+    "name": "Scripts",
+    "path": "folders/Phame/Phame-Lobby/Scripts.yy",
   },
 }

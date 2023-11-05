@@ -3,7 +3,7 @@ function scr_create_section(section_type, index){
 	/*This function creates the lobby section instance,
 	* and fills out the given properties
 	*/
-	var inst = instance_create_layer(0, 0, "lay_networking", obj_lobby_section)
+	var inst = instance_create_layer(0, 0, "lay_networking", par_interactable)
 	inst.section_type = section_type
 	if section_type != NETWORK_SECTION{
 		inst.Join_box = menu_create_button(obj_lobby.section_draw_start_x, 0, function(){

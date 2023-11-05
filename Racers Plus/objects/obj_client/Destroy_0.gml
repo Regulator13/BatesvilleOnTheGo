@@ -1,7 +1,6 @@
 /// @description Close client
 
 // Destroy network
-network_destroy(udp_client)
 network_destroy(tcp_client)
 
 // Destroy all created persistent networking objects

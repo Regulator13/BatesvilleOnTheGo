@@ -1,6 +1,7 @@
 #macro GAME_ID 1
 
 #macro INPUT_CMD 0
+#macro INTERACTION_CMD 1
 #macro STRING_CMD 10
 #macro PICKUP_CMD 20
 #macro UPDATE_CMD 30

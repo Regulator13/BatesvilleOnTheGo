@@ -4,8 +4,8 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 	// Check win conditions
 	if winner == 0{
 		// Win/lose by score
-		for (var i=0; i<instance_number(obj_team); i++){
-			var Team = instance_find(obj_team, i)
+		for (var i=0; i<instance_number(obj_group); i++){
+			var Team = instance_find(obj_group, i)
 			if abs(Team.team_score) > win_score{
 				show_debug_message("Win! Score " + string(Team.team_score))
 				winner = i

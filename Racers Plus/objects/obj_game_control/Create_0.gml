@@ -6,7 +6,7 @@ win_score = 500
 
 ////TODO
 // Includes team 0 for spawn
-team_amount = instance_number(obj_team)
+team_amount = instance_number(obj_group)
 customer_amount = 16
 winner = 0
 

@@ -12,10 +12,8 @@ repeat(_count){
 global.have_server = false
 
 //destroy network
-network_destroy(udp_server)
 network_destroy(tcp_server)
 //destroy buffers to avoid memory leaks as restarting the game will not clear or delete a buffer
-buffer_delete(broadcast_buffer)
 buffer_delete(game_buffer)
 buffer_delete(interaction_buffer)
 
