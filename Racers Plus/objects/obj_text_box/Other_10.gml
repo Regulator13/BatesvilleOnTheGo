@@ -1,6 +1,12 @@
-/// @description Perform action
-switch action{
-	case "client-send-name":
-		scr_client_send_name(obj_client.connect_id, text)
-		break
+/// @description Action, select without mouse
+if active{
+	if not selected{
+		select()
+	}
+	else{
+		// Perform action
+		// Action function must restore to previous_text if input is invalid
+		action(self)
+		deselect()
+	}
 }

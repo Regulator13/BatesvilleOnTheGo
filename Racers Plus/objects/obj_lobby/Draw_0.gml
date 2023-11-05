@@ -7,7 +7,7 @@ if global.online and global.have_server {
 	draw_set_color(c_black)
 	draw_set_halign(fa_middle)
 	draw_set_font(fnt_large)
-	draw_text(room_width/2, 2, "IP: " + obj_server.server_ip)
+	draw_text(room_width/2, 2, "IP: " + obj_client.server_ip)
 	draw_text(room_width/2, room_height - 128, "http://frey.network/tower")
 	draw_set_font(fnt_basic_small)
 }

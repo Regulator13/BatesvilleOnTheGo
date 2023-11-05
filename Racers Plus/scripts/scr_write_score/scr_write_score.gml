@@ -6,12 +6,12 @@ function scr_write_score(buff, starting_position) {
 	buffer_seek(buff, buffer_seek_start, starting_position)
 	
     // Write team info and scores
-	var size = ds_map_size(obj_menu.Teams)
+	var size = ds_map_size(obj_campaign.Teams)
 	buffer_write(buff, buffer_u8, size)
 	
-	var key = ds_map_find_first(obj_menu.Teams)
+	var key = ds_map_find_first(obj_campaign.Teams)
 	for (var i = 0; i < size; i++;){
-		var Team = obj_menu.Teams[? key]
+		var Team = obj_campaign.Teams[? key]
 		// Team details
 		buffer_write(buff, buffer_u8, Team.team)
 		buffer_write(buff, buffer_u16, Team.team_score)
@@ -26,7 +26,7 @@ function scr_write_score(buff, starting_position) {
 			buffer_write(buff, buffer_bool, Player.ready_to_start)
 		}
 		
-	    key = ds_map_find_next(obj_menu.Teams, key)
+	    key = ds_map_find_next(obj_campaign.Teams, key)
 	}
 	
 	return buff

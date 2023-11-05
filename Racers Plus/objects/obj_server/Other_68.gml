@@ -2,13 +2,9 @@
 var eventid = ds_map_find_value(async_load, "id")
 var type = ds_map_find_value(async_load, "type")
 var ip = async_load[? "ip"]
-
-if eventid == broadcast_server{
-	server_ip = ip
-}
 	
 #region UDP messages
-if eventid == udp_server{
+if eventid == udp_server {
 	if type == network_type_data{
 		//find buffer
 		var buff = ds_map_find_value(async_load, "buffer");
@@ -19,26 +15,40 @@ if eventid == udp_server{
 		buffer_seek(buff, buffer_seek_start, 0);
 
 		//ensure correct GAME ID
-		if buffer_read(buff, buffer_u8) == GAME_ID{
+		if buffer_read(buff, buffer_u8) == GAME_ID {
 			//read message id
 			var connect_id = buffer_read(buff, buffer_u8)
 			var msg_id = buffer_read(buff, buffer_s8)
-			var Network_player = Network_players[? connect_id]
-
-			switch msg_id{
-			    case CLIENT_CONNECT:
-			        //client connecting via UDP
-					var port = async_load[? "port"]
-					//since this is UDP and the packet will be sent many times,
-					//make sure the port is not already set
-					if Network_player.udp_port != port{
-						//send no socket as this is a UDP connection
-				        scr_connect_client(connect_id, ip, port, -1)
-						//inform client of succesful connection
-						ds_queue_enqueue(Network_player.messages_out, SERVER_CONNECT)
-					}
-			        break
+			var Connected_client = Connected_clients[? connect_id]
+			
+			log_message(string("<- UDP {0}", scr_msg_id_to_string(msg_id)))
+			
+			// Connected_client could be undefined if a ping is recieved late and the player
+			// is already dropped
+			if not is_undefined(Connected_client) {
+				switch (msg_id) {
+				    case CLIENT_CONNECT:
+				        //client connecting via UDP
+						var port = async_load[? "port"]
+						//since this is UDP and the packet will be sent many times,
+						//make sure the port is not already set
+						if Connected_client.udp_port != port{
+							//send no socket as this is a UDP connection
+					        server_connect_client(connect_id, ip, port, -1)
+							//inform client of succesful connection
+							ds_queue_enqueue(Connected_client.messages_out, SERVER_CONNECT)
+						}
+				        break
+					default:
+						// Integration can declare unique msg_ids
+						read_regular_message(msg_id, buff, Connected_client)
+						break
+				}
 			}
+		}
+		else {
+			// Is the socket set to be reliable on both client and server?
+			show_debug_message("Warning! Other game messages received.")
 		}
 	}
 }
@@ -46,10 +56,7 @@ if eventid == udp_server{
 
 #region TCP messages
 //cant do eventid == tcp_server because each TCP connection creates a different event_id
-else if eventid != broadcast_server and (instance_exists(obj_client) and eventid != obj_client.tcp_client and eventid != obj_client.udp_client){
-	if type == network_type_non_blocking_connect{
-		
-	}
+else if instance_exists(obj_client) and eventid != obj_client.tcp_client and eventid != obj_client.udp_client {
 	if type == network_type_connect{
 		var socket = async_load[? "socket"]
 	
@@ -59,20 +66,22 @@ else if eventid != broadcast_server and (instance_exists(obj_client) and eventid
 		var connect_id = global.connect_id++
 		//connecting through TCP so not an extended client
 		ds_list_add(client_connect_ids, connect_id)
-		var Network_player = scr_connect_client(connect_id, ip, -1, socket)
+		var Connected_client = server_connect_client(connect_id, ip, -1, socket)
 	
 		//inform client of their connect_id so that they can UDP connect
-		ds_queue_enqueue(Network_player.messages_out, SERVER_CONNECT)
+		ds_queue_enqueue(Connected_client.messages_out, SERVER_CONNECT)
+		
+		log_message(string("<- TCP Connect IP {0} socket {1}", ip, socket))
 	}
 	else if type == network_type_disconnect{
 		//disconnect the client based on the ip and socket combo
 		var socket = async_load[? "socket"]
 		
-		n = tcp_server
-		n = udp_server
 		//find the related network player
-		var Network_player = scr_find_client(ip, socket)
-		instance_destroy(Network_player)
+		var Connected_client = scr_find_client(ip, socket)
+		instance_destroy(Connected_client)
+		
+		log_message(string("<- TCP Disconnect IP {0} socket {1}", ip, socket))
 	}
 	else if type == network_type_data{
 		//find buffer
@@ -88,9 +97,11 @@ else if eventid != broadcast_server and (instance_exists(obj_client) and eventid
 			//read message id
 			var connect_id = buffer_read(buff, buffer_u8)
 			var msg_id = buffer_read(buff, buffer_s8)
-			var Network_player = Network_players[? connect_id]
+			var Connected_client = Connected_clients[? connect_id]
 			
-			if is_undefined(Network_player){
+			log_message(string("<- TCP {0}", scr_msg_id_to_string(msg_id)))
+			
+			if is_undefined(Connected_client){
 				show_debug_message("Warning! TCP message with incorrect connect_id")
 				show_debug_message("Client " + string(connect_id) + " message " + scr_msg_id_to_string(msg_id))
 				var socket = async_load[? "socket"]
@@ -98,78 +109,38 @@ else if eventid != broadcast_server and (instance_exists(obj_client) and eventid
 				show_debug_message("Socket: " + string(socket) + " Port: " + string(port))
 			}
 			else{
+				Connected_client.alarm[0] = Connected_client.drop_wait
 				switch msg_id{
-				    case CLIENT_CONNECT:
-				        //client connecting via UDP
-						var port = async_load[? "port"]
-						//send no socket as this is a UDP connection
-				        scr_connect_client(connect_id, ip, port, -1)
-						//inform client of succesful connection
-						ds_queue_enqueue(Network_player.messages_out, SERVER_CONNECT)
-				        break
+					case CLIENT_PING:
+						Connected_client.alarm[3] = Connected_client.drop_wait
+							
+						#region Reply
+						// This message is ultimately ignored, just to keep port open with NAT
+						var reply_buffer = buffer_create(5, buffer_fixed, 1)
+							
+						// GAME_ID and connect_id are added by scr_server_sent_UDP
+					    buffer_seek(reply_buffer, buffer_seek_start, 2)
+                    
+					    //write msg_id
+					    buffer_write(reply_buffer, buffer_s8, SERVER_PING)
+							
+						if not server_send_TCP(Connected_client, reply_buffer, buffer_tell(reply_buffer)){
+							show_debug_message("Warning: TCP ping message to client failed to send")
+						}
+						buffer_delete(reply_buffer)
+						
+						log_message("-> TCP SERVER_PING")
+						#endregion
+						break
 				    case CLIENT_LOGIN:
 						//set the client "name"
 						var player_name = buffer_read(buff, buffer_string)
-				        //client logging in
-				        scr_login_client(Network_player, player_name)
-				        break
-				    case CLIENT_PLAY:
-				        //all other sockets are connected client sockets, and we have recieved commands from them.
-				        scr_server_received_data(Network_player, buff)
-				        break
-					case CLIENT_PING:
-						//get obj_network_player
-						var Client = Network_player
-						//microseconds
-						Client.RTT = get_timer() - ping_out
-						//remove client from waiting list for replys
-						Client.waiting_on_reply = false
+						//client logging in
+						scr_login_client(Connected_client, player_name)
 						break
-					case CLIENT_PERFORMANCE:
-						var Client = Network_player
-						//each client reports its performance for the turn it just completed
-						var actual_millipf = buffer_read(buff, buffer_u8)
-						if obj_menu.state == STATE_LOBBY{
-							Client.min_millipf = actual_millipf
-						}
-						else if obj_menu.state == STATE_GAME{
-							//the first message recieved is for the first turn in the first set
-							Client.actual_millipf[Client.set_turn] = actual_millipf
-						
-							//check if client has reached the end of their messages
-							var Server_client = ds_map_find_value(Network_players, client_connect_ids[| obj_client.connect_id])
-							if Client != Server_client{//Client.set_turn > Server_client.set_turn or Server_client.set_turn != 0 and Client.set_turn == 0{
-								//scr_server_log_speed_wait(server_speed_log, connect_id, Client.set_turn, Server_client.set_turn)
-							}
-						
-							//check if client finished the set
-							if Client.set_turn == turns_per_set{
-								//enqueue this array to allow client to start recording for the next
-								//this allows client to process one message ahead of server client
-								//which will pause the client while it is waiting on the next message
-								array_copy(Client.last_set_actual_millipf, 0, Client.actual_millipf, 0, turns_per_set)
-								Client.set_complete = true
-								Client.set_turn = 0
-								Client.set++
-								//check if server was previously waiting on this client
-								if ds_list_size(waiting_on_clients){
-									var was_waiting = ds_list_find_index(waiting_on_clients, Client.connect_id)
-									if was_waiting != -1{
-										show_debug_message("Server was waiting on this client to catch up.")
-										ds_list_delete(waiting_on_clients, was_waiting)
-										//check if this was the last client the server was waiting on
-										if ds_list_empty(waiting_on_clients){
-											show_debug_message("This was the last client behind. Unpausing game.")
-											//unpause the game
-											scr_unpause_game()
-											//retry sending the next turn
-											event_user(0)
-										}
-									}
-								}
-							}
-							else Client.set_turn++
-						}
+					case CLIENT_PLAY:
+						//all other sockets are connected client sockets, and we have recieved commands from them.
+						scr_server_received_data(Connected_client, buff)
 						break
 					default:
 						show_debug_message("Warning! TCP message msg_id not caught: " + string(msg_id))

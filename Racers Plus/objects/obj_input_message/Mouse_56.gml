@@ -11,28 +11,26 @@ var mh = string_height(string_hash_to_newline(prompt))+sb*2
 
 // get actions width
 var s = 0; // spacing between buttons
-for (var i=0; i < ds_list_size(actions); i++){
-    aw += string_width(string_hash_to_newline(actionTitles[| i])) + sb*2 + sb*s++;
-	var sh = string_height(string_hash_to_newline(actionTitles[| i])) + sb*2
+for (var i = 0; i < ds_list_size(actions); i++;)
+    aw += string_width(string_hash_to_newline(actionTitles[| i]))+sb*2+sb*s++;
+	var sh = string_height(string_hash_to_newline(actionTitles[| i]))+sb*2
 	if sh > ah
-		ah = sh
-}
+		ah = sh 
 
 // set box width
-if (aw > mw) pw = aw/2+sb;
-else pw = mw/2+sb;
+if (aw > mw)
+    pw = aw/2+sb;
+else
+    pw = mw/2+sb;
 //set box height
 var ph = (mh + ah)/2
-
-var mx = device_mouse_x_to_gui(0)
-var my = device_mouse_y_to_gui(0)
 	
 var dx = x-aw/2;
 var dy = y + ph/2 - ah/2 + ro*3;
 var bh = 16;
-for (var i = 0; i < ds_list_size(actions); i++){
+for (var i = 0; i < ds_list_size(actions); i++;) {
 	var bw = string_width(string_hash_to_newline(actionTitles[| i]))+sb*2;
-    if point_in_rectangle(mx, my, dx, dy-bh, dx+bw, dy+bh) {
+    if point_in_rectangle(mouse_x, mouse_y, dx, dy-bh, dx+bw, dy+bh) {
 		actionSel = i
 		event_user(0)
 		instance_destroy()

@@ -23,5 +23,4 @@ function scr_client_reply_ping(){
 
 	//send this to the server
 	network_send_raw(tcp_client, buff, buffer_tell(buff))
-	scr_log_send_tcp_raw(client_messages_log, connect_id, CLIENT_PING)
 }

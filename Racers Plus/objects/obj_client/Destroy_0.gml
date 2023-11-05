@@ -1,32 +1,23 @@
 /// @description Close client
 
-//destroy network
+// Destroy network
 network_destroy(udp_client)
 network_destroy(tcp_client)
 
-//destroy buffers
-buffer_delete(buff)
+// Destroy all created persistent networking objects
+// Players who are not active, are destroyed each iteration of scr_lobby_read
+// These are first added in scr_update_lobby()
+var _count = ds_list_size(active_connect_ids)
+repeat(_count){
+	// obj_network_player instances
+	var Network_player = obj_client.Network_players[? active_connect_ids[| 0]]
+	instance_destroy(Network_player)
+}
 
-//destory persistent obj_players
-instance_destroy(obj_player)
+// Destroy buffers after instances so they can still attempt to send any last images
+// e.g. READY_UP when obj_character is destroyed
+buffer_delete(message_buffer)
 
-//destroy lists
+// Destroy lists
 ds_map_destroy(Network_players)
 ds_list_destroy(active_connect_ids)
-ds_list_destroy(previous_actual_fps)
-ds_list_destroy(previous_real_fps)
-
-
-//reset game speed
-game_set_speed(60, gamespeed_fps)
-
-//close debug log
-if debug_log != -1 file_text_close(debug_log)
-if client_messages_log != -1 file_text_close(client_messages_log)
-if client_speed_log != -1 file_text_close(client_speed_log)
-
-draw_enable_drawevent(true)
-
-#region Score Networking
-ds_list_destroy(Teams)
-#endregion

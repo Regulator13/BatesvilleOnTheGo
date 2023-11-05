@@ -1,30 +1,30 @@
-/// @function scr_connect_client(connect_id, ip, port, socket)
-/// @description connects a client to the server, disconnections handled in obj_network_player
-//  Returns obj_network_player
-function scr_connect_client(connect_id, ip, port, socket){
+/// @function server_connect_client(connect_id, ip, port, socket)
+/// @description connects a client to the server, disconnections handled in obj_Connected_client
+//  Returns obj_Connected_client
+function server_connect_client(connect_id, ip, port, socket){
 	//check if this client is already connected
-	var Network_player = Network_players[? connect_id]
-	if is_undefined(Network_player){
+	var Connected_client = Connected_clients[? connect_id]
+	if is_undefined(Connected_client){
 		//create a new network player to store all details
-	    Network_player = instance_create_layer(0, 0, "lay_instances", obj_network_player)
-	    Network_player.ip = ip
-		Network_player.tcp_socket = socket
-		Network_player.udp_port = port
-		Network_player.connect_id = connect_id
+	    Connected_client = instance_create_layer(0, 0, "lay_instances", obj_connected_client)
+	    Connected_client.ip = ip
+		Connected_client.tcp_socket = socket
+		Connected_client.udp_port = port
+		Connected_client.connect_id = connect_id
     
 	    //put this instance into a map, using the connect_id as the lookup
-	    ds_map_add(Network_players, connect_id, Network_player)
+	    ds_map_add(Connected_clients, connect_id, Connected_client)
 		ds_list_add(active_connect_ids, connect_id)
 	    }
-	//disconnecting handled in obj_network_player
+	//disconnecting handled in obj_Connected_client
 	
 	//if socket given than a TCP connection, else UDP and need to set port
 	if socket == -1{
-		Network_player.udp_port = port
+		Connected_client.udp_port = port
 	}
 	else{
-		Network_player.tcp_socket = socket
+		Connected_client.tcp_socket = socket
 	}
 	
-	return Network_player
+	return Connected_client
 }

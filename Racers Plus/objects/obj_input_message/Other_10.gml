@@ -1,30 +1,50 @@
 /// @description Press button
 //perform action
-switch actions[| actionSel]{
+switch(actions[| actionSel]) {
 	// switch to lobby menu
     case "lobby":
-        menu_state_switch(global.Menu.state, STATE_LOBBY);
-        break;
-	
-	//play button
-    case "game":
-        with(obj_menu) event_user(2);
-        break;
-	
-    case "missions":
-        with(obj_menu) event_user(1);
-        break;
-	
-    case "mainOptions":
-        with(obj_menu) event_user(4);
+        menu_state_switch(obj_menu.state, STATE_LOBBY);
         break;
 		
-    case "options":
-        with(obj_menu) event_user(5);
+    case "delOptions":
+        //delete file
+        file_delete(obj_menu.gameMode + ".ini");
+        game_restart();
         break;
 		
-    case "debugOptions":
-        with(obj_menu) event_user(6);
+    case "delMissions":
+        //delete file
+        file_delete("paths.ini");
+        game_restart();
+        break;
+		
+    case "delControls":
+        //delete file
+        file_delete("controls.ini");
+        game_restart();
+        break;
+	
+	//open controls menu
+    case "controls":
+        with(obj_menu) {
+            menu_init_controls();
+            //reset selected
+            selected = 0;
+            }
+        break;
+		
+    case "online":
+        with(obj_menu) menu_init_online();
+        break;
+		
+	//host server
+    case "createServer":
+        global.InitObject.alarm[1] = 2;
+        break;
+		
+	//connect to server directly
+    case "directConnect":
+        global.InitObject.alarm[2] = 2;
         break;
 	
 	//new path
@@ -48,7 +68,7 @@ switch actions[| actionSel]{
 	
 	// return to online menu from the paths
     case "backOnlinePaths":
-        menu_state_switch(STATE_PATHS, STATE_ONLINE);
+        menu_state_switch(STATE_GAMECONFIG, STATE_ONLINE);
         break;
 	
 	// return to online menu from the game
@@ -63,17 +83,25 @@ switch actions[| actionSel]{
 	
     // reset client disconnect buffer
     case "resetDisconnectBuffer":
-		global.Client.alarm[0] = global.Client.disconnect_after_seconds*game_get_speed(gamespeed_fps)
-        break
+        obj_client.alarm[0] = obj_client.disconnect_after_seconds*game_get_speed(gamespeed_fps)
+        break;
 	
 	// reset networkPlayer drop buffer
-    case "resetDropBuffer":
-        Source.alarm[0] = Source.dropBuffer;
-        break;
+    case "reset_reliable_drop_buffer":
+        Source.alarm[SOCKET_RELIABLE] = Source.drop_wait[SOCKET_RELIABLE]
+        break
+	case "reset_regular_drop_buffer":
+        Source.alarm[SOCKET_REGULAR] = Source.drop_wait[SOCKET_REGULAR]
+        break
 		
     case "dropPlayer":
         with (Source) event_user(1);
         break;
+	
+	case "visitPhame":
+		//shell_do("open", global.source)
+		game_end()
+		break
 		
     case "restart":
         game_restart();
@@ -82,4 +110,8 @@ switch actions[| actionSel]{
     case "quit":
         game_end();
         break;
+	
+	case "none":
+		// Pass
+		break
 }

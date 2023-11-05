@@ -16,25 +16,18 @@ if active{
 }
 
 //draw field according to type
-draw_set_font(fnt_basic_small)
+draw_set_font(fnt_menu)
 draw_set_color(c_black)
 draw_set_halign(fa_left)
 draw_set_valign(fa_top)
-switch box_type{
+switch(box_type){
 	case "color":
 		//draw color box
-		draw_set_color(obj_menu.color_array[field])
+		draw_set_color(field_options[field])
 		draw_rectangle(x + edge, y + edge, x + box_width - edge, y + box_height - edge, false)
 		break
-	case "team":
 	case "text":
-		draw_text(x + edge, y + edge, field)
-		break
-	case "spawn":
-		draw_text(x + edge, y + edge, chr(ord("A") + field))
-		break
-	case "map":
-		draw_text(x + edge, y + edge, obj_lobby.Available_maps[field].title)
+		draw_text(x + edge, y + edge, field_options[field])
 		break
 }
 
@@ -51,21 +44,14 @@ if selected{
 	//draw options
 	for (var i=0; i<option_amount; i++){
 		var _oy = _y + box_height*i
-		switch box_type{
+		switch(box_type){
 			case "color":
 				//draw color box
-				draw_set_color(obj_menu.color_array[field_options[i]])
+				draw_set_color(field_options[i])
 				draw_rectangle(x + edge, _oy + edge, x + box_width - edge, _oy + box_height - edge, false)
 				break
-			case "team":
 			case "text":
-				draw_text(x + edge, _oy + edge, string(field_options[i]))
-				break
-			case "spawn":
-				draw_text(x + edge, _oy + edge, chr(ord("A") + field_options[i]))
-				break
-			case "map":
-				draw_text(x + edge, _oy + edge, obj_lobby.Available_maps[field_options[i]].title)
+				draw_text(x + edge, _oy + edge, field_options[i])
 				break
 		}
 	}

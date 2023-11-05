@@ -10,8 +10,8 @@ function scr_load_player() {
 	    // load name
 	    var section = "online";
 		if os_browser == browser_not_a_browser{
-		    Name_input.text = ini_read_string(section, "name", "Newbius");
-			Direct_IP.text = ini_read_string(section, "direct_ip", "10.8.4.80");
+		    Name_box.text = ini_read_string(section, "name", "Newbius");
+			Direct_ip_box.text = ini_read_string(section, "direct_ip", "10.8.4.80");
 		}
 		else{
 			default_name = ini_read_string(section, "name", "Newbius");

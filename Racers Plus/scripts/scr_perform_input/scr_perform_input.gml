@@ -4,7 +4,7 @@
 /// @param input_x | x position for input when applicable
 /// @param input_y | y position for input when applicable
 //  Returns null
-function scr_perform_input(input, input_x, input_y){
+function	(input, input_x, input_y){
 	//Set queue input variables as temporary
 
 	//all input is performed from obj_player's perspective

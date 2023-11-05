@@ -1,13 +1,4 @@
 /// @description Client updates
-
-//store real fps for averaging
-total_real_fps += fps_real
-count_real_fps ++
-//utilize moving average smoothing for new fps
-ds_list_add(previous_real_fps, fps_real)
-//keep only 10 values
-if ds_list_size(previous_real_fps) > 10 ds_list_delete(previous_real_fps, 0)
-
 switch network_state{
     case(NETWORK_UDP_CONNECT):
 		#region Attempt to connect to server using UDP
@@ -24,13 +15,13 @@ switch network_state{
             buffer_write(buff, buffer_s8, CLIENT_CONNECT)
     
             //send this to the server
-            var message = network_send_udp(udp_client, global.connectip, port, buff, buffer_tell(buff));
-			scr_log_send_udp_raw(client_messages_log, connect_id, CLIENT_CONNECT)
+            var message_success = network_send_udp(udp_client[SOCKET_REGULAR], obj_client.server_ip, server_udp_port[SOCKET_REGULAR], buff, buffer_tell(buff))
 			
-            if message < 0{ //network_send_udp returns number less than zero if message fails
-                if not instance_exists(obj_input_message){
+            if (message_success < 0){ //network_send_udp returns number less than zero if message fails
+				/// Module Integration - Menu
+                if !(instance_exists(obj_input_message)) {
 	                //if we can't connect, show and error and restart... could be more graceful :)
-	                with (instance_create_layer(room_width/2, room_height/2, "lay_networking", obj_input_message)){
+	                with (instance_create_layer(room_width/2, room_height/2, "lay_networking", obj_input_message)) {
 	                    prompt = "ERROR: Can not connect to server";
 	                    ds_list_add(actions, "backOnlineLobby");
 	                    ds_list_add(actionTitles, "Back");
@@ -58,7 +49,16 @@ switch network_state{
 		#region Login 
         
         #endregion
-        break;
+        break
+	case(NETWORK_LOBBY):
+		#region Game is running
+		
+		if alarm[3] == -1{
+			// Start pinging
+			alarm[3] = ping_wait
+		}
+		#endregion
+        break
     case(NETWORK_PLAY):
 		#region Game is running
 		//all inputs will be sent when handled in local obj_player

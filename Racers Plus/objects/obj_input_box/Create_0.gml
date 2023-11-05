@@ -18,3 +18,20 @@ edge = 1
 
 box_width = 0
 box_height = 0
+
+allow_scroll = true
+
+ds_list_add(obj_menu.Buttons, id)
+
+#region Functions
+align = function(_x, _y){
+	x = _x
+	y = _y
+}
+get_width = function(){
+	return box_width
+}
+get_height = function(){
+	return box_height
+}
+#endregion

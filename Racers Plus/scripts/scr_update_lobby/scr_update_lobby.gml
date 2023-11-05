@@ -145,30 +145,30 @@ function scr_update_lobby_player(connect_id, player_name, ready_to_start, player
 	return Player
 }
 
-function scr_add_to_sections(Network_player, section){
+function scr_add_to_sections(Authoritative_player, section){
 	if is_undefined(section) {
 		//check first to see if any spawn is empty
 		for (var i = 1; i < ds_list_size(obj_lobby.Network_sections); i++){
 			var Section = obj_lobby.Network_sections[| i]
 			if ds_list_size(Section.Players) == 0{
-				ds_list_add(Section.Players, Network_player)
-				Network_player.Section = Section
-				Network_player.team = i
+				ds_list_add(Section.Players, Authoritative_player)
+				Authoritative_player.Section = Section
+				Authoritative_player.team = i
 				return Section
 			}
 		}
 		//else add to default section
 		var Default_section = obj_lobby.Network_sections[| 0]
-		ds_list_add(Default_section.Players, Network_player)
-		Network_player.Section = Default_section
-		Network_player.team = 0
+		ds_list_add(Default_section.Players, Authoritative_player)
+		Authoritative_player.Section = Default_section
+		Authoritative_player.team = 0
 		return Default_section
 	}
 	else {
 		var Section = obj_lobby.Network_sections[| section]
-		ds_list_add(Section.Players, Network_player)
-		Network_player.Section = Section
-		Network_player.team = section
+		ds_list_add(Section.Players, Authoritative_player)
+		Authoritative_player.Section = Section
+		Authoritative_player.team = section
 		return Section
 	}
 }

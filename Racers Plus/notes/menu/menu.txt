@@ -1,0 +1,6 @@
+v1.0.0 Initial Release
+2023-10-21 GF 8 hours
+Depends on:
+- Phame-Common v1.0.0
+- Phame-Controls v1.0.0
+- Phame-Networking v1.2.0

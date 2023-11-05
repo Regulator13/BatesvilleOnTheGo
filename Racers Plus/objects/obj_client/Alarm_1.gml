@@ -1,7 +1,6 @@
-/// @description Create input message
-var inst = instance_create_layer(room_width/2, room_height/2, "lay_networking", obj_input_message)
-with inst{
-	prompt = "ERROR: Connection time ran out";
-	ds_list_add(actions, "backOnlineLobby");
-	ds_list_add(actionTitles, "Back");
-}
+/// @description Periodic update to server
+// Made available for integration use
+// Normally turned on during game, and off during SCORE/GAMECONFIG menus
+/// Module Integration - Game
+send_update_1()
+alarm[1] = update_1_wait

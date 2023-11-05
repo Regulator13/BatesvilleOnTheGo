@@ -13,3 +13,5 @@ v_align = fa_top
 
 //array of all the options
 field_options = []
+// index of the currently selected option
+field = 0

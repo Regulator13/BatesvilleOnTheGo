@@ -1,32 +1,23 @@
-/// @description Ping all clients
+/// @description Write player specific game information
+#region Game unique menu
+#region Write the regular common UDP state update
+// 3 is the offset for UDP messages, GAME_ID, connect_id, udp_sequence_out
+buffer_seek(game_buffer, buffer_seek_start, 3)
+// msg_id = SERVER_PLAY because client has already logged on
+buffer_write(game_buffer, buffer_s8, SERVER_PLAY)
+// state
+buffer_write(game_buffer, buffer_u8, obj_menu.state)
 
-//get the client message buffer
-var buff = confirmBuffer
-                        
-//reset buffer to start - TCP message has a header of 2, GAME_ID and connect_id
-buffer_seek(buff, buffer_seek_start, 2)
-
-//write msg_id
-buffer_write(buff, buffer_s8, SERVER_PING)
-
-var length = buffer_tell(buff)
+var message_length = buffer_tell(game_buffer)
+#endregion
 
 var network_player_count = ds_list_size(client_connect_ids)  //get the amount of clients connected
-for (var i = 0; i < network_player_count; i++){
-	//get the network player
-	var Network_player = ds_map_find_value(Network_players, client_connect_ids[| i])
+for (var i=0; i<network_player_count; i++) {
+	// obj_connected_client instances
+	var Connected_client = ds_map_find_value(Connected_clients, client_connect_ids[| i])
 	
-	//ensure that player is the main one for the client, and not extended
-	if not Network_player.extended{
-		//send new ping anyway
-		//if client was in a state where it would not reply to a ping,
-		//this new one would give it a chance to recover
-		Network_player.waiting_on_reply = true
-		scr_server_send_TCP(Network_player, buff, length)
-	}
+	if not server_send_UDP(Connected_client, game_buffer, message_length)
+		show_debug_message("Warning: UDP server message to client failed to send")
 }
 
-//save time ping happened for RTT calculation
-ping_out = get_timer()
-
-alarm[1] = seconds_between_pings*game_get_speed(gamespeed_fps)
+alarm[1] = game_update_wait

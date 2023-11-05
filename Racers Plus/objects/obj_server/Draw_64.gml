@@ -1,70 +1,62 @@
-/// @description Draw server debug information
-if (serverDebug) {
-    // setup drawing
-    draw_set_color(c_dkgray);
-    draw_set_alpha(0.8);
-    
+/// @description  Draw server debug information
+if (server_debug) {
     // set draw offset
-    var drawOffset = 0;
-    var yOffset = 20;
-	
-	//get the amount of active players
-    var network_player_count = ds_list_size(active_connect_ids)
+    var drawo = 0
+	// y offset
+    var yo = 20
     
+    // Connected players
+	var _count = ds_list_size(active_connect_ids)
+	
     // draw background
-    draw_rectangle(0, 0, 500, (network_player_count*7 + 5)*yOffset, false);
+	draw_set_color(c_dkgray)
+    draw_set_alpha(0.75)
+    draw_rectangle(0, 0, 500, (_count*5 + 4 + 1)*yo, false)
+	draw_set_alpha(1)
     
     // setup drawing
-    draw_set_halign(fa_left);
-    draw_set_font(fnt_basic);
-    draw_set_color(c_red);
+    draw_set_halign(fa_left)
+    draw_set_font(fnt_command)
+    draw_set_color(c_red)
     
     // draw the amount of players
-	draw_text(10, 10, string_hash_to_newline("SERVER DEBUG: "))
-    draw_text(10, 30 + yOffset*drawOffset++, "Active connect_ids: " + string(network_player_count))
-
-    draw_text(10, 30 + yOffset*drawOffset++, "TCP Server " + string(tcp_server) + " UDP Server: " + string(udp_server))
-	
-	//skip a line
-	drawOffset++
-	if network_player_count == 0{
+	draw_text(10, 10 + yo*drawo++, "Server External IP: " + external_ip)
+	draw_text(10, 10 + yo*drawo++, "Server UDP Reliable Socket ID: " + string(udp_server[SOCKET_RELIABLE]) + ", Port: " + string(udp_port[SOCKET_RELIABLE]))
+	draw_text(10, 10 + yo*drawo++, "Server UDP Regular Socket ID: " + string(udp_server[SOCKET_REGULAR]) + ", Port: " + string(udp_port[SOCKET_REGULAR]))
+	draw_text(10, 10 + yo*drawo++, string_hash_to_newline("Active players: " + string(_count)))
+    
+	if _count == 0{
 		//Warning
-		draw_text(10, 30+yOffset*drawOffset++, "No clients in connected!");
+		draw_text(10, 10 + yo*drawo++, "No clients active!")
 	}
 	else{
-		draw_text(10, 30+yOffset*drawOffset++, "Client info:");
-		
-	    for (var i = 0; i < network_player_count; i++) {
-			//get the network player
-			var Network_player = ds_map_find_value(Network_players, active_connect_ids[| i])
+	    for (var i=0; i<_count; i++){
+			// obj_connected_client instances
+			var Connected_client = Connected_clients[? active_connect_ids[| i]]
 			
-			var s = 20
-			var si = 0
-			draw_text(10, 30+(si++)*s+yOffset*drawOffset, "Client connect_id: " + string(Network_player.connect_id) + " Team: " + string(Network_player.team))
+			draw_text(10, 10 + yo*drawo++, "---------------------------------------------------------")
+			draw_text(10, 10 + yo*drawo++, "Connect ID: " + string(Connected_client.connect_id))
 			
-	        // draw RTT
-			if Network_player.extended{
-				draw_text(10, 30+(si++)*s+yOffset*drawOffset, "This player extends off another client")
-				drawOffset += 3
+			var TCP_message = ds_queue_head(Connected_client.messages_out)
+
+	        draw_text(10, 10 + yo*drawo, string_hash_to_newline(string(Connected_client.ip)))
+	        draw_text(128, 10 + yo*drawo, "RTT: " + string(Connected_client.RTT) + " milliseconds")
+			if not is_undefined(TCP_message){
+				draw_text(256, 10 + yo*drawo, scr_network_state_to_string(TCP_message))
 			}
-			else{
-		        draw_text(10, 30+(si++)*s+yOffset*drawOffset, Network_player.ip)
-		        draw_text(10, 30+si*s+yOffset*drawOffset, "RTT: " + string(Network_player.RTT) + " Min millipf: " + string(Network_player.min_millipf))
-		        if (Network_player.alarm[0] < Network_player.dropBuffer-2) {
-		            draw_text(400, 30+si*s+yOffset*drawOffset, string_hash_to_newline(string(Network_player.alarm[0])));
-		            }
-		        // increment drawOffset
-		        drawOffset++;
-		        //draw_text(10, 30+(si++)*s+yOffset*drawOffset, string_hash_to_newline());
-		        //draw_text(10, 30+(si++)*s+yOffset*drawOffset, string_hash_to_newline("Message Success: " + string(Network_player.messageSuccess)));
-		        draw_text(10, 30+(si++)*s+yOffset*drawOffset, string_hash_to_newline("UDP Last Sequence Out: " + string(Network_player.udp_sequence_out)));
-		        // increment drawOffset
-		        drawOffset += ++si;
-			}
+	        if (Connected_client.alarm[SOCKET_REGULAR] < Connected_client.drop_wait[SOCKET_REGULAR]-2){
+	            draw_text(400, 10 + yo*drawo, "Drop: " + string(Connected_client.alarm[SOCKET_REGULAR]))
+	        }
+
+	        drawo++
+	        draw_text(10, 10 + yo*drawo, string_hash_to_newline("UDP Reliable Port: " + string(Connected_client.udp_port[SOCKET_RELIABLE])))
+			draw_text(256, 10 + yo*drawo, string_hash_to_newline("UDP Regular Port: " + string(Connected_client.udp_port[SOCKET_REGULAR])))
+	        drawo++
+			draw_text(10, 10 + yo*drawo, string_hash_to_newline("Message Success: " + string(Connected_client.message_success)))
+	        draw_text(256, 10 + yo*drawo, string_hash_to_newline("Sequence Out: " + string(Connected_client.udp_sequence_out)))
+
+	        drawo++
 	    }
 	}
-    
-    // reset alpha
-    draw_set_alpha(1);
 }
 

@@ -1,12 +1,12 @@
 /// @description  Draw message + action options
 
-x = display_get_gui_width()/2
-y = display_get_gui_height()/2
+x = 640/2
+y = 480/2
 
 //setup drawing
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_set_font(fnt_basic);
+draw_set_font(fnt_button);
 draw_set_alpha(1);
 
 // get box size
@@ -48,13 +48,16 @@ draw_set_halign(fa_left);
 var dx = x-aw/2;
 var dy = y + ph/2 - ah/2 + ro*3;
 var bh = 16;
-for (var i = 0; i < ds_list_size(actions); i++){
+for (var i = 0; i < ds_list_size(actions); i++;) {
     var bw = string_width(string_hash_to_newline(actionTitles[| i]))+sb*2;
     draw_set_color(c_dkgray);
     draw_rectangle(dx, dy-bh, dx+bw, dy+bh, false);
 	
-    if i == actionSel draw_set_color(c_blue)
-    else draw_set_color(c_gray)
+    if (i == actionSel)
+        draw_set_color(c_blue);
+		
+    else
+        draw_set_color(c_gray);
 		
     draw_rectangle(dx, dy-bh, dx+bw, dy+bh, true);
     draw_set_color(c_white);

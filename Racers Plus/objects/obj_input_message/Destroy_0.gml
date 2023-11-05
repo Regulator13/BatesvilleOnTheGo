@@ -6,7 +6,3 @@ ds_list_destroy(actionTitles)
 
 // unpause
 global.paused = false;
-
-if obj_menu.state == STATE_GAME{
-	window_set_cursor(cr_none)
-}

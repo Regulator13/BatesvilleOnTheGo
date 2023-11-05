@@ -1,5 +1,5 @@
 /// @description  Broadcast our location occasionally. Clients pick this up and can then display servers to the user. 
-if global.Menu.state == STATE_LOBBY{
+if obj_menu.state == STATE_LOBBY{
 	buffer_seek(broadcast_buffer, buffer_seek_start, 0);
 	buffer_write(broadcast_buffer, buffer_u8, GAME_ID)
 	buffer_write(broadcast_buffer, buffer_string, server_name);

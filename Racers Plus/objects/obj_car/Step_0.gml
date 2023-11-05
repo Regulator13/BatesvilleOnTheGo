@@ -205,7 +205,7 @@ if speed == 0{
 			if has_delivery != -1{
 				//This order is in the list of picked up deliveries
 				/// TODO Player.tips += Order.reward
-				obj_menu.Teams[? Player.team].team_score += Order.reward
+				obj_campaign.Teams[? Player.team].team_score += Order.reward
 				ds_list_delete(picked_up_deliveries, has_delivery)
 				var Business = ds_map_find_value(global.businesses, get_business_id(Order.order_id))
 				Business.popularity++
@@ -237,7 +237,7 @@ if hp <= 0{
 	/// TODO
 	//Player.tips -= Player.model_cost[model]
 	//if Player.tips < 0 Player.tips = 0
-	obj_menu.Teams[? Player.team].team_score -= 100
+	obj_campaign.Teams[? Player.team].team_score -= 100
 
 	instance_create_layer(x, y, "lay_instances", obj_explosion)
 	x = global.player_start[0]

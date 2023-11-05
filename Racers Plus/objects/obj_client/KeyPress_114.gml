@@ -1,4 +1,3 @@
 /// @description Toggle debug display
 
-clientDebug = not clientDebug
-
+client_debug = not client_debug

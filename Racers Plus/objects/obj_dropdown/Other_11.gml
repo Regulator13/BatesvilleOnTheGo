@@ -13,7 +13,7 @@ if active{
 			var _oy = _y + box_height*i
 			if point_in_rectangle(mouse_x, mouse_y, x + edge, _oy + edge, x + box_width - edge, _oy + box_height - edge){
 				selected = false
-				field = field_options[i]
+				field = i
 				event_user(0)
 			}
 		}

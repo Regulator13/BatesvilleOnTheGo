@@ -7,9 +7,9 @@ var input; //gamepad input
 var axis_buffer = 0.4; //buffer till push starts counting
     
 //get input
-if input_buffer < 0{
+if (input_buffer < 0) {
     // gamepad input
-    for (input = 0; input < 4; input++){
+    for (input = 0; input < 4; input++) {
         haxis = gamepad_axis_value(input, gp_axislh);
         vaxis = gamepad_axis_value(input, gp_axislv);
 		
@@ -32,13 +32,15 @@ if input_buffer < 0{
     actionSel = scr_increment_in_bounds(actionSel, haxis + vaxis, 0, ds_list_size(actions)-1, true);
         
     // check if pressed
-    if action{
+    if (action) {
         event_user(0);
         instance_destroy();
     }
         
     // reset input_buffer
-    if (haxis != 0 or vaxis != 0 or action != 0) input_buffer = input_buffer_max;
+    if (haxis != 0 or vaxis != 0 or action != 0)
+        input_buffer = input_buffer_max;
     }
 	
-else input_buffer--;
+else 
+    input_buffer--;

@@ -24,8 +24,6 @@ function scr_client_send_input(connect_id, input, _x	, _y){
 		
 	//send this to the server
 	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
-	
-	scr_log_send_tcp_raw(obj_client.client_messages_log, connect_id, CLIENT_PLAY)
 }
 
 /// @function scr_client_send_name(connect_id, name)
@@ -53,6 +51,4 @@ function scr_client_send_name(connect_id, name){
 		
 	//send this to the server
 	network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
-	
-	scr_log_send_tcp_raw(obj_client.client_messages_log, connect_id, CLIENT_PLAY)
 }

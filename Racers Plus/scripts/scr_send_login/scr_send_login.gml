@@ -3,6 +3,7 @@
 /// @param name | name to send
 /// @returns null
 function scr_send_login(name){
+	var buff = obj_client.message_buffer
 	//Move to start of buffer. Networking ALWAYS takes the data from the START of a buffer.
 	buffer_seek(buff, buffer_seek_start, 0);
 
@@ -18,5 +19,4 @@ function scr_send_login(name){
 	//send this to the server
 	//buffer_tell automatically accounts for what was written, and therefore sends the smallest possible size
 	network_send_raw(server_tcp_socket, buff, buffer_tell(buff))
-	scr_log_send_tcp_raw(client_messages_log, connect_id, CLIENT_LOGIN)
 }

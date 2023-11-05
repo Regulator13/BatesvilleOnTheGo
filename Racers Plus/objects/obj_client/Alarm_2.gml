@@ -1,10 +1,6 @@
-/// @description Update server
-if instance_exists(Player){
-	scr_client_send_update(obj_client.connect_id, Player)
-}
-else{
-	/// DEBUG
-	show_debug_message("Warning! Cannot send update: Player does not exist")
-}
-
-alarm[2] = 1
+/// @description Periodic update to server
+// Made available for integration use
+// Normally turned on during game, and off during SCORE/GAMECONFIG menus
+/// Module Integration - Game
+send_update_2()
+alarm[2] = update_2_wait
