@@ -20,7 +20,7 @@ if ds_list_size(Buttons) > 0{
     }
 	else{
 		// Attempt to find another button
-		var _size = ds_list_size(buttons)
+		var _size = ds_list_size(Buttons)
 		var tries = _size - 2
 		while Buttons[| selected_button_index].active == false and tries > 0{
 			selected_button_index = scr_increment_in_bounds(selected_button_index, 1, 0, _size-1, true)

@@ -70,7 +70,6 @@ perform_interaction = function(interaction){
 			var player = players[? connect_id]
 			player.ready_to_start = ready_to_start
 			player.player_name = player_name
-			player.Name_box.text = player_name
 			break
 		case LOBBY_SECTION_ADD:
 			var new_section = argument[1]
@@ -131,43 +130,6 @@ perform_interaction = function(interaction){
 			// Remove player from previous slot
 			perform_interaction(LOBBY_ROLE_LEAVE, old_slot.slot_id)
 			
-			break
-	}
-}
-
-request_interaction = function(interaction){
-	switch interaction{
-		case LOBBY_INITIALIZE:
-			var seed = argument[1]
-			if global.online{
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, seed)
-			}
-			break
-		case LOBBY_JOIN:
-			// Join an entirely new player to the lobby
-			if global.online{
-				// TODO: u8 is not needed
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, obj_client.connect_id)
-			}
-			break
-		case LOBBY_MISSION_CHANGE:
-			var mission_index = argument[1]
-			if global.online{
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, mission_index)
-			}
-			break
-		case LOBBY_ROLE_CHANGE:
-			var slot_id = argument[1]
-			if global.online{
-				request_interaction_u8_u8(obj_client.connect_id, interactable_id, interaction, obj_client.connect_id, slot_id)
-			}
-			break
-		case LOBBY_UPDATE_PLAYER:
-			var ready_to_start = argument[1]
-			var player_name = argument[2]
-			if global.online{
-				request_interaction_u8_u8_string(obj_client.connect_id, interactable_id, interaction, obj_client.connect_id, ready_to_start, player_name)
-			}
 			break
 	}
 }

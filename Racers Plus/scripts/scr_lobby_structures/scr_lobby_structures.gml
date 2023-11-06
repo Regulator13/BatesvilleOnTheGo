@@ -107,13 +107,7 @@ function stc_lobby_player(_connect_id) constructor{
 	// stc_lobby_section_slot
 	slot = noone
 	
-	local = _connect_id==obj_client.connect_id
-	Name_box = menu_create_text_box(obj_lobby.section_draw_start_x + obj_lobby.edge, 0, "", player_name, function(){
-				// TODO send name
-			}, false, 15, fa_left, fa_top)
-	Ready_box = menu_create_checkbox(obj_lobby.section_draw_start_x + obj_lobby.section_draw_width - 24 - obj_lobby.edge, 0, function(){
-				client_send_input(obj_client.connect_id, READY_UP, -1, -1)
-			}, local, "Ready: ")
+	local = false
 	
 	write_to_buffer = function(buff){
 		buffer_write(buff, buffer_u8, connect_id)
@@ -128,8 +122,7 @@ function stc_lobby_player(_connect_id) constructor{
 		}
 	}
 	clean_up = function(){
-		instance_destroy(Name_box)
-		instance_destroy(Ready_box)
+		// Destory input boxes
 	}
 }
 function stc_lobby_player_read_from_buffer(buff){

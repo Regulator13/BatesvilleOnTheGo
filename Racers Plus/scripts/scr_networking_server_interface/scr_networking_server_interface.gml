@@ -21,12 +21,6 @@ function networking_declare_server_interface_functions() {
 				switch message_in_queue {
 					case SERVER_LOGIN:
 						// SERVER_LOGIN is sent by server_login_client after both connections establish
-						// Get the client caught up
-						obj_campaign.write_state(buffer)
-						obj_campaign.log_message("obj_server SERVER_LOGIN for new client")
-						/// Module Interaction - Lobby
-						obj_lobby.write_state(buffer)
-						obj_lobby.log_message("obj_server SERVER_LOGIN for new client")
 						break
 					case SERVER_STATESWITCH:
 						// Game is starting!!

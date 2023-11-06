@@ -1,4 +1,4 @@
-/// @description Regular UDP Drop player if not responding
+/// @description Drop player if not responding
 switch(obj_menu.state){
 	case STATE_LOBBY:
         //just drop

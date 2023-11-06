@@ -81,11 +81,6 @@ switch(actions[| actionSel]) {
         menu_state_switch(STATE_SCORE, STATE_ONLINE);
         break;
 	
-    // reset client disconnect buffer
-    case "resetDisconnectBuffer":
-        obj_client.alarm[0] = obj_client.disconnect_after_seconds*game_get_speed(gamespeed_fps)
-        break;
-	
 	// reset networkPlayer drop buffer
     case "reset_reliable_drop_buffer":
         Source.alarm[SOCKET_RELIABLE] = Source.drop_wait[SOCKET_RELIABLE]

@@ -10,5 +10,3 @@ player_color = 0
 team = -1
 model = -1
 ready_to_start = false
-
-Section = noone

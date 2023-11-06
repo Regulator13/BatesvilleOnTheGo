@@ -42,7 +42,7 @@ function menu_declare_interface_functions(){
 			case STATE_ONLINE:
 				#region Initiate online menu
 			    //reset selected
-				selected_button_index = 2; // start on host button
+				selected_button_index = 1 // start on host button
 
 				// set room width and height manually, in case of changing from game
 				var rw = 640
@@ -50,13 +50,6 @@ function menu_declare_interface_functions(){
 
 				// setup online menu
 				menu_create_button(96, rh - 32, "back", "back")
-				// Direct connect
-				menu_create_button(96, rh - 96, function(){
-						var ip = obj_online.Direct_ip_box.text
-				        with obj_online event_user(0)
-						obj_client.server_ip = ip
-						with obj_client event_user(0)
-						}, "direct")
 				// Host
 				menu_create_button(rw - 96, rh - 96, function(){
 						with obj_online event_user(1)
@@ -70,12 +63,9 @@ function menu_declare_interface_functions(){
 				#region Initiate lobby menu
 				global.level = 0
 				
-				obj_menu.selected_button_index = 1
+				obj_menu.selected_button_index = 0
 	
 				menu_create_button(96 - 154/2, room_height - 48, "back", "back")
-				menu_create_button(room_width-96 - 154/2, room_height - 48, function(){
-						client_send_input(obj_client.connect_id, READY_UP, 0, 0)
-						}, "ready")
 				#endregion
 				break
 			case STATE_GAMECONFIG:
@@ -85,12 +75,9 @@ function menu_declare_interface_functions(){
 				break
 			case STATE_SCORE:
 				#region Score
-				selected_button_index = 1
+				selected_button_index = 0
 	
 				menu_create_button(96 - 154/2, room_height-48, "quit", "quit")
-				menu_create_button(room_width-96 - 154/2, room_height-48, function(){
-						client_send_input(obj_client.connect_id, READY_UP, 0, 0)
-						}, "ready")
 				#endregion
 				break
 		}

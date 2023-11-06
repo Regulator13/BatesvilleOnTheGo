@@ -28,7 +28,7 @@ read_from_buffer = function(buff){
 	for (var i=0; i<slot_amount; i++){
 		var connect_id = buffer_read(buff, buffer_u8)
 		// obj_player instances
-		var Player = obj_client.Network_players[? connect_id].Player
+		var Player = obj_server.Connected_clients[? connect_id].Player
 		ds_list_add(Players, Player)
 	}
 }

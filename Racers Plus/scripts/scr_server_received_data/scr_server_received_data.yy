@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "server",
-    "path": "folders/Scripts/networking/server.yy",
+    "path": "folders/Phame/Phame-Networking_Phone/Scripts/server.yy",
   },
 }

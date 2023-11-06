@@ -26,8 +26,8 @@ function lobby_declare_functions(){
 	
 	initialize_lobby = function(){
 		#region Players
-		for (var i=0; i<ds_list_size(obj_client.active_connect_ids); i++){
-			lobby_create_player(obj_client.active_connect_ids[| i])
+		for (var i=0; i<ds_list_size(obj_server.active_connect_ids); i++){
+			lobby_create_player(obj_server.active_connect_ids[| i])
 		}
 		#endregion
 		
@@ -53,8 +53,8 @@ function lobby_declare_functions(){
 		#endregion
 		
 		// Add players not in a slot to default section
-		for (var i=0; i<ds_list_size(obj_client.active_connect_ids); i++){
-			var player = players[? obj_client.active_connect_ids[| i]]
+		for (var i=0; i<ds_list_size(obj_server.active_connect_ids); i++){
+			var player = players[? obj_server.active_connect_ids[| i]]
 			if player.slot == noone{
 				// Join default section
 				var slot_id = get_open_slot_id(0)
@@ -97,9 +97,6 @@ function lobby_declare_functions(){
 			var player = slot.player
 			if player != noone{
 				draw_text(section_draw_width - 300, _y, "Connect ID: " + string(player.connect_id))
-				// Align input boxes
-				player.Name_box.y = _y
-				player.Ready_box.y = _y
 			}
 	
 			// Information about player is displayed in the pertinent input box instances

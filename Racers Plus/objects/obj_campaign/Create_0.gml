@@ -35,9 +35,9 @@ perform_interaction = function(interaction){
 	switch interaction{
 		case GAME_JOIN:
 			var connect_id = argument[1]
-			update_player(connect_id, "", false)
+			
 			// obj_player instances
-			var Player = obj_client.Network_players[? connect_id].Player
+			var Player = obj_server.Connected_clients[? connect_id].Player
 			Player.Group = Groups[| 0]
 			Player.slot_index = 0
 			break
@@ -46,23 +46,6 @@ perform_interaction = function(interaction){
 			var Unit = add_unit(Available_units[store_units[store_units_index]])
 			with obj_lobby{
 				perform_interaction(LOBBY_SECTION_ADD, obj_campaign.create_section(Unit))
-			}
-			break
-	}
-}
-
-request_interaction = function(interaction){
-	switch interaction{
-		case GAME_JOIN:
-			var connect_id = argument[1]
-			if global.online{
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, connect_id)
-			}
-			break
-		case GAME_GROUP_ADD:
-			var store_units_index = argument[1]
-			if global.online{
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, store_units_index)
 			}
 			break
 	}

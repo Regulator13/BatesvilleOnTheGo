@@ -36,7 +36,7 @@ if network_player_count > 0{
 					else
 						show_debug_message("Warning: TCP server message to client failed to send")
 					
-					log_message(string("-> {0}", message_in_queue))
+					log_message(string("-> TCP {0}", scr_msg_id_to_string(message_in_queue)))
 	            }
             }
 			#endregion

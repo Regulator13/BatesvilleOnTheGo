@@ -26,7 +26,7 @@ RTT = -1
 // According to Bryan Ford (https://bford.info/pub/net/p2pnat/index.html)
 // these can be as low as 20 seconds, so ping before that
 
-drop_wait = 5*game_get_speed(gamespeed_fps)
+drop_wait = 20*game_get_speed(gamespeed_fps)
 alarm[0] = drop_wait
 #endregion
 

@@ -3,18 +3,8 @@ function game_declare_interface_functions(){
 	state_switch = function(from, to){
 		if to == STATE_LOBBY{
 			// If the host, initialize the lobby
-			if not global.online{
-				var seed = 255
-				obj_lobby.request_interaction(LOBBY_INITIALIZE, seed)
-			}
-			else if global.have_server{
-				// If hosting, need to wait till connection is complete,
-				// so request is made the first time in obj_client
-				if from == STATE_SCORE{
-					var seed = 255
-					obj_lobby.request_interaction(LOBBY_INITIALIZE, seed)
-				}
-			}
+			var seed = 255
+			obj_lobby.perform_interaction(LOBBY_INITIALIZE, seed)
 		}
 		else if from == STATE_LOBBY{
 			// Get mission
@@ -32,14 +22,6 @@ function game_declare_interface_functions(){
 				}
 			}
 			ds_map_clear(lobby_slot_map)
-			
-			// Update player names
-			var players = obj_lobby.get_players()
-			for (var i=0; i<array_length(players); i++){
-				var player = players[i]
-				var Network_player = obj_client.Network_players[? player.connect_id]
-				Network_player.player_name = player.player_name
-			}
 			
 			global.setup = mission.setup
 			
@@ -110,7 +92,7 @@ function game_declare_interface_functions(){
 			// Translate slot
 			if slot.player != noone{
 				// obj_player instances
-				var Player = obj_client.Network_players[? slot.player.connect_id].Player
+				var Player = obj_server.Connected_clients[? slot.player.connect_id].Player
 				
 				// Remove player from previous slot
 				with Player.Group{
@@ -179,13 +161,13 @@ function game_declare_interface_functions(){
 		for (var j=0; j<group_amount; j++){
 			obj_campaign.Groups[| j].write_to_buffer(buffer)
 		}
-							
+		
 		// Current players' Groups
 		var player_amount = ds_list_size(obj_server.client_connect_ids) - 1
 		buffer_write(buffer, buffer_u8, player_amount)
 		for (var j=0; j<player_amount; j++) {
 			// obj_player instances
-			var Player = obj_client.Network_players[? obj_server.client_connect_ids[| j]].Player
+			var Player = obj_server.Connected_clients[? obj_server.client_connect_ids[| j]].Player
 			buffer_write(buffer, buffer_u8, Player.Parent.connect_id)
 			buffer_write(buffer, buffer_u8, Player.Group.group_id)
 		}
@@ -193,44 +175,7 @@ function game_declare_interface_functions(){
 	}
 	/// @description Read the details of a game state sent over reliable UDP
 	read_state = function(buffer){
-		switch obj_menu.state{
-			case STATE_LOBBY:
-				// Missions
-				var mission_amount = buffer_read(buffer, buffer_u8)
-				for (var i=0; i<mission_amount; i++){
-					missions[i] = stc_lobby_mission_read_from_buffer(buffer)
-				}
-				break
-		}
 		
-		#region Common
-		// Current players
-		var player_amount = buffer_read(buffer, buffer_u8)
-		for (var i=0; i<player_amount; i++) {
-			//get the network player
-			var _connect_id = buffer_read(buffer, buffer_u8)
-			var _player_name = buffer_read(buffer, buffer_string)
-			var _ready = buffer_read(buffer, buffer_bool)
-			update_player(_connect_id, _player_name, _ready)
-		}
-		
-		// Groups
-		var group_amount = buffer_read(buffer, buffer_u8)
-		for (var i=0; i<group_amount; i++){
-			obj_campaign.read_group(buffer)
-		}
-		// Current players
-		var player_amount = buffer_read(buffer, buffer_u8)
-		for (var i=0; i<player_amount; i++) {
-			//get the network player
-			var _connect_id = buffer_read(buffer, buffer_u8)
-			var group_id = buffer_read(buffer, buffer_u8)
-			
-			// obj_player instances
-			var Player = obj_client.Network_players[? _connect_id].Player
-			Player.Group = obj_campaign.Group_ids[? group_id]
-		}
-		#endregion
 	}
 	/// @description Fills the buffer of state updates to be sent via regular UDP
 	write_state_update = function(buffer) {
@@ -264,15 +209,7 @@ function game_declare_interface_functions(){
 		switch obj_menu.state {
 			case STATE_GAMECONFIG:
 				if obj_menu.state == STATE_GAMECONFIG {
-					// Iterate through list of players
-					var player_amount = buffer_read(buffer, buffer_u8)
-					for (var i=0; i<player_amount; i++){
-						var conn_id = buffer_read(buffer, buffer_u8)
-						var ready_to_start = buffer_read(buffer, buffer_bool)
-						if conn_id == obj_client.connect_id{
-							obj_upgrade_client.ready = ready_to_start
-						}
-					}
+
 				}
 				break
 			case STATE_GAME:

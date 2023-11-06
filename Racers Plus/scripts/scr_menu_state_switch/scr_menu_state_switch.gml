@@ -38,16 +38,11 @@ function menu_state_switch(from, to){
 	        case STATE_ONLINE:
 	            switch (to) {
 	                case STATE_LOBBY:
-						if os_browser == browser_not_a_browser{
-							room_goto(mnu_lobby)
-						}
-						else{
-							room_goto(mnu_controller_lobby)
-						}
-						
+						// Campaign initializes interactable_ids
 						instance_create_layer(0, 0, "lay_instances", obj_campaign)
-						menu_init(to)
+						instance_create_layer(0, 0, "lay_instances", obj_lobby)
 						
+						menu_init(to)
 	                    break
 					case STATE_MAIN:
 	                    instance_destroy(obj_online)
@@ -76,7 +71,6 @@ function menu_state_switch(from, to){
 						instance_destroy(obj_lobby)
 	                    if (global.have_server) // check if hosting
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
 						
 						if os_browser == browser_not_a_browser{
 							room_goto(mnu_main)
@@ -108,8 +102,7 @@ function menu_state_switch(from, to){
 	                    // destroy online objects
 	                    if (global.have_server)
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
-						
+	                    
 	                    break
 				}
 				break
@@ -146,7 +139,7 @@ function menu_state_switch(from, to){
 						// destroy online objects
 	                    if (global.have_server) // check if hosting
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
+	                    
 						break
 					case STATE_MAIN:
 						// Menu is initialized in Room Start even of obj_menu
@@ -155,7 +148,6 @@ function menu_state_switch(from, to){
 						// destroy online objects
 	                    if (global.have_server) // check if hosting
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
 						
 						instance_destroy(obj_campaign)
 						
@@ -165,12 +157,8 @@ function menu_state_switch(from, to){
 			 case STATE_SCORE:
 	            switch (to) {
 	                case STATE_LOBBY:
-						if os_browser == browser_not_a_browser{
-							room_goto(mnu_lobby)
-						}
-						else{
-							room_goto(mnu_controller_lobby)
-						}
+						instance_create_layer(0, 0, "lay_instances", obj_lobby)
+						
 						menu_init(to)
                     
 	                    break
@@ -181,7 +169,6 @@ function menu_state_switch(from, to){
 	                    // destroy online objects
 	                    if (global.have_server) // check if hosting
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
 						
 						instance_destroy(obj_campaign)
 						
@@ -193,7 +180,6 @@ function menu_state_switch(from, to){
 	                    // destroy online objects
 	                    if (global.have_server)
 	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
 						
 						instance_destroy(obj_campaign)
 						
