@@ -1,12 +1,10 @@
-/// @description Server side player tracker
-// obj_player without certain behaviors
-
-// Set in an optional structure in server_connect_client
-// connect_id - Order in which client connected
-
-// Used in lobby
+// Used only in the score menu
+ready_to_start = false
 player_name = ""
 player_color = 0
-team = -1
-model = -1
-ready_to_start = false
+team = 1
+
+connect_id = -1  //order in which client connected to server, not an index to any list
+
+Player = instance_create_layer(x, y, "lay_instances", obj_player)
+Player.Parent = self

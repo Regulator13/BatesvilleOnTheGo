@@ -19,10 +19,18 @@ function scr_interaction_to_string(interaction) {
 			return "LOBBY_UPDATE_PLAYER"
 		case LOBBY_INITIALIZE:
 			return "LOBBY_INITIALIZE"
-		case GAME_GROUP_ADD:
-			return "GAME_GROUP_ADD"
 		case GAME_JOIN:
 			return "GAME_JOIN"
+		case GAME_UPDATE_PLAYER_TEAM:
+			return "GAME_UPDATE_PLAYER_TEAM"
+		case GAME_UPDATE_PLAYER_COLOR:
+			return "GAME_UPDATE_PLAYER_COLOR"
+		case GAME_UPDATE_PLAYER_MODEL:
+			return "GAME_UPDATE_PLAYER_MODEL"
+		case GAME_DRIVE_UPDATE:
+			return "GAME_DRIVE_UPDATE"
+		case GAME_PICKUP:
+			return "GAME_PICKUP"
 		default:
 			return "Unkown Interaction"
 	}

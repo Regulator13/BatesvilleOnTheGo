@@ -4,6 +4,7 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 	// Check win conditions
 	if winner == 0{
 		// Win/lose by score
+		/* TODO
 		for (var i=0; i<instance_number(obj_group); i++){
 			var Team = instance_find(obj_group, i)
 			if abs(Team.team_score) > win_score{
@@ -12,6 +13,7 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 				change_state = true
 			}
 		}
+		
 	
 		// Check if all customers same team
 		var all_loyal_to_one_team = true
@@ -30,6 +32,7 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 			winner = team_to_check
 			change_state = true
 		}
+		*/
 	}
 
 	//change state
@@ -41,9 +44,9 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 			//inform clients game is starting
 			for (var i = 0; i < ds_list_size(obj_server.active_connect_ids); i++){
 				//get the network player
-				var Network_player = ds_map_find_value(obj_server.Network_players, obj_server.active_connect_ids[| i])
+				var Connected_client = ds_map_find_value(obj_server.Connected_clients, obj_server.active_connect_ids[| i])
 				//actual game start message is handled in obj_server
-				ds_queue_enqueue(Network_player.messages_out, SERVER_STATESWITCH)
+				ds_queue_enqueue(Connected_client.messages_out, SERVER_STATESWITCH)
 			}
 		}
 	

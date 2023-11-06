@@ -124,28 +124,7 @@ function networking_declare_client_interface_functions() {
 	}
 	/// @description Implementation customizable periodic update #2
 	send_update_2 = function() {
-		var buff = obj_client.buff
-	
-		//specific game steps of input will be determined when the server recieves it
-		buffer_seek(buff, buffer_seek_start, 0)
-	
-		//write GAME ID to uniquely define game
-		buffer_write(buff, buffer_u8, GAME_ID)
-		buffer_write(buff, buffer_u8, connect_id)
-		//write msg_id
-		buffer_write(buff, buffer_s8, CLIENT_PLAY)
-	
-		//write command
-		buffer_write(buff, buffer_u8,  UPDATE_CMD)
-		
-		//write input
-		buffer_write(buff, buffer_s8, Player.throttle)
-		buffer_write(buff, buffer_s8, Player.steer*100)
-		
-		//send this to the server
-		network_send_raw(obj_client.tcp_client, buff, buffer_tell(buff))
-		
-		log_message("-> TCP CLIENT_PLAY")
+		obj_campaign.request_interaction(GAME_DRIVE_UPDATE, Parent.connect_id, Player.throttle, Player.steer)
 	}
 	#endregion
 }

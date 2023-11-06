@@ -25,12 +25,30 @@ request_interaction = function(interaction){
 				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, connect_id)
 			}
 			break
-		case GAME_GROUP_ADD:
-			var store_units_index = argument[1]
+		case GAME_UPDATE_PLAYER_TEAM:
+		case GAME_UPDATE_PLAYER_COLOR:
+		case GAME_UPDATE_PLAYER_MODEL:
+			var connect_id = argument[1]
+			var value = argument[2]
 			if global.online{
-				request_interaction_u8(obj_client.connect_id, interactable_id, interaction, store_units_index)
+				request_interaction_u8_u8(obj_client.connect_id, interactable_id, interaction, connect_id, value)
 			}
 			break
+		case GAME_DRIVE_UPDATE:
+			var connect_id = argument[1]
+			var throttle = argument[2]
+			var steer = argurment[3]*100
+			if global.online{
+				// s8 would also work
+				request_interaction_u8_s16_s16(obj_client.connect_id, interactable_id,
+						interaction, connect_id, throttle, steer)
+			}
+		case GAME_PICKUP:
+			var connect_id = argument[1]
+			var value = argument[2]
+			if global.online{
+				request_interaction_u8_u8(obj_client.connect_id, interactable_id, interaction, connect_id, value)
+			}	
 	}
 }
 #endregion

@@ -63,8 +63,10 @@ ping_wait = 2*game_get_speed(gamespeed_fps)
 global.message_log = file_text_open_write("messages.log")
 
 log_message = function(entry) {
-	show_debug_message(string("obj_client {0}", entry)	)
+	show_debug_message(string("obj_client {0}", entry))
+	/*
 	file_text_write_string(global.message_log, string("obj_client {0}", entry))
 	file_text_writeln(global.message_log)
+	*/
 }
 #endregion

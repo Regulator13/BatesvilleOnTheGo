@@ -89,7 +89,7 @@ function game_declare_interface_functions(){
 	
 	translate_slot = function(slot){
 		if slot.active{
-			// Translate slot
+			// Translate slot from lobby to game
 			if slot.player != noone{
 				// obj_player instances
 				var Player = obj_server.Connected_clients[? slot.player.connect_id].Player
@@ -107,8 +107,8 @@ function game_declare_interface_functions(){
 					var Group = obj_campaign.Group_ids[? group_id]
 				}
 				
-				Player.slot_index = slot_index
-				Group.slots[slot_index].Player = Player
+				//Player.slot_index = slot_index
+				//Group.slots[slot_index].Player = Player
 			}
 			
 			// Translate subslots

@@ -33,15 +33,6 @@ Car = noone
 
 tips = 0
 
-inputs = array_create(5, KEY_ISRELEASED)
-if not global.online{
-	//Controls are stored in a multidimensional array
-	//controls is the index to use to determine the controls preset
-	controls = global.player_counter++
-}
-else{
-	controls = 0
-}
 ////TODO
 steer = 0
 
@@ -52,13 +43,3 @@ picked_up_deliveries = ds_list_create()
 
 // Who created this player
 Parent = noone
-
-// Which virtual controller to use
-// stc_controller
-controller = obj_controls.controllers[5]
-
-#region Campaign
-// Group player is currently a part of
-Group = noone
-slot_index = 0
-#endregion

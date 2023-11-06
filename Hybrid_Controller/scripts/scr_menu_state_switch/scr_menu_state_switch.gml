@@ -48,7 +48,7 @@ function menu_state_switch(from, to) {
 			case STATE_LOBBY:
 	            switch (to) {
 	                case STATE_GAME:
-						
+						//instance_create_layer(0, 0, "lay_instances", obj_game_control)
 	                    break
 					case STATE_SCORE:
 						// Universal back button will lead to state score,
@@ -59,42 +59,16 @@ function menu_state_switch(from, to) {
 						instance_destroy(obj_campaign)
 						// Destroy lobby first to save player name
 						instance_destroy(obj_lobby)
-	                    if (global.have_server) // check if hosting
-	                        instance_destroy(obj_server)
+	                    
 	                    instance_destroy(obj_client)
-						
-						if os_browser == browser_not_a_browser{
-							room_goto(mnu_main)
-						}
-						else{
-							room_goto(mnu_controller_main)
-						}
 						break
 				}
 	            break;
 			case STATE_GAMECONFIG:
 	            switch (to) {
 					case STATE_GAME:
-						if os_browser == browser_not_a_browser{
-							room_goto(obj_lobby.Map.room_index)
-						}
-						else{
-							// Just because it is blank
-							instance_create_layer(0, 0, "lay_instances", obj_game_control)
-							room_goto(mnu_controller_score)
-						}
 						break
 					case STATE_ONLINE:
-						// Called by obj_input_message upon server connection loss
-						instance_destroy(obj_campaign)
-						
-						menu_init(to)
-                    
-	                    // destroy online objects
-	                    if (global.have_server)
-	                        instance_destroy(obj_server)
-	                    instance_destroy(obj_client)
-						
 	                    break
 				}
 				break

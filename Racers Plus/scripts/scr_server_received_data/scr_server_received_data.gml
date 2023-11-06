@@ -80,54 +80,5 @@ function scr_server_received_data(Network_player, buff) {
 			
 			log_message(string("<- TCP INTERACTION_CMD {0}", scr_interaction_to_string(interaction)))
 			break
-		case PICKUP_CMD:
-			var Player = Network_player.Player
-			var order_number = buffer_read(buff, buffer_s8)
-			var order_id = set_order_id(order_number, Player.team)
-			var Car = Player.Car
-			
-			if order_number == -1{
-				// Done with pickup
-				Player.state = STATE_DRIVING
-				// Do not check again to pickup for some time
-				Car.alarm[0] = 3*game_get_speed(gamespeed_fps)
-			}
-			else{
-				///TODO Cleanup
-				var delivery_options = ds_list_size(Car.available_deliveries)
-	
-				for (var i=0; i<delivery_options; i++){
-					var Delivery = Car.available_deliveries[| i]
-					if Delivery.order_id == order_id{
-						ds_list_add(Car.picked_up_deliveries, Delivery.order_id)
-						instance_destroy(Delivery)
-					}
-				}
-			}
-			break
-		case UPDATE_CMD:
-			var throttle = buffer_read(buff, buffer_s8)
-			var steer = buffer_read(buff, buffer_s8)/100
-			steer = sign(steer)*power(steer,2)
-			
-			var Car = Network_player.Player.Car
-			if instance_exists(Car){
-				//Car.inputs[LEFT_KEY] = left
-				//Car.inputs[RIGHT_KEY] = right
-				if throttle == -1{
-					Car.inputs[UP_KEY] = KEY_ISPRESSED
-					Car.inputs[DOWN_KEY] = KEY_ISRELEASED
-				}
-				else if throttle == 1{
-					Car.inputs[UP_KEY] = KEY_ISRELEASED
-					Car.inputs[DOWN_KEY] = KEY_ISPRESSED
-				}
-				else{
-					Car.inputs[UP_KEY] = KEY_ISRELEASED
-					Car.inputs[DOWN_KEY] = KEY_ISRELEASED
-				}
-				Car.steer = steer
-			}
-			break
 	}
 }

@@ -5,6 +5,8 @@
 // Used only in the score menu
 ready_to_start = false
 player_name = ""
+player_color = 0
+team = 1
 // Whether this player is local to this machine
 local = false
 
