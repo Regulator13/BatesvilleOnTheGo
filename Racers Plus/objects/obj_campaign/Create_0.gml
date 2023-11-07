@@ -62,19 +62,28 @@ perform_interaction = function(interaction){
 			var Authoritative_player = obj_server.Connected_clients[? connect_id].Player
 			Authoritative_player.Player.model = argument[2]
 			break
+		case GAME_CAR_STATE_CHANGE:
+			var connect_id = argument[1]
+			var new_state = argument[2]
+			
+			// obj_player instances
+			var Authoritative_player = obj_server.Connected_clients[? connect_id].Player
+			break
 		case GAME_PICKUP:
 			var connect_id = argument[1]
 			var order_number = argument[2]
 			
-			// obj_player instances
+			// obj_authoritative_player instances
 			var Authoritative_player = obj_server.Connected_clients[? connect_id].Player
+			// obj_player instances
+			var Player = Authoritative_player.Player
 			
 			var order_id = set_order_id(order_number, Authoritative_player.team)
 			var Car = Player.Car
 			
 			if order_number == 255{
 				// Done with pickup
-				Authoritative_player.Player.state = STATE_DRIVING
+				Authoritative_player.Player.push_interaction(GAME_CAR_STATE_CHANGE, STATE_DRIVING)
 				// Do not check again to pickup for some time
 				Car.alarm[0] = 3*game_get_speed(gamespeed_fps)
 			}
@@ -96,8 +105,10 @@ perform_interaction = function(interaction){
 			var throttle = argument[2]
 			var steer = argument[3]/100
 			
+			// obj_authoritative_player instances
+			var Authoritative_player = obj_server.Connected_clients[? connect_id].Player
 			// obj_player instances
-			var Player = obj_server.Connected_clients[? connect_id].Player
+			var Player = Authoritative_player.Player
 			
 			
 			steer = sign(steer)*power(steer,2)

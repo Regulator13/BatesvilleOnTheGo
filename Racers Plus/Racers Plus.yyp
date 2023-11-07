@@ -78,6 +78,7 @@
   },
   "resources": [
     {"id":{"name":"spr_roads","path":"sprites/spr_roads/spr_roads.yy",},},
+    {"id":{"name":"scr_server_push_interaction","path":"scripts/scr_server_push_interaction/scr_server_push_interaction.yy",},},
     {"id":{"name":"spr_cone","path":"sprites/spr_cone/spr_cone.yy",},},
     {"id":{"name":"spr_yield_ns","path":"sprites/spr_yield_ns/spr_yield_ns.yy",},},
     {"id":{"name":"scr_orders","path":"scripts/scr_orders/scr_orders.yy",},},

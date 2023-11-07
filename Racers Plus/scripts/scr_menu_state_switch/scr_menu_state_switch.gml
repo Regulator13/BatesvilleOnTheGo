@@ -90,13 +90,7 @@ function menu_state_switch(from, to){
 						// Reset start so it can be checked for again
 						obj_menu.start = false
 						
-	                    // goto menu screen
-	                    if os_browser == browser_not_a_browser{
-							room_goto(mnu_score)
-						}
-						else{
-							room_goto(mnu_controller_score)
-						}
+						room_goto(mnu_score)
 						
 						// Score menu is initiated in obj_menu Room Start Event
 						// to deal with the change of rooms
@@ -106,12 +100,8 @@ function menu_state_switch(from, to){
 						// Called by obj_input_message upon server connection loss
 						instance_destroy(obj_campaign)
 						
-						if os_browser == browser_not_a_browser{
-							room_goto(mnu_main)
-						}
-						else{
-							room_goto(mnu_controller_main)
-						}
+						room_goto(mnu_main)
+						
 						// destroy online objects
 	                    if (global.have_server) // check if hosting
 	                        instance_destroy(obj_server)

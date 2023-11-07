@@ -62,3 +62,18 @@ controller = obj_controls.controllers[5]
 Group = noone
 slot_index = 0
 #endregion
+
+#region Networking
+// Interactions on server that influence controller clients
+push_interaction = function(interaction){
+	switch interaction{
+		case GAME_CAR_STATE_CHANGE:
+			var new_state = argument[1]
+			if global.online{
+				push_interaction_u8(Parent.Parent, obj_campaign.interactable_id, interaction, Parent.connect_id)
+			}
+			state = new_state
+			break
+	}
+}
+#endregion

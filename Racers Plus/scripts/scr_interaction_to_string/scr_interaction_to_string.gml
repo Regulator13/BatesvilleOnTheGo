@@ -31,6 +31,8 @@ function scr_interaction_to_string(interaction) {
 			return "GAME_DRIVE_UPDATE"
 		case GAME_PICKUP:
 			return "GAME_PICKUP"
+		case GAME_CAR_STATE_CHANGE:
+			return "GAME_CAR_STATE_CHANGE"
 		default:
 			return "Unkown Interaction"
 	}

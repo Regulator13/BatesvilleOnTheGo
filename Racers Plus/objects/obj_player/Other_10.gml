@@ -10,6 +10,7 @@ var x_offset = 0
 while not place_empty(Business.x - x_offset, Business.y + Business.sprite_height + 32){
 	x_offset += 16
 }
+
 Car = instance_create_layer(Business.x - x_offset, Business.y + Business.sprite_height + 32, "lay_instances", obj_car)
 
 Car.turn_speed = model_turn_speeds[model]

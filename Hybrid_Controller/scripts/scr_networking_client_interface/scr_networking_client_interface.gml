@@ -69,19 +69,24 @@ function networking_declare_client_interface_functions() {
 					menu_state_switch(STATE_GAMECONFIG, STATE_GAME)
 					
 					// Continually update server
-					if connect_id != 0{
-						alarm[2] = update_2_wait
-					}
+					alarm[2] = update_2_wait
 					
 					log_message(scr_network_state_to_string(network_state))
 				}
 				break
 			case NETWORK_PLAY:
 				if msg_id == SERVER_PLAY{
-					var state = buffer_read(buffer, buffer_u8)
-					if state == STATE_GAME{
-						scr_read_game(buffer)
+					// INTERACTION_CMD from reflecting from server, discard
+					buffer_read(buffer, buffer_u8)
+					var interaction = buffer_read(buffer, buffer_u8)
+					// lobby does not have an interactable id, assume it is obj_lobby
+					var interactable_id = buffer_read(buffer, buffer_u16)
+						
+					with global.Interactables[| interactable_id]{
+						read_interaction(interaction, buffer)
 					}
+					
+					log_message(string("<- TCP INTERACTION_CMD {0}", scr_interaction_to_string(interaction)))
 				}
 				else if msg_id == SERVER_PING{
 					// Server is keeping alive
@@ -93,9 +98,8 @@ function networking_declare_client_interface_functions() {
 					
 					menu_state_switch(STATE_GAME, STATE_SCORE)
 					
-					if connect_id != 0{
-						alarm[2] = -1
-					}
+					alarm[2] = -1
+					
 					log_message(scr_network_state_to_string(network_state))
 				}
 				break
@@ -124,7 +128,9 @@ function networking_declare_client_interface_functions() {
 	}
 	/// @description Implementation customizable periodic update #2
 	send_update_2 = function() {
-		obj_campaign.request_interaction(GAME_DRIVE_UPDATE, Parent.connect_id, Player.throttle, Player.steer)
+		// obj_player instances
+		var Player = obj_client.Network_players[? obj_client.connect_id].Player
+		obj_campaign.request_interaction(GAME_DRIVE_UPDATE, connect_id, Player.throttle, Player.steer)
 	}
 	#endregion
 }
