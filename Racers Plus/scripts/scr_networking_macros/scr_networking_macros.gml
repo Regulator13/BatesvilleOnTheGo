@@ -4,6 +4,7 @@
 #macro UDP_PORT 6510
 #macro BROADCAST_PORT 6511
 
+#macro ACTION_CMD 1
 
 //client side network states
 #macro NETWORK_TCP_CONNECT 0
@@ -13,10 +14,6 @@
 #macro NETWORK_GAMECONFIG 5
 #macro NETWORK_SCORE 6
 #macro NETWORK_PLAY 1
-
-#macro SEQUENCE_MAX 255
-// Server game message identifiers
-#macro PING 20
 
 #macro CLIENT_CONNECT 5
 #macro CLIENT_LOGIN 3

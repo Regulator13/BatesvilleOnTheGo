@@ -14,10 +14,7 @@
     "name": "Objects",
     "path": "folders/Phame/Phame-Lobby/Objects.yy",
   },
-  "parentObjectId": {
-    "name": "par_interactable",
-    "path": "objects/par_interactable/par_interactable.yy",
-  },
+  "parentObjectId": null,
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

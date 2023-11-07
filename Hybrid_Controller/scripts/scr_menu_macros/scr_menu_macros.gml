@@ -10,8 +10,3 @@
 #macro STATE_GAMECONFIG 1
 #macro STATE_GAME 2
 #macro STATE_SCORE 3
-
-// Button actions cannot overlap menu states
-// as these are also possible actions
-#macro VALUE_BUTTON 10
-#macro VALUEACTION_BUTTON 11

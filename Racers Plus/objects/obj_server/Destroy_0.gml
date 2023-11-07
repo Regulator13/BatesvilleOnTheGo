@@ -15,7 +15,7 @@ global.have_server = false
 network_destroy(tcp_server)
 //destroy buffers to avoid memory leaks as restarting the game will not clear or delete a buffer
 buffer_delete(game_buffer)
-buffer_delete(interaction_buffer)
+buffer_delete(action_buffer)
 
 buffer_delete(confirm_buffer)
 

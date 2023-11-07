@@ -39,13 +39,7 @@ server_tcp_socket = -1
 
 #endregion
 
-
-//network indentifiers
-//uses connect_id as keys
-// obj_network_player instances
-Network_players = ds_map_create()
-//list to iterate through Network_players
-active_connect_ids = ds_list_create()
+Network_player = instance_create_layer(0, 0, "lay_instances", obj_network_player)
 
 //used to identify which client this is to the server
 connect_id = -1	 //order in which client connected to server, not an index to any list!

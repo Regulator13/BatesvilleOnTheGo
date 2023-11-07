@@ -1,6 +1,5 @@
 /// @description Initialize networking
 
-global.have_server = false
 global.online = true
 
 serverlist = ds_list_create();

@@ -133,10 +133,10 @@ function stc_lobby_player_read_from_buffer(buff){
 	
 	var player = lobby_create_player(connect_id)
 	
-	obj_lobby.perform_interaction(LOBBY_UPDATE_PLAYER, connect_id, ready_to_start, player_name)
+	obj_lobby.perform_action(LOBBY_UPDATE_PLAYER, connect_id, ready_to_start, player_name)
 	if slot_exists{
 		var slot_id = buffer_read(buff, buffer_u8)
-		obj_lobby.perform_interaction(LOBBY_SLOT_JOIN, connect_id, slot_id)
+		obj_lobby.perform_action(LOBBY_SLOT_JOIN, connect_id, slot_id)
 	}
 	return player
 }

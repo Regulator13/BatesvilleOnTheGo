@@ -43,7 +43,7 @@ function lobby_declare_functions(){
 			field_options[i] = missions[i].get_title()
 		}
 		Mission_box = menu_create_dropdown(ix, iy, "text", 0, field_options, function(field){
-					obj_lobby.request_interaction(LOBBY_MISSION_CHANGE, field)
+					obj_lobby.request_action(LOBBY_MISSION_CHANGE, field)
 				}, true, 232, 24)
 
 		#endregion
@@ -58,8 +58,8 @@ function lobby_declare_functions(){
 			if player.slot == noone{
 				// Join default section
 				var slot_id = get_open_slot_id(0)
-				// Since already in a perform interaction, do not need to go through networking again
-				perform_interaction(LOBBY_SLOT_JOIN, player.connect_id, slot_id)
+				// Since already in a perform action, do not need to go through networking again
+				perform_action(LOBBY_SLOT_JOIN, player.connect_id, slot_id)
 			}
 		}
 	}
@@ -118,7 +118,7 @@ function lobby_declare_functions(){
 			var player = slot.player
 			if player == noone{
 				if point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + section_draw_width, _y + section_draw_height){
-					request_interaction(LOBBY_ROLE_CHANGE, slot.slot_id)
+					request_action(LOBBY_ROLE_CHANGE, slot.slot_id)
 				}
 			}
 	

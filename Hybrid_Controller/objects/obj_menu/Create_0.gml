@@ -1,6 +1,6 @@
 /// @description Initialize menu
 if os_browser == browser_not_a_browser{
-	//show_error("Warning! Hybrid menu only works on HTML5", true)
+	show_error("Warning! Hybrid menu only works on HTML5", true)
 }
 
 menu_declare_interface_functions()
@@ -11,6 +11,10 @@ width = 0
 height = 0
 
 state = STATE_ONLINE
+
+// Initialize online state
+instance_create_layer(0, 0, "lay_instances", obj_online)
+
 // State history in order visited for universal back button
 state_queue = ds_stack_create()
 

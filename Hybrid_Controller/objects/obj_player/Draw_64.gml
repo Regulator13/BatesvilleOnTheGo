@@ -10,12 +10,12 @@ if obj_menu.state == STATE_LOBBY{
 		var Middle = html_div(Grid, "hud-middle", undefined, "hud-middle")
 			html_p(Middle, "team-name", get_team_name(Parent.team))
 			var Team_slider = html_range(Middle, "team-slider", 1, 2, "type-slider", 
-					string(Parent.team))
+					string(1))
 		var Bottom = html_div(Grid, "hud-bottom", undefined, "hud-bottom")
 			var Color_display = html_div(Bottom, "color", undefined, "color-display",
 					"background-color: " + get_html_color(Parent.player_color))
 			var Color_slider = html_range(Bottom, "color-slider",
-					0, array_length(obj_menu.color_array) - 1, "type-slider", string(Parent.connect_id))
+					0, array_length(obj_menu.color_array) - 1, "type-slider", 0)
 		var Action = html_div(Grid, "action-right", undefined, "action-right")
 		var Action_bottom = html_div(Grid, "action-right-bottom", undefined, "action-right-bottom")
 			var Model_slider = html_range(Action_bottom, "model-slider",
@@ -32,19 +32,16 @@ if obj_menu.state == STATE_LOBBY{
 		
 	// Interactions
 	if html_element_interaction(Ready){
-		obj_lobby.request_interaction(LOBBY_UPDATE_PLAYER, 1, obj_client.player_name)
+		request_action(ACT_LOBBY_UPDATE_PLAYER, 1, obj_client.player_name)
 	}
 	if Team_slider.value != Parent.team {
-		obj_campaign.request_interaction(GAME_UPDATE_PLAYER_TEAM, Parent.connect_id, Team_slider.value)
-		Parent.team = Team_slider.value
+		request_action(ACT_GAME_UPDATE_PLAYER_TEAM, Team_slider.value)
 	}
 	if Color_slider.value != Parent.player_color {
-		obj_campaign.request_interaction(GAME_UPDATE_PLAYER_COLOR, Parent.connect_id, Color_slider.value)
-		Parent.player_color = Color_slider.value
+		request_action(ACT_GAME_UPDATE_PLAYER_COLOR, Color_slider.value)
 	}
 	if Model_slider.value != model {
-		obj_campaign.request_interaction(GAME_UPDATE_PLAYER_MODEL, Parent.connect_id, Model_slider.value)
-		model = Model_slider.value
+		request_action(ACT_GAME_UPDATE_PLAYER_MODEL, Model_slider.value)
 	}
 	#endregion
 }
@@ -61,7 +58,8 @@ if obj_menu.state == STATE_GAME {
 			var h = 40
 			var dx = browser_width/2
 			var dy = browser_height - h
-			draw_healthbar(dx - w, 0, dx + w, h, (hp/model_hp_maxes[model])*100, c_white, c_red, c_green, 0, true, true)
+			// TODO
+			//draw_healthbar(dx - w, 0, dx + w, h, (hp/model_hp_maxes[model])*100, c_white, c_red, c_green, 0, true, true)
 			//draw_healthbar(dx - w, dy, dx + w, dy + by + h, (nitrus/model_nitrus_maxes[model])*100, c_white, c_red, c_blue, 0, true, true)
 
 			var j_bw = 64
@@ -228,17 +226,16 @@ if obj_menu.state == STATE_GAME {
 				var Container = html_div(Action, "delivery-container", undefined, "delivery-container")
 					
 				for (var i=0; i<delivery_options; i++){
-					var order_id = available_deliveries[| i]
+					var order_number = available_deliveries[| i]
 						
 					////DEBUG
 					//show_debug_message("obj_player delivery " + string(i) + " is for " + string(order_id))
 						
 					// Caution! Each identifier needs to be unique!
-					var Available_delivery = html_button(Container, "delivery" + string(i), string(order_id), true, "delivery-button")
+					var Available_delivery = html_button(Container, "delivery" + string(i), string(order_number), true, "delivery-button")
 					// Select delivery
 					if html_element_interaction(Available_delivery){
-						
-						obj_campaign.request_interaction(GAME_PICKUP, Parent.connect_id, order_id)
+						request_action(ACT_GAME_PICKUP, order_number)
 					}
 				}
 				
@@ -248,7 +245,7 @@ if obj_menu.state == STATE_GAME {
 					////DEBUG
 					show_debug_message("obj_player pickup is done")
 					
-					obj_campaign.request_interaction(GAME_PICKUP, Parent.connect_id, 255)
+					request_action(ACT_GAME_PICKUP, 255)
 				}
 			}
 			else{
@@ -257,7 +254,7 @@ if obj_menu.state == STATE_GAME {
 				////DEBUG
 				show_debug_message("obj_player all deliveries are picked up")
 					
-				obj_campaign.request_interaction(GAME_PICKUP, Parent.connect_id, 255)
+				request_action(ACT_GAME_PICKUP, 255)
 				// Keep checking for deliveries continuosly
 			}
 				

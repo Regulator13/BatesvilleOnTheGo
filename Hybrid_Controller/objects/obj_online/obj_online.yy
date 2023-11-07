@@ -10,8 +10,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "client + server",
-    "path": "folders/Phame/Phame-Hybrid_Networking_Client/Objects/client + server.yy",
+    "name": "Objects",
+    "path": "folders/Phame/Phame-Hybrid_Networking_Client/Objects.yy",
   },
   "parentObjectId": null,
   "persistent": true,

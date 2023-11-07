@@ -46,7 +46,7 @@ function lobby_declare_interface_functions(){
 		}
 	}
 	
-	// Regular UDP updates which don't require a synced interaction
+	// Regular UDP updates which don't require a synced action
 	write_state_update = function(buffer) {
 	}
 	read_state_update = function(buffer) {	

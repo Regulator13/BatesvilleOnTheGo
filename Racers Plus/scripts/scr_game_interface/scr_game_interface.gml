@@ -4,7 +4,7 @@ function game_declare_interface_functions(){
 		if to == STATE_LOBBY{
 			// If the host, initialize the lobby
 			var seed = 255
-			obj_lobby.perform_interaction(LOBBY_INITIALIZE, seed)
+			obj_lobby.perform_action(ACT_LOBBY_INITIALIZE, seed)
 		}
 		else if from == STATE_LOBBY{
 			// Get mission
@@ -76,7 +76,7 @@ function game_declare_interface_functions(){
 			
 			// Place player if exists
 			if instance_exists(Player){
-				obj_lobby.perform_interaction(LOBBY_SLOT_JOIN, Player.Parent.connect_id, slots[j].slot_id)
+				obj_lobby.perform_action(LOBBY_SLOT_JOIN, Player.Parent.connect_id, slots[j].slot_id)
 			}
 			
 			// Map this lobby slot back to the group for future reference
@@ -179,7 +179,7 @@ function game_declare_interface_functions(){
 	}
 	/// @description Fills the buffer of state updates to be sent via regular UDP
 	write_state_update = function(buffer) {
-		// Regular UDP updates which don't require a synced interaction
+		// Regular UDP updates which don't require a synced action
 		switch obj_menu.state{
 			case STATE_GAMECONFIG:
 				// Client specific status

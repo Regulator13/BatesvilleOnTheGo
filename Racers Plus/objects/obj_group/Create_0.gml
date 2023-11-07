@@ -6,6 +6,8 @@
 group_id = obj_campaign.next_group_id++
 ds_map_add(obj_campaign.Group_ids, group_id, self)
 
+team_score = 0
+
 // obj_player instances
 Players = ds_list_create()
 

@@ -16,7 +16,7 @@ global.connect_id = 0
 var alignment = 1
 //Caution! Potential memory leak. Buffers are not deleted when restarting a game, must be done manually
 game_buffer = buffer_create(32, buffer_grow, alignment)
-interaction_buffer = buffer_create(32, buffer_grow, alignment)
+action_buffer = buffer_create(32, buffer_grow, alignment)
 
 // Authoratative list of network players
 //store all players in ds_map since clients are given a key to reference them

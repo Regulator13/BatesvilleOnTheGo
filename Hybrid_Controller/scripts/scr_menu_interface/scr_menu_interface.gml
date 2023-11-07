@@ -27,8 +27,7 @@ function menu_declare_interface_functions(){
 				break
 			case STATE_ONLINE:
 				#region Initiate online menu
-				// create online object to handle everything
-				instance_create_layer(0, 0, "lay_instances", obj_online)
+				
 				#endregion
 				break
 			case STATE_LOBBY:

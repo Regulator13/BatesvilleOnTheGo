@@ -7,7 +7,7 @@ var Business = global.businesses[? Parent.team]
 sprite_index = vehicle_sprites[model]
 image_angle = 90
 var x_offset = 0
-while not place_empty(Business.x - x_offset, Business.y + Business.sprite_height + 32){
+while place_meeting(Business.x - x_offset, Business.y + Business.sprite_height + 32, obj_car){
 	x_offset += 16
 }
 
