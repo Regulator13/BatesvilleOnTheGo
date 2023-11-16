@@ -1,0 +1,5 @@
+v1.0.0 Initial release
+2023-11-15 GF
+Modularized on BatesvilleOnTheGo.
+Trimmed any unnecessary dead code.
+Deconflicted names to coexist with interaction-based networking.

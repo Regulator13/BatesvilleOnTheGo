@@ -18,10 +18,10 @@ function lobby_declare_interface_functions(){
 		
 		// Players
 		// Do players last as they will join slots
-		var player_amount = ds_list_size(obj_server.client_connect_ids) - 1
+		var player_amount = ds_list_size(obj_hybrid_server.client_connect_ids) - 1
 		buffer_write(buffer, buffer_u8, player_amount)
 		for (var j=0; j<player_amount; j++) {
-			var player = players[? obj_server.client_connect_ids[| j]]
+			var player = players[? obj_hybrid_server.client_connect_ids[| j]]
 			player.write_to_buffer(buffer)
 		}
 	}

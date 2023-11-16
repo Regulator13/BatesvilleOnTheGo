@@ -5,7 +5,7 @@
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "server",
-    "path": "folders/Phame/Phame-Networking_Phone/Scripts/server.yy",
+    "name": "Scripts",
+    "path": "folders/Phame/Phame-Hybrid_Server/Scripts.yy",
   },
 }

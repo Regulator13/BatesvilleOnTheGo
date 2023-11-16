@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Scripts",
-    "path": "folders/Phame/Phame-Hybrid_Networking_Client/Scripts.yy",
+    "path": "folders/Phame/Phame-Hybrid_Client/Scripts.yy",
   },
 }

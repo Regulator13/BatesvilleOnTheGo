@@ -125,19 +125,4 @@ function stc_lobby_player(_connect_id) constructor{
 		// Destory input boxes
 	}
 }
-function stc_lobby_player_read_from_buffer(buff){
-	var connect_id = buffer_read(buff, buffer_u8)
-	var player_name = buffer_read(buff, buffer_string)
-	var ready_to_start = buffer_read(buff, buffer_bool)
-	var slot_exists = buffer_read(buff, buffer_bool)
-	
-	var player = lobby_create_player(connect_id)
-	
-	obj_lobby.perform_action(LOBBY_UPDATE_PLAYER, connect_id, ready_to_start, player_name)
-	if slot_exists{
-		var slot_id = buffer_read(buff, buffer_u8)
-		obj_lobby.perform_action(LOBBY_SLOT_JOIN, connect_id, slot_id)
-	}
-	return player
-}
 #endregion

@@ -1,0 +1,2 @@
+/// @description Input
+input()

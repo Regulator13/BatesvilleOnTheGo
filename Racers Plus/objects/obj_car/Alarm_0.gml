@@ -6,7 +6,7 @@ for (var i=0; i<instance_number(obj_delivery); i++){
 	var Delivery = instance_find(obj_delivery, i)
 	
 	if distance_to_point(Delivery.x, Delivery.y) < 32{
-		if speed == 0 and Delivery.business_id == Player.Parent.team{
+		if speed == 0 and Delivery.business_id == Player.team{
 			ds_list_add(delivers_currently_available, Delivery.order_id)
 			
 			if Player.state != STATE_PICKING_UP {

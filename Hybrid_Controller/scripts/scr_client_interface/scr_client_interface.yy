@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Integration",
-    "path": "folders/Phame/Phame-Hybrid_Networking_Client/Integration.yy",
+    "path": "folders/Phame/Phame-Hybrid_Client/Integration.yy",
   },
 }

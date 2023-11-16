@@ -1,6 +1,6 @@
 /// @description Game win conditions
 
-if os_browser == browser_not_a_browser and (not global.online or global.have_server){
+if os_browser == browser_not_a_browser and (not global.hybrid_online or global.have_hybrid_server){
 	// Check win conditions
 	if winner == 0{
 		// Win/lose by score
@@ -37,16 +37,16 @@ if os_browser == browser_not_a_browser and (not global.online or global.have_ser
 
 	//change state
 	if (change_state) {
-		if not global.online {
+		if not global.hybrid_online {
 		
 		}
 		else {
 			//inform clients game is starting
-			for (var i = 0; i < ds_list_size(obj_server.active_connect_ids); i++){
+			for (var i = 0; i < ds_list_size(obj_hybrid_server.active_connect_ids); i++){
 				//get the network player
-				var Connected_client = ds_map_find_value(obj_server.Connected_clients, obj_server.active_connect_ids[| i])
-				//actual game start message is handled in obj_server
-				ds_queue_enqueue(Connected_client.messages_out, SERVER_STATESWITCH)
+				var Connected_hybrid_client = ds_map_find_value(obj_hybrid_server.Connected_hybrid_clients, obj_hybrid_server.active_connect_ids[| i])
+				//actual game start message is handled in obj_hybrid_server
+				
 			}
 		}
 	

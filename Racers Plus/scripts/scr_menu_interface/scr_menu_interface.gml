@@ -52,11 +52,11 @@ function menu_declare_interface_functions(){
 				menu_create_button(96, rh - 32, "back", "back")
 				// Host
 				menu_create_button(rw - 96, rh - 96, function(){
-						with obj_online event_user(1)
+						with obj_hybrid_online event_user(1)
 						}, "host")
     
 				// create online object to handle everything
-				instance_create_layer(0, 0, "lay_instances", obj_online)
+				instance_create_layer(0, 0, "lay_instances", obj_hybrid_online)
 				#endregion
 				break
 			case STATE_LOBBY:

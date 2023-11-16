@@ -92,7 +92,7 @@ function game_declare_interface_functions(){
 			// Translate slot from lobby to game
 			if slot.player != noone{
 				// obj_player instances
-				var Player = obj_server.Connected_clients[? slot.player.connect_id].Player
+				var Player = obj_hybrid_server.Connected_hybrid_clients[? slot.player.connect_id].Player
 				
 				// Remove player from previous slot
 				with Player.Group{
@@ -122,8 +122,8 @@ function game_declare_interface_functions(){
 	#endregion
 	
 	#region Networking
-	server_reliable_game = function(msg_id, buffer, Connected_client) {
-		with obj_server {
+	server_reliable_game = function(msg_id, buffer, Connected_hybrid_client) {
+		with obj_hybrid_server {
 			
 		}
 	}
@@ -145,14 +145,14 @@ function game_declare_interface_functions(){
 		
 		#region Common
 		// Current players
-		var player_amount = ds_list_size(obj_server.client_connect_ids) - 1
+		var player_amount = ds_list_size(obj_hybrid_server.client_connect_ids) - 1
 		buffer_write(buffer, buffer_u8, player_amount)
 		for (var j=0; j<player_amount; j++) {
-			// obj_connected_client instances
-			var Connected_client = ds_map_find_value(obj_server.Connected_clients, obj_server.client_connect_ids[| j])
-			buffer_write(buffer, buffer_u8, Connected_client.connect_id)
-			buffer_write(buffer, buffer_string, Connected_client.Player.player_name)
-			buffer_write(buffer, buffer_bool, Connected_client.Player.ready_to_start)
+			// obj_connected_hybrid_client instances
+			var Connected_hybrid_client = ds_map_find_value(obj_hybrid_server.Connected_hybrid_clients, obj_hybrid_server.client_connect_ids[| j])
+			buffer_write(buffer, buffer_u8, Connected_hybrid_client.connect_id)
+			buffer_write(buffer, buffer_string, Connected_hybrid_client.Player.player_name)
+			buffer_write(buffer, buffer_bool, Connected_hybrid_client.Player.ready_to_start)
 		}
 		
 		// Groups
@@ -163,11 +163,11 @@ function game_declare_interface_functions(){
 		}
 		
 		// Current players' Groups
-		var player_amount = ds_list_size(obj_server.client_connect_ids) - 1
+		var player_amount = ds_list_size(obj_hybrid_server.client_connect_ids) - 1
 		buffer_write(buffer, buffer_u8, player_amount)
 		for (var j=0; j<player_amount; j++) {
 			// obj_player instances
-			var Player = obj_server.Connected_clients[? obj_server.client_connect_ids[| j]].Player
+			var Player = obj_hybrid_server.Connected_hybrid_clients[? obj_hybrid_server.client_connect_ids[| j]].Player
 			buffer_write(buffer, buffer_u8, Player.Parent.connect_id)
 			buffer_write(buffer, buffer_u8, Player.Group.group_id)
 		}
@@ -183,13 +183,13 @@ function game_declare_interface_functions(){
 		switch obj_menu.state{
 			case STATE_GAMECONFIG:
 				// Client specific status
-				var _length = ds_list_size(obj_server.active_connect_ids)
+				var _length = ds_list_size(obj_hybrid_server.active_connect_ids)
 				buffer_write(buffer, buffer_u8, _length)
 				for (var i=0; i<_length; i++){
-					// obj_connected_clientinstances
-					var Connected_client = obj_server.Connected_clients[? obj_server.active_connect_ids[| i]]
-					buffer_write(buffer, buffer_u8, Connected_client.connect_id)
-					buffer_write(buffer, buffer_bool, Connected_client.Player.ready_to_start)
+					// obj_connected_hybrid_clientinstances
+					var Connected_hybrid_client = obj_hybrid_server.Connected_hybrid_clients[? obj_hybrid_server.active_connect_ids[| i]]
+					buffer_write(buffer, buffer_u8, Connected_hybrid_client.connect_id)
+					buffer_write(buffer, buffer_bool, Connected_hybrid_client.Player.ready_to_start)
 				}
 				break
 			case STATE_GAME:
@@ -214,7 +214,7 @@ function game_declare_interface_functions(){
 				break
 			case STATE_GAME:
 				if obj_menu.state == STATE_GAME {
-					if not global.have_server{
+					if not global.have_hybrid_server{
 						// Read common data
 						var mob_amount = ds_list_size(global.Mobs)
 						for (var i=0; i<mob_amount; i++){

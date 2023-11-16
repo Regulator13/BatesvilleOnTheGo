@@ -1,6 +1,6 @@
 /// @description Create Car
 
-var Business = global.businesses[? Parent.team]
+var Business = global.businesses[? team]
 
 ////TODO global.player_start
 ////TODO Prevent overlap
@@ -30,6 +30,6 @@ Car.weight = model_weights[model]
 Car.sprite_index = vehicle_sprites[model]
 Car.Player = self
 Car.model = model
-Car.image_blend = obj_menu.color_array[Parent.player_color]
+Car.image_blend = obj_menu.color_array[player_color]
 Car.car_dir = 0
 Car.image_angle = -90

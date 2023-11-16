@@ -62,7 +62,7 @@ if inputs[DOWN_KEY]{
 
 //Turning
 //Get turn amount
-if not global.online{
+if not global.hybrid_online{
 	if inputs[RIGHT_KEY]{
 		if steer < 1{
 			steer += steer_incr
@@ -205,7 +205,7 @@ if speed == 0{
 			if has_delivery != -1{
 				//This order is in the list of picked up deliveries
 				/// TODO Player.tips += Order.reward
-				//obj_campaign.Group_ids[? Player.Parent.team].team_score += Order.reward
+				//obj_campaign.Group_ids[? Player.team].team_score += Order.reward
 				Player.change_context(CXT_DELIVER, get_order_number(Order.order_id))
 				
 				var Business = ds_map_find_value(global.businesses, get_business_id(Order.order_id))
@@ -231,7 +231,7 @@ if hp <= 0{
 		var Delivery = instance_create_layer(x, y, "lay_instances", obj_delivery)
 		Delivery.image_blend = global.business_colors[get_business_id(picked_up_deliveries[| i])]
 		Delivery.order_id = picked_up_deliveries[| i]
-		Delivery.business_id = Player.Parent.team
+		Delivery.business_id = Player.team
 		Player.change_context(CXT_DELIVER, picked_up_deliveries[| i])
 	}
 

@@ -45,10 +45,10 @@ function menu_state_switch(from, to){
 						menu_init(to)
 	                    break
 					case STATE_MAIN:
-	                    instance_destroy(obj_online)
+	                    instance_destroy(obj_hybrid_online)
 						
 						// go offline
-						global.online = false
+						global.hybrid_online = false
                     
 	                    // initiate main menu
 	                    menu_init(to)
@@ -66,8 +66,8 @@ function menu_state_switch(from, to){
 						instance_destroy(obj_campaign)
 						// Destroy lobby first to save player name
 						instance_destroy(obj_lobby)
-	                    if (global.have_server) // check if hosting
-	                        instance_destroy(obj_server)
+	                    if (global.have_hybrid_server) // check if hosting
+	                        instance_destroy(obj_hybrid_server)
 						
 						room_goto(mnu_main)
 						break
@@ -103,8 +103,8 @@ function menu_state_switch(from, to){
 						room_goto(mnu_main)
 						
 						// destroy online objects
-	                    if (global.have_server) // check if hosting
-	                        instance_destroy(obj_server)
+	                    if (global.have_hybrid_server) // check if hosting
+	                        instance_destroy(obj_hybrid_server)
 	                    
 						break
 					case STATE_MAIN:
@@ -112,8 +112,8 @@ function menu_state_switch(from, to){
 	                    room_goto(mnu_main)
 						
 						// destroy online objects
-	                    if (global.have_server) // check if hosting
-	                        instance_destroy(obj_server)
+	                    if (global.have_hybrid_server) // check if hosting
+	                        instance_destroy(obj_hybrid_server)
 						
 						instance_destroy(obj_campaign)
 						
@@ -133,8 +133,8 @@ function menu_state_switch(from, to){
 	                    room_goto(mnu_main)
                     
 	                    // destroy online objects
-	                    if (global.have_server) // check if hosting
-	                        instance_destroy(obj_server)
+	                    if (global.have_hybrid_server) // check if hosting
+	                        instance_destroy(obj_hybrid_server)
 						
 						instance_destroy(obj_campaign)
 						
@@ -144,8 +144,8 @@ function menu_state_switch(from, to){
 	                    room_goto(mnu_main)
                     
 	                    // destroy online objects
-	                    if (global.have_server)
-	                        instance_destroy(obj_server)
+	                    if (global.have_hybrid_server)
+	                        instance_destroy(obj_hybrid_server)
 						
 						instance_destroy(obj_campaign)
 						

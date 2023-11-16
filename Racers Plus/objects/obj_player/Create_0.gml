@@ -1,5 +1,10 @@
 /// @description Set Vehicle Model Variables
 
+#region Campaign
+// Group player is currently a part of
+Group = noone
+#endregion
+
 ////TODO
 // -1 to accelerate, 0 to maintain, 1 to deccelerate
 throttle = 0
@@ -34,7 +39,7 @@ Car = noone
 tips = 0
 
 inputs = array_create(5, KEY_ISRELEASED)
-if not global.online{
+if not global.hybrid_online{
 	//Controls are stored in a multidimensional array
 	//controls is the index to use to determine the controls preset
 	controls = global.player_counter++
@@ -61,21 +66,21 @@ change_context = function(context){
 	switch context{
 		case CXT_TEAM:
 			var new_team = argument[1]
-			Parent.team = new_team
-			if global.online
-				update_context_u8(Parent.Parent, context, new_team)
+			team = new_team
+			if global.hybrid_online
+				update_context_u8(Parent, context, new_team)
 			break
 		case CXT_COLOR:
 			var new_color = argument[1]
-			Parent.player_color = new_color
-			if global.online
-				update_context_u8(Parent.Parent, context, new_color)
+			player_color = new_color
+			if global.hybrid_online
+				update_context_u8(Parent, context, new_color)
 			break
 		case CXT_MODEL:
 			var new_model = argument[1]
 			model = new_model
-			if global.online
-				update_context_u8(Parent.Parent, context, new_model)
+			if global.hybrid_online
+				update_context_u8(Parent, context, new_model)
 			break
 		case CXT_AVAILABLE_DELIVERY:
 			var order_id = argument[1]
@@ -84,26 +89,26 @@ change_context = function(context){
 				ds_list_add(Car.available_deliveries, order_id)
 			else
 				ds_list_delete(Car.available_deliveries, ds_list_find_index(Car.available_deliveries, order_id))
-			if global.online
-				update_context_u8_u8(Parent.Parent, context, get_order_number(order_id), add)
+			if global.hybrid_online
+				update_context_u8_u8(Parent, context, get_order_number(order_id), add)
 			break
 		case CXT_DELIVER:
 			var order_number = argument[1]
 			ds_list_delete(Car.picked_up_deliveries, order_number)
-			if global.online
-				update_context_u8(Parent.Parent, context, order_number)
+			if global.hybrid_online
+				update_context_u8(Parent, context, order_number)
 			break
 		case CXT_PICKUP:
 			var order_number = argument[1]
 			ds_list_add(Car.picked_up_deliveries, order_number)
-			if global.online
-				update_context_u8(Parent.Parent, context, order_number)
+			if global.hybrid_online
+				update_context_u8(Parent, context, order_number)
 			break
 		case CXT_STATE:
 			var new_state = argument[1]
 			state = new_state
-			if global.online
-				update_context_u8(Parent.Parent, context, new_state)
+			if global.hybrid_online
+				update_context_u8(Parent, context, new_state)
 			break
 	}
 }
@@ -113,7 +118,7 @@ change_context = function(context){
 perform_action = function(action){
 	switch action{
 		case ACT_GAME_JOIN:
-			Parent.Group = obj_campaign.Groups[| 0]
+			Group = obj_campaign.Groups[| 0]
 			break
 		case ACT_GAME_UPDATE_PLAYER_TEAM:
 			var new_team = argument[1]
@@ -130,7 +135,7 @@ perform_action = function(action){
 		case ACT_GAME_PICKUP:
 			var order_number = argument[1]
 			
-			var order_id = set_order_id(order_number, Parent.team)
+			var order_id = set_order_id(order_number, team)
 			
 			if order_number == 255{
 				// Done with pickup

@@ -10,8 +10,8 @@ state_queue = ds_stack_create()
 Buttons = ds_list_create()
 selected_button_index = 0
 
-global.online = false
-global.have_server = false
+global.hybrid_online = false
+global.have_hybrid_server = false
 global.paused = false
 
 main_player_controller = 5

@@ -1,5 +1,5 @@
 /// @description Set active customers for the round
-if not global.online or global.have_server{
+if not global.hybrid_online or global.have_hybrid_server{
 	ds_list_shuffle(global.customer_locations)
 	////TODO set based on amount of players
 	var _customer = 0

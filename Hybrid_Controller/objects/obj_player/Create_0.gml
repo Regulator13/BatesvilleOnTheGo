@@ -14,11 +14,37 @@ j_y = 128
 throttle = 0
 steer = 0
 
+player_name = ""
+player_color = 0
+team = 0
+
+#region Parallel context
+//Models 0 = Red Car, 1 = Police Car, 2 = Sport's car, 3 = Taxi 4 = Ambulance
+//5 = Pickup, 6 = Van, 7 = Orange Car, 8 = Semi
+model_sprites = [spr_car, spr_police, spr_racecar, spr_taxi, spr_ambulance, spr_truck, spr_van,
+		spr_widecar, spr_semi]
+
+//universal colour array
+color_array[0] = #ffffff
+color_array[1] = #6699ff
+color_array[2] = #ff0000
+color_array[3] = #33cc33
+color_array[4] = #cc0099
+color_array[5] = #00ffcc
+color_array[6] = #ff9900
+color_array[7] = #9900cc
+color_array[8] = #66ff66
+color_array[9] = #ffff00
+#endregion
+
 // Context provided by server
 model = 0 //The current model of the vehicle
-state = STATE_DRIVING
+state = STATE_INLOBBY
 available_deliveries = ds_list_create()
 picked_up_deliveries = ds_list_create()
+
+drive_update_wait_steps = 1
+alarm[0] = drive_update_wait_steps
 
 #region Update context
 // obj_player here is in charge of updating the necessary context for obj_hybrid_player
@@ -26,11 +52,11 @@ update_context = function(context){
 	switch context{
 		case CXT_TEAM:
 			var new_team = argument[1]
-			Parent.team = new_team
+			team = new_team
 			break
 		case CXT_COLOR:
 			var new_color = argument[1]
-			Parent.player_color = new_color
+			player_color = new_color
 			break
 		case CXT_MODEL:
 			var new_model = argument[1]
@@ -87,7 +113,7 @@ request_action = function(action){
 		case ACT_LOBBY_JOIN:
 			// Join an entirely new player to the lobby
 			// TODO: u8 is not needed
-			request_action_u8(action, obj_client.connect_id)
+			request_action_u8(action, obj_hybrid_client.connect_id)
 			break
 		case ACT_LOBBY_MISSION_CHANGE:
 			var mission_index = argument[1]
@@ -95,12 +121,12 @@ request_action = function(action){
 			break
 		case ACT_LOBBY_ROLE_CHANGE:
 			var slot_id = argument[1]
-			request_action_u8_u8(action, obj_client.connect_id, slot_id)
+			request_action_u8_u8(action, obj_hybrid_client.connect_id, slot_id)
 			break
 		case ACT_LOBBY_UPDATE_PLAYER:
 			var ready_to_start = argument[1]
 			var player_name = argument[2]
-			request_action_u8_u8_string(action, obj_client.connect_id, ready_to_start, player_name)
+			request_action_u8_u8_string(action, obj_hybrid_client.connect_id, ready_to_start, player_name)
 			break
 		case ACT_GAME_UPDATE_PLAYER_TEAM:
 		case ACT_GAME_UPDATE_PLAYER_COLOR:

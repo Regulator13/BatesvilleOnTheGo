@@ -16,9 +16,9 @@ function lobby_declare_functions(){
 		}
 		else if from == STATE_SCORE and to == STATE_LOBBY{
 			// Reset start so it can be checked for again
-			obj_server.start = false
+			obj_hybrid_server.start = false
 			
-			if global.have_server{
+			if global.have_hybrid_server{
 				
 			}
 		}
@@ -26,8 +26,8 @@ function lobby_declare_functions(){
 	
 	initialize_lobby = function(){
 		#region Players
-		for (var i=0; i<ds_list_size(obj_server.active_connect_ids); i++){
-			lobby_create_player(obj_server.active_connect_ids[| i])
+		for (var i=0; i<ds_list_size(obj_hybrid_server.active_connect_ids); i++){
+			lobby_create_player(obj_hybrid_server.active_connect_ids[| i])
 		}
 		#endregion
 		
@@ -53,13 +53,13 @@ function lobby_declare_functions(){
 		#endregion
 		
 		// Add players not in a slot to default section
-		for (var i=0; i<ds_list_size(obj_server.active_connect_ids); i++){
-			var player = players[? obj_server.active_connect_ids[| i]]
+		for (var i=0; i<ds_list_size(obj_hybrid_server.active_connect_ids); i++){
+			var player = players[? obj_hybrid_server.active_connect_ids[| i]]
 			if player.slot == noone{
 				// Join default section
 				var slot_id = get_open_slot_id(0)
 				// Since already in a perform action, do not need to go through networking again
-				perform_action(LOBBY_SLOT_JOIN, player.connect_id, slot_id)
+				perform_action(ACT_LOBBY_SLOT_JOIN, player.connect_id, slot_id)
 			}
 		}
 	}
